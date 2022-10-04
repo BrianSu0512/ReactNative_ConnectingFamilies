@@ -4,5 +4,6 @@ export default {
     red:'#FF0000',
     lightYellow:'#FFFFE0',
     primaryColour:'#D3D3D3',
-    secondaryColour:'#824c28'
+    secondaryColour:'#824c28',
+    otherColorLite:"#f2eadf",
 }

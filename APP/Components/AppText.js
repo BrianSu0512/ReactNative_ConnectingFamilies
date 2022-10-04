@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
         fontSize:22,
         fontFamily:Platform.OS==='android' ?"monospace" :"Avenir-Roman",
         fontWeight:'bold',
-        textTransform:'uppercase',
         color:AppColour.black,
     }
 })
