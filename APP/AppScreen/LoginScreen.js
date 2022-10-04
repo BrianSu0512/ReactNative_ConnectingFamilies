@@ -6,7 +6,7 @@ import AppText from '../Components/AppText';
 import AppTextInput from '../Components/AppTextInput';
 import AppScreen from './AppScreen';
 
-function LoginScreen(props) {
+function LoginScreen({navigation, props}) {
     return (
         <AppScreen>
              <View style={styles.heading}>
@@ -17,8 +17,7 @@ function LoginScreen(props) {
                         name="chevron-left"
                         size={50}
                         style={styles.headingIcon}
-                    />
-                    
+                    />            
                 </TouchableOpacity>
 
            
@@ -61,9 +60,9 @@ function LoginScreen(props) {
 
         <View style={styles.textContainer}>
 
-            <TouchableOpacity  onPress={() => navigation.navigate("RegisterScreen") }>
+            <TouchableOpacity  onPress={() => navigation.navigate("Register") }>
 
-            <AppText style={styles.textStyle}> Haven't an accouont ? ? ?</AppText>
+            <AppText style={styles.textStyle}> Haven't an account ? ? ?</AppText>
             
             </TouchableOpacity>
         </View>
