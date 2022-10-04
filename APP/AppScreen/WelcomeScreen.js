@@ -1,29 +1,25 @@
 import React from 'react';
-import { View,StyleSheet,Text } from 'react-native';
+import { View,StyleSheet,Text, Alert } from 'react-native';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
 import AppText from '../Components/AppText';
 import AppScreen from './AppScreen';
 
-
-function WelcomeScreen() {
+function WelcomeScreen({navigation}) {
     return (
        <AppScreen>
           <View style={styles.textContainer}>
                 <AppText style={styles.logoText}>Connecting Families</AppText>
                 <AppText style={styles.subText}>Bring families together</AppText>
-                
             </View>
           
             <View style={styles.buttonContainer}>
-                <AppButton title="Sign In" />
-                <AppButton title="Join us" />
-            </View>
-            
-             
+                <AppButton title="Sign In" 
+                onPress={() => navigation.navigate("Login")} />
+                <AppButton title="Join us"
+                onPress={() => navigation.navigate("Register")} />
+            </View>             
        </AppScreen>
-          
-       
     );
 }
 const styles = StyleSheet.create({

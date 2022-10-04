@@ -1,16 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import AppScreen from './APP/AppScreen/AppScreen';
-import WelcomeScreen from './APP/AppScreen/WelcomeScreen';
-import AppText from './APP/Components/AppText';
-
+import {NavigationContainer} from '@react-navigation/native';
+import AuthNavigator from './APP/navigation/AuthNavigator';
+import { View, StyleSheet } from 'react-native';
 
 
 export default function App() {
   return (
-
-    <WelcomeScreen/>
-    
+        <NavigationContainer>
+          <AuthNavigator/>
+        </NavigationContainer>
   );
 }
 
