@@ -12,7 +12,7 @@ function RegisterScreen({navigation, props}) {
         <AppScreen>
              <View style={styles.heading}>
             
-                <TouchableOpacity >
+                <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
                 
                     <AppIcon
                         name="chevron-left"

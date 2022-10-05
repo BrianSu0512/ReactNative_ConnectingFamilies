@@ -13,8 +13,6 @@ const styles = StyleSheet.create({
         marginTop: Constants.statusBarHeight,
         backgroundColor: 'lightblue',
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
     }
 })
 

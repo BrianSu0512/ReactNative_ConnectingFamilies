@@ -6,7 +6,44 @@ import AppText from '../Components/AppText';
 import AppTextInput from '../Components/AppTextInput';
 import AppScreen from './AppScreen';
 
+import { Formik } from 'formik';
+
+import * as Yup from 'yup'; 
+import DataManager from '../config/DataManager';
+
+
+const schema = Yup.object().shape( 
+    {
+    name: Yup.string().required().label("Name"),
+    password: Yup.string().required().min(4).max(8).label("Password"),
+    }
+    );
+
 function LoginScreen({navigation, props}) {
+
+    const getUsers=()=>{
+        let commonData=DataManager.getInstance();
+        return commonData.users;
+    }
+
+    const usersList=getUsers();
+
+    const validateUser = ({name,password})=>{
+        return(
+            usersList.filter((user) => user.name === name && user.password === password).length>0
+        );
+    }
+
+    const getUser = ({name}) => {
+        return usersList.find((user) => user.name === name );
+    }
+
+    const createUser = ({name}) => {
+        let commonData = DataManager.getInstance();
+        let userID = getUser({name}).id;
+        commonData.setUserID(userID);
+    }
+
     return (
         <AppScreen>
              <View style={styles.heading}>
@@ -28,14 +65,46 @@ function LoginScreen({navigation, props}) {
           
         </View>
 
+        <Formik
+                    initialValues={{name:'', password:'',}}
+                    onSubmit = {(values, {resetForm})=> {
+                        console.log(values.name)
+                            if(validateUser(values)){   
+                                resetForm();
+                                createUser(values);
+                                navigation.navigate("Home",{
+                                    screen:"Home",
+                                    params: {
+                                        paramId: getUser(values).id
+                                     
+                                    }
+                                  
+                                }
+                                    );
+                            }
+                            else{
+                                resetForm();
+                                alert("Invalid Login Details")
+                            }
+                        }}
+                    validationSchema={schema}
+                    >
+
+        {({values,handleChange, handleSubmit,errors, setFieldTouched, touched})=> (
+        <>
+
         <View style={styles.inputContainer}>
             <View style={styles.inputContent}>
                 <AppTextInput
                             icon="account-circle-outline"
                             style={styles.inputStlye}
+                            autoCapitalize="none"
                             placeholder="User Name"
                             keyboardType="name"
                             textContentType="username"
+                            value={values.name}
+                            onBlur= {()=> setFieldTouched("name")}
+                            onChangeText = {handleChange("name")}
                 />
                 
                 </View>
@@ -44,17 +113,26 @@ function LoginScreen({navigation, props}) {
                        <AppTextInput
                            icon="lock"
                            style={styles.inputStlye}
+                           autoCapitalize="none"
+                           secureTextEntry
+                           autoCorrect={false}
                            placeholder="Password"
                            keyboardType="password"
                            textContentType="password"
-            />
+                           value={values.password}
+                           onBlur= {()=> setFieldTouched("password")}
+                           onChangeText = {handleChange("password")}
+                        />
+                
                
             </View>
+            {touched.password && 
+                        <AppText style={styles.errorMessage}>{errors.password}</AppText>}
 
         </View>
             
         <View style={styles.buttonContainer}>
-            <AppButton style={styles.buttonText} title="Log In" />
+            <AppButton style={styles.buttonText} title="Log In" onPress={handleSubmit}/>
         </View>
         
 
@@ -66,6 +144,9 @@ function LoginScreen({navigation, props}) {
             
             </TouchableOpacity>
         </View>
+        </>
+            )}
+            </Formik>
             
         </AppScreen>
         
@@ -74,7 +155,7 @@ function LoginScreen({navigation, props}) {
 const styles = StyleSheet.create({
     heading:{
         flexDirection:"row",
-        width:250,
+        width:230,
         marginLeft:20,
         paddingTop:10,
         justifyContent:'space-between',
