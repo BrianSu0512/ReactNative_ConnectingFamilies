@@ -22,23 +22,11 @@ function HomeScreen({navigation,route}) {
 
 
         const[patients, setPatients] =  useState(newpatients);
-      
+ 
     return (
        <AppScreen>
          <View style={styles.heading}>
-       
-       <TouchableOpacity >
-       
-           <AppIcon
-               name="chevron-left"
-               size={50}
-               style={styles.headingIcon}
-           />
-           
-       </TouchableOpacity>
-
-
-  
+    
        <View>
            <Image source={require("../assets/icon.png")} style={styles.logo}/>
            <AppText style={styles.logoText}>Connecting Families</AppText>
@@ -69,6 +57,9 @@ function HomeScreen({navigation,route}) {
                             onPress={()=>navigation.navigate("PersonalProfile",{
                                 paramPatient: item
                             })}
+                            onPress1={()=>navigation.navigate("MedicalHistory",{
+                                paramPatient: item
+                            })}
                             onSwipeLeft={() => (
                                 <View style={styles.deleteView}>
                                     <TouchableOpacity onPress={() => handleDelete(item)}>
@@ -85,14 +76,14 @@ const styles = StyleSheet.create({
     heading:{
         flexDirection:"row",
         width:230,
-        marginLeft:20,
+        marginLeft:110,
         paddingTop:10,
         justifyContent:'space-between',
 
     },
     logo:{
         marginTop:10,
-        marginLeft:35,
+        marginLeft:30,
         width:80,
         height:80,
     },

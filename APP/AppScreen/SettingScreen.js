@@ -29,17 +29,6 @@ function SettingScreen({navigation}) {
     return (
         <AppScreen>
              <View style={styles.heading}>
-            
-                <TouchableOpacity >
-                
-                    <AppIcon
-                        name="chevron-left"
-                        size={50}
-                        style={styles.headingIcon}
-                    />
-                    
-                </TouchableOpacity>
-
            
                 <View>
                     <Image source={require("../assets/icon.png")} style={styles.logo}/>
@@ -89,14 +78,13 @@ const styles = StyleSheet.create({
     heading:{
         flexDirection:"row",
         width:230,
-        marginLeft:20,
-        paddingTop:10,
-        justifyContent:'space-between',
+        alignItems:'center',
+        marginLeft:110,
 
     },
     logo:{
         marginTop:10,
-        marginLeft:35,
+        marginLeft:30,
         width:80,
         height:80,
     },

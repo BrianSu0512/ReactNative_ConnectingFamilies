@@ -3,12 +3,15 @@ import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image } from 'rea
 import { date } from 'yup';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
+import AppEContact from '../Components/AppEContact';
 import AppIcon from '../Components/AppIcon';
-import AppProfile from '../Components/AppProfile';
+import AppListItem from '../Components/AppListItem';
 import AppText from '../Components/AppText';
 import AppScreen from './AppScreen';
 
-function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
+
+
+function EmergencyContactScreen({navigation: { goBack },navigation,route}) {
     console.log("Line10",route)
     const data= route.params.paramPatient
     return (
@@ -34,17 +37,22 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
 
        </View>   
 
-      <AppText style={styles.Title}>Personal Profiles</AppText>
+      <AppText style={styles.Title}>Emergency Contact</AppText>
        <View style={styles.hairline} />
 
-        <AppProfile data={data} onPress={()=>navigation.navigate("Emergency",{
-                                paramPatient: data
-                            })}/>
+
+
+     <AppEContact data={data}/>
+
+        
+        
+     
 
               
       </AppScreen>
     );
 }
+
 const styles = StyleSheet.create({
     heading:{
         flexDirection:"row",
@@ -82,4 +90,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default PersonalProfileScreen;
+export default EmergencyContactScreen;

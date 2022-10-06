@@ -9,14 +9,13 @@ import AppText from '../Components/AppText';
 import AppTextInput from '../Components/AppTextInput';
 import AppScreen from './AppScreen';
 
-function EditAccountScreen(route) {
+function EditAccountScreen({navigation: { goBack },route}) {
     const data=[route.params];
-    console.log("LOne14",data)
     return (
         <AppScreen>
         <View style={styles.heading}>
        
-           <TouchableOpacity >
+           <TouchableOpacity onPress={()=>goBack()}>
            
                <AppIcon
                    name="chevron-left"

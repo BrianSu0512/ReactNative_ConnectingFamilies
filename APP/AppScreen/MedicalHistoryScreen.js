@@ -1,16 +1,33 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image } from 'react-native';
 import { date } from 'yup';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
 import AppIcon from '../Components/AppIcon';
+import AppMHisotry from '../Components/AppMHisotry';
 import AppProfile from '../Components/AppProfile';
 import AppText from '../Components/AppText';
+import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
-function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
-    console.log("Line10",route)
-    const data= route.params.paramPatient
+
+function MedicalHistoryScreen({route}) {
+    const pId =route.params.paramPatient.id
+
+
+    const getMHisotry = () => {
+        console.log(pId)
+        let commonData = DataManager.getInstance();
+        let userHistory=commonData.getMHisotry(pId);
+        return userHistory;    
+    }
+
+
+    const newHistory=getMHisotry();
+
+
+    const[history, setHistory] =  useState(newHistory);
+  
     return (
         <AppScreen>
         <View style={styles.heading}>
@@ -34,14 +51,24 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
 
        </View>   
 
-      <AppText style={styles.Title}>Personal Profiles</AppText>
+      <AppText style={styles.Title}>Medical Hisotry</AppText>
        <View style={styles.hairline} />
 
-        <AppProfile data={data} onPress={()=>navigation.navigate("Emergency",{
-                                paramPatient: data
-                            })}/>
+       <View style={styles.container}>
 
-              
+            <FlatList 
+                style={styles.list}
+                data={history}
+                keyExtractor={medicalHistories=>medicalHistories.pId.toString()}
+                renderItem={({item})=>
+                <AppMHisotry data={item}/>
+            
+            }
+            />
+
+</View> 
+
+             
       </AppScreen>
     );
 }
@@ -81,5 +108,4 @@ const styles = StyleSheet.create({
         marginLeft: 15
     }
 })
-
-export default PersonalProfileScreen;
+export default MedicalHistoryScreen;
