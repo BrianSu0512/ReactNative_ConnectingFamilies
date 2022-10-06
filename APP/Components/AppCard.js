@@ -7,7 +7,7 @@ import AppIcon from './AppIcon';
 import AppText from './AppText';
 
 
-function AppCard({image,name,referTo, referredBy, rNbNO, note,onPress}) {
+function AppCard({image,name,referTo, referredBy, rNbNO, note,onPress,onPress1}) {
     return (
     <View style={styles.container}>
         
@@ -37,7 +37,7 @@ function AppCard({image,name,referTo, referredBy, rNbNO, note,onPress}) {
         
         <View style={styles.buttoncontainer}>
         <AppIcon style={styles.buttonicon} name="calendar-edit" size={20} />
-        <AppButton style={styles.buttonText} title="Medical History"/>
+        <AppButton style={styles.buttonText} title="Medical History" onPress={onPress1}/>
         </View>
         <View style={styles.buttoncontainer}>
         <AppIcon style={styles.buttonicon} name="calendar-edit" size={20} />
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     rowcontainer:{
        flexDirection:'row',
        justifyContent:'space-between',
+       paddingTop:5
  
     },buttoncontainer:{
         flexDirection:'row',
