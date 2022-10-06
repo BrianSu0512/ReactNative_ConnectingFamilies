@@ -18,13 +18,17 @@ export default class DataManager  {
             rNbNO:"room 104",
             note:"take the pills three times per day",
             image:require("../assets/favicon.png"),
+            eName:"Tim",
+            relationship:"Aunt",
+            ePhone:"0423456789",
+            eAddress:"888 B Street Sydney 2000"
         },
         {
         
                 userid: "user1",
-                id:1,
-                name:"Lucas",
-                age:24,
+                id:2,
+                name:"Tme",
+                age:20,
                 gender:"Male",
                 bloodType:"B type",
                 dob:"27/09/2000",
@@ -39,6 +43,36 @@ export default class DataManager  {
         }
         
     ]
+
+    medicalHistories=[{
+              id:1,  
+              pId:1,
+              diagnosis:"Covid-19",
+              Date:"12/03/2019",
+              StopDate:"10/06/2019"
+            },
+            {
+                id:1,  
+                pId:2,
+                diagnosis:"High Blood Pressure",
+                Date:"12/09/2018",
+                StopDate:"10/10/2018"
+            },
+              {
+                id:1,  
+                pId:3,
+                diagnosis:"Coughing",
+                Date:"22/01/2018",
+                StopDate:"10/04/2018"
+            },
+            {
+                id:2,  
+                pId:1,
+                diagnosis:"Covid-19",
+                Date:"12/03/2019",
+                StopDate:"10/06/2019"
+              },
+        ]
 
     users = [
         {
@@ -102,6 +136,11 @@ export default class DataManager  {
         this.users.push(user);
     }
 
-    
+    getMHisotry(id){
+        return this.medicalHistories.filter((m)=> m.id === id);
+    }
+
+
+
    
 }
