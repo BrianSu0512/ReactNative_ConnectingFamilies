@@ -9,7 +9,7 @@ import DataManager from '../config/DataManager';
 import AppCard from '../Components/AppCard';
 
 function HomeScreen({navigation,route}) {
-     
+
         const getPatients = () => {
             let commonData = DataManager.getInstance();
             let user = commonData.getUserID();
@@ -20,6 +20,18 @@ function HomeScreen({navigation,route}) {
 
         const newpatients=getPatients();
 
+        const pId =newpatients.id
+
+
+        const getMHisotry = () => {
+            let commonData = DataManager.getInstance();
+            let userHistory=commonData.getMHisotry(pId);
+            return userHistory;    
+        }
+    
+    
+        const history=getMHisotry();
+
 
         const[patients, setPatients] =  useState(newpatients);
  
@@ -28,7 +40,7 @@ function HomeScreen({navigation,route}) {
          <View style={styles.heading}>
     
        <View>
-           <Image source={require("../assets/icon.png")} style={styles.logo}/>
+           <Image source={require("../assets/logo.jpg")} style={styles.logo}/>
            <AppText style={styles.logoText}>Connecting Families</AppText>
        </View>
  
@@ -59,6 +71,12 @@ function HomeScreen({navigation,route}) {
                             })}
                             onPress1={()=>navigation.navigate("MedicalHistory",{
                                 paramPatient: item
+                            })}
+                            onPress2={()=>navigation.navigate("Prescription",{
+                                history: {history}
+                            })}
+                            onPress3={()=>navigation.navigate("MedicalLog",{
+                                paramParamPrescription: item
                             })}
                             onSwipeLeft={() => (
                                 <View style={styles.deleteView}>

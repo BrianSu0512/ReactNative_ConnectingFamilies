@@ -11,7 +11,7 @@ import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
 
-function MedicalHistoryScreen({route}) {
+function MedicalHistoryScreen({route,navigation: { goBack },navigation}) {
     const pId =route.params.paramPatient.id
 
 
@@ -45,7 +45,7 @@ function MedicalHistoryScreen({route}) {
 
  
       <View>
-          <Image source={require("../assets/icon.png")} style={styles.logo}/>
+          <Image source={require("../assets/logo.jpg")} style={styles.logo}/>
           <AppText style={styles.logoText}>Connecting Families</AppText>
       </View>
 
@@ -61,7 +61,7 @@ function MedicalHistoryScreen({route}) {
                 data={history}
                 keyExtractor={medicalHistories=>medicalHistories.pId.toString()}
                 renderItem={({item})=>
-                <AppMHisotry data={item}/>
+                <AppMHisotry data={item} onPress={()=>{navigation.navigate('Prescription',{paramPrescription:item})}} />
             
             }
             />

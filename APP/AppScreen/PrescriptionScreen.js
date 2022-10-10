@@ -1,18 +1,36 @@
-import React from 'react';
+import React , {useState} from 'react';
 import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image } from 'react-native';
 import { date } from 'yup';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
 import AppIcon from '../Components/AppIcon';
+import AppMHisotry from '../Components/AppMHisotry';
+import AppPrescription from '../Components/AppPrescription';
 import AppProfile from '../Components/AppProfile';
 import AppText from '../Components/AppText';
+import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
-function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
-    const data= route.params.paramPatient
+
+function PrescriptionScreen({route,navigation: { goBack },navigation,history}) {
+   console.log(history)
+    //  const id =route.params.paramPrescription.pId
+    
+ 
+    // const getPrescription = () => {
+    //     let commonData = DataManager.getInstance();
+    //     let userPrescription=commonData.getPrescription(id);
+    //     return userPrescription;    
+    // }
+
+
+    // const prescription=getPrescription();
+    // const history =route.params.paramPrescription
+
+
     return (
         <AppScreen>
-        <View style={styles.heading}>
+        {/* <View style={styles.heading}>
       
       <TouchableOpacity onPress={() => goBack()}>
       
@@ -33,14 +51,21 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
 
        </View>   
 
-      <AppText style={styles.Title}>Personal Profiles</AppText>
+      <AppText style={styles.Title}>Medical Prescription</AppText>
        <View style={styles.hairline} />
 
-        <AppProfile data={data} onPress={()=>navigation.navigate("Emergency",{
-                                paramPatient: data
-                            })}/>
+        <FlatList
+            style={styles.list}
+            data={prescription}
+            keyExtractor={Prescriptions=>Prescriptions.id.toString()}
+            renderItem={({item})=>
+            <AppPrescription prescription={item} history={history} onPress={()=>{navigation.navigate('MedicalLog',{paramPrescription:item})}}/>
+        }
+        /> */}
 
-              
+
+
+             
       </AppScreen>
     );
 }
@@ -80,5 +105,4 @@ const styles = StyleSheet.create({
         marginLeft: 15
     }
 })
-
-export default PersonalProfileScreen;
+export default PrescriptionScreen;

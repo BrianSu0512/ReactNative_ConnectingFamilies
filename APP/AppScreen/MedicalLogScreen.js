@@ -1,15 +1,34 @@
-import React from 'react';
-import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image } from 'react-native';
+import React , {useState} from 'react';
+import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image,Checkbox } from 'react-native';
 import { date } from 'yup';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
 import AppIcon from '../Components/AppIcon';
+import AppMHisotry from '../Components/AppMHisotry';
+import AppPrescription from '../Components/AppPrescription';
 import AppProfile from '../Components/AppProfile';
 import AppText from '../Components/AppText';
+import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
-function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
-    const data= route.params.paramPatient
+
+function MedicalLogScreen({route,navigation: { goBack },navigation}) {
+    const id =route.params.paramPrescription.pId
+
+    const getPrescription = () => {
+        let commonData = DataManager.getInstance();
+        let userPrescription=commonData.getPrescription(id);
+        return userPrescription;    
+    }
+
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+    ];
+
+    let today = new Date();
+    let date = today.getDate()+'/'+monthNames[today.getMonth()]+'/'+today.getFullYear();
+    console.log(date)
+
     return (
         <AppScreen>
         <View style={styles.heading}>
@@ -33,14 +52,18 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
 
        </View>   
 
-      <AppText style={styles.Title}>Personal Profiles</AppText>
+      <AppText style={styles.Title}>Medical Log</AppText>
        <View style={styles.hairline} />
 
-        <AppProfile data={data} onPress={()=>navigation.navigate("Emergency",{
-                                paramPatient: data
-                            })}/>
+       <View style={styles.rowcontainer}>
+        <AppText>Today: </AppText>
+        <AppText>{date}</AppText>
 
-              
+       </View>
+
+
+
+             
       </AppScreen>
     );
 }
@@ -79,6 +102,10 @@ const styles = StyleSheet.create({
         width: 340,
         marginLeft: 15
     }
+    ,
+    rowcontainer:{
+       flexDirection:'row',
+ 
+    }
 })
-
-export default PersonalProfileScreen;
+export default  MedicalLogScreen;

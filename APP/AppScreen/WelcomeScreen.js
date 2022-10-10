@@ -1,16 +1,26 @@
 import React from 'react';
-import { View,StyleSheet,Text, Alert } from 'react-native';
+import { View,StyleSheet,Text, Alert,ImageBackground,Image } from 'react-native';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
 import AppText from '../Components/AppText';
 import AppScreen from './AppScreen';
 
+
+
 function WelcomeScreen({navigation}) {
+    const blurRadiusValue = Platform.OS ==='android' ?0.2 :11;
     return (
        <AppScreen>
-          <View style={styles.textContainer}>
+        <ImageBackground source={require("../assets/background.jpg")} blurRadius={blurRadiusValue} style = {styles.back}>
+            <View style={styles.container}>
+            <View style={styles.rowcontainer}>
+            <Image source={require("../assets/logo.jpg")} style = {styles.logo}/>
+                <View>
                 <AppText style={styles.logoText}>Connecting Families</AppText>
                 <AppText style={styles.subText}>Bring families together</AppText>
+                </View>
+                
+            </View>
             </View>
           
             <View style={styles.buttonContainer}>
@@ -18,38 +28,48 @@ function WelcomeScreen({navigation}) {
                 onPress={() => navigation.navigate("Login")} />
                 <AppButton title="Join us"
                 onPress={() => navigation.navigate("Register")} />
-            </View>             
+            </View> 
+           
+           
+        </ImageBackground>           
        </AppScreen>
     );
 }
 const styles = StyleSheet.create({
-    textContainer:{
-        height:300,
-        backgroundColor:'green',
-        alignItems:'center',
+    container:{
+        height:600,
         justifyContent:'flex-end',
-        marginBottom:100
+    },logo:{
+        width:80,
+        height:80,
     },
     logoText:{
-    
-        fontSize:20,
+        fontSize:28,
         fontFamily:Platform.OS==='android' ?"monospace" :'Bradley Hand',
-        color:AppColour.black
+        color:AppColour.black,
+       
     },subText:{
-        
-        fontSize:15,
         fontStyle: 'italic',
         fontFamily:Platform.OS==='android' ?"monospace" :'Bradley Hand',
-        color:AppColour.black
+        color:AppColour.black,
+        marginLeft:5
     },
     buttonContainer:{
-        backgroundColor:'red',
         flexDirection:"row",
         width:250,
         justifyContent:'space-between',
         marginLeft:60,
-        paddingTop:30,
+
+    }, back:{
+        flex:1,
+        height:844,
+        width:"100%",
     },
+    rowcontainer:{
+        flexDirection:'row',
+        marginBottom:80,
+        marginLeft:10
+    }
     
 })
 

@@ -31,7 +31,7 @@ function EmergencyContactScreen({navigation: { goBack },navigation,route}) {
 
  
       <View>
-          <Image source={require("../assets/icon.png")} style={styles.logo}/>
+          <Image source={require("../assets/logo.jpg")} style={styles.logo}/>
           <AppText style={styles.logoText}>Connecting Families</AppText>
       </View>
 
