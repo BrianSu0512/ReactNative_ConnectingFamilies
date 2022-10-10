@@ -7,7 +7,7 @@ import AppIcon from './AppIcon';
 import AppText from './AppText';
 
 
-function AppCard({image,name,referTo, referredBy, rNbNO, note,onPress,onPress1}) {
+function AppCard({image,name,referTo, referredBy, rNbNO, note,onPress,onPress1,onPress2,onPress3}) {
     return (
     <View style={styles.container}>
         
@@ -15,7 +15,7 @@ function AppCard({image,name,referTo, referredBy, rNbNO, note,onPress,onPress1})
         <View style={styles.rowcontainer}>
         {image && <Image source={image} style={styles.image}/>}
         <AppText style={styles.nametext}>{name}</AppText>
-        <AppIcon style={styles.icon} name="calendar-edit" size={20} />
+        <AppIcon style={styles.icon} name="calendar-edit" size={20} onPress={onPress3}/>
         </View>
         <View style={styles.rowcontainer}>
         <View style={styles.rowcontainer}>
@@ -36,12 +36,12 @@ function AppCard({image,name,referTo, referredBy, rNbNO, note,onPress,onPress1})
         <View style={styles.rowcontainer}>
         
         <View style={styles.buttoncontainer}>
-        <AppIcon style={styles.buttonicon} name="calendar-edit" size={20} />
+        <AppIcon style={styles.buttonicon} name="folder-multiple-plus-outline" size={20} />
         <AppButton style={styles.buttonText} title="Medical History" onPress={onPress1}/>
         </View>
         <View style={styles.buttoncontainer}>
-        <AppIcon style={styles.buttonicon} name="calendar-edit" size={20} />
-        <AppButton style={styles.buttonText} title="Prescription"/>
+        <AppIcon style={styles.buttonicon} name="file-sign" size={20} />
+        <AppButton style={styles.buttonText} title="Prescription" onPress={onPress2}/>
         </View>
         
         </View>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     container:{
         borderRadius:10,
         overflow:'hidden',
-        width:320,
+        width:330,
         borderColor:'black',
         borderWidth:2,
         marginTop:20,

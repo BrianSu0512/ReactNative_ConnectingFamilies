@@ -6,25 +6,35 @@ import AppColour from '../Components/AppColour';
 import AppIcon from '../Components/AppIcon';
 import AppText from '../Components/AppText';
 
-function AppMHisotry({data,onPress}) {
-    
+function AppPrescription({prescription,history,onPress}) {
+  
     return (
         
        <View style={styles.container}>
-        <TouchableOpacity onPress={onPress}>
-        <AppText style={styles.subtitle}>Pathogenic diagnosis</AppText>
-             <AppText style={styles.title}>{data.diagnosis}</AppText>
-             <View style={styles.rowcontainer}>
+        
+            <View style={styles.headcontainer}>
+            <View style={styles.culumncontainer}>
+            <AppText style={styles.subtitle}>Medicine Name</AppText>
+            <AppText style={styles.title}>{prescription.name}</AppText>
+            </View>
+            <TouchableOpacity onPress={onPress}>
+            <AppIcon style={styles.buttonicon} name="calendar-edit" size={20} />
+            </TouchableOpacity>
+            
+
+            </View>
+            
+            <View style={styles.culumncontainer}>
             <View style={styles.rowcontainer}>
             <AppText style={styles.subtitle}>Date: </AppText>
-            <AppText style={styles.subtitle}>{data.Date}</AppText>
+            <AppText style={styles.subtitle}>{history.Date}</AppText>
             </View>
             <View style={styles.rowcontainer}>
-            <AppText style={styles.subtitle}>Referred By: </AppText>
-            <AppText style={styles.subtitle}>{data.StopDate}</AppText>
+            <AppText style={styles.subtitle}>Stop Date: </AppText>
+            <AppText style={styles.subtitle}>{history.StopDate}</AppText>
             </View>
             </View>
-        </TouchableOpacity>
+
            
         </View>
     );
@@ -40,10 +50,17 @@ const styles = StyleSheet.create({
         borderRadius:5,
         padding:10
      },
+     culumncontainer:{
+        flexDirection:'column',
+        
+  
+     },
+     headcontainer:{
+        flexDirection:'row',
+        justifyContent:'space-between'
+     },
     rowcontainer:{
        flexDirection:'row',
-       justifyContent:'space-between',
- 
  
     },subtitle:{
         fontSize:15,
@@ -53,4 +70,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default AppMHisotry;
+export default AppPrescription;

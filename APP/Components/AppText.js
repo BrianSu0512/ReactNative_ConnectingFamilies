@@ -12,7 +12,7 @@ function AppText({style, children}) {
 
 const styles = StyleSheet.create({
     text:{
-        fontSize:22,
+        fontSize:18,
         fontFamily:Platform.OS==='android' ?"monospace" :"Avenir-Roman",
         fontWeight:'bold',
         color:AppColour.black,
