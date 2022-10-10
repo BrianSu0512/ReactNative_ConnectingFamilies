@@ -5,6 +5,8 @@ import HomeScreen from '../AppScreen/HomeScreen';
 import PersonalProfileScreen from '../AppScreen/PersonalProfileScreen';
 import EmergencyContactScreen from '../AppScreen/EmergencyContactScreen';
 import MedicalHistoryScreen from '../AppScreen/MedicalHistoryScreen';
+import PrescriptionScreen from '../AppScreen/PrescriptionScreen';
+import MedicalLogScreen from '../AppScreen/MedicalLogScreen';
 
 
 
@@ -18,7 +20,8 @@ const HomeNavigator = () => (
         <AppStack.Screen name="PersonalProfile" component={PersonalProfileScreen} options={{headerShown:false}}/>
         <AppStack.Screen name="Emergency" component={EmergencyContactScreen} options={{headerShown:false}}/>
         <AppStack.Screen name="MedicalHistory" component={MedicalHistoryScreen} options={{headerShown:false}}/>
-
+        <AppStack.Screen name="Prescription" component={PrescriptionScreen} options={{headerShown:false}}/>
+        <AppStack.Screen name="MedicalLog" component={MedicalLogScreen} options={{headerShown:false}}/>
     </AppStack.Navigator>
 )
 

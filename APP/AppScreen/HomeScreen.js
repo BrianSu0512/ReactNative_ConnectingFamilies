@@ -51,9 +51,7 @@ function HomeScreen({navigation,route}) {
 
          <View style={styles.container}>
             
-                <FlatList
-                  
-                         
+                <FlatList 
                     style={styles.list}
                     data ={patients}
                     keyExtractor = {patients => patients.id.toString()}
@@ -73,7 +71,7 @@ function HomeScreen({navigation,route}) {
                                 paramPatient: item
                             })}
                             onPress2={()=>navigation.navigate("Prescription",{
-                                history: {history}
+                            
                             })}
                             onPress3={()=>navigation.navigate("MedicalLog",{
                                 paramParamPrescription: item

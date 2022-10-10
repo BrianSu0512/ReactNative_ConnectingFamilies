@@ -73,6 +73,39 @@ export default class DataManager  {
                 StopDate:"10/06/2019"
               },
         ]
+    
+    Prescriptions=[
+        {
+            id:1,
+            pId:1,
+            name:"Panadol",
+            Does:"100mg",
+            route:"PO",
+            frequency:"TDS",
+            note:"Forget to take the medicine",
+            time:["6:00","12:00","18:00"],
+        },
+        {
+            id:2,
+            pId:1,
+            name:"Amoxicillin",
+            Does:"80mg",
+            route:"PO",
+            frequency:"TDS",
+            note:"Forget to take the medicine",
+            time:["6:00","11:00","18:00"],
+        },
+        {
+            id:3,
+            pId:1,
+            name:"Abilify",
+            Does:"50mg",
+            route:"PO",
+            frequency:"TDS",
+            note:"Forget to take the medicine",
+            time:["7:00","12:00","19:00"],
+        }
+    ]
 
     users = [
         {
@@ -138,6 +171,10 @@ export default class DataManager  {
 
     getMHisotry(id){
         return this.medicalHistories.filter((m)=> m.id === id);
+    }
+
+    getPrescription(id){
+        return this.Prescriptions.filter((p)=> p.pId === id);
     }
 
 
