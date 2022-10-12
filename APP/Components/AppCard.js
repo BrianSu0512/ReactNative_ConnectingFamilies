@@ -15,7 +15,9 @@ function AppCard({image,name,referTo, referredBy, rNbNO, note,onPress,onPress1,o
         <View style={styles.rowcontainer}>
         {image && <Image source={image} style={styles.image}/>}
         <AppText style={styles.nametext}>{name}</AppText>
-        <AppIcon style={styles.icon} name="calendar-edit" size={20} onPress={onPress3}/>
+        <TouchableOpacity onPress={onPress3}>
+        <AppIcon style={styles.icon} name="calendar-edit" size={20} />
+        </TouchableOpacity>
         </View>
         <View style={styles.rowcontainer}>
         <View style={styles.rowcontainer}>

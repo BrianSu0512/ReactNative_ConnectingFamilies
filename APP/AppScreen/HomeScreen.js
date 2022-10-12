@@ -74,7 +74,7 @@ function HomeScreen({navigation,route}) {
                                 paramPatient: item.id
                             })}
                             onPress3={()=>navigation.navigate("MedicalLog",{
-                                paramParamPrescription: item
+                                paramPatient: item.id
                             })}
                             onSwipeLeft={() => (
                                 <View style={styles.deleteView}>
