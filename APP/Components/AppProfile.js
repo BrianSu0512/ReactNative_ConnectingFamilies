@@ -6,7 +6,7 @@ import AppColour from '../Components/AppColour';
 import AppIcon from '../Components/AppIcon';
 import AppText from '../Components/AppText';
 
-function AppProfile({data,onPress}) {
+function AppProfile({data,onPress,onPress1,onPress2,onPress3}) {
     return (
      <View>
 
@@ -16,16 +16,16 @@ function AppProfile({data,onPress}) {
 
         <View style={styles.culumncontainer}>
         <View style={styles.buttoncontainer}>
-        <AppIcon style={styles.buttonicon} name="calendar-edit" size={20} />
-        <AppButton style={styles.buttonText} title="Medical History"/>
+        <AppIcon style={styles.buttonicon} name="folder-multiple-plus-outline" size={20} />
+        <AppButton style={styles.buttonText} style1={styles.buttonText} title="Medical History" onPress={onPress1}/>
+        </View>
+        <View style={styles.buttoncontainer}>
+        <AppIcon  style={styles.buttonicon} name="file-sign" size={20} />
+        <AppButton style={styles.buttonText} style1={styles.buttonText} title="Prescription" onPress={onPress2}/>
         </View>
         <View style={styles.buttoncontainer}>
         <AppIcon style={styles.buttonicon} name="calendar-edit" size={20} />
-        <AppButton style={styles.buttonText} title="Prescription"/>
-        </View>
-        <View style={styles.buttoncontainer}>
-        <AppIcon style={styles.buttonicon} name="calendar-edit" size={20} />
-        <AppButton style={styles.buttonText} title="Medication Log"/>
+        <AppButton style={styles.buttonText}style1={styles.buttonText} title="Medication Log" onPress={onPress3}/>
         </View>
         </View>
        </View>
@@ -96,9 +96,8 @@ const styles = StyleSheet.create({
     rowcontainer:{
        flexDirection:'row',
        justifyContent:'space-between',
-       width:300,
-       backgroundColor:"red",
-       marginLeft:35,
+       width:330,
+       marginLeft:20,
        marginTop:10
 
  
@@ -107,7 +106,6 @@ const styles = StyleSheet.create({
        flexDirection:'row',
        justifyContent:'space-between',
        width:350,
-       backgroundColor:"red",
        marginLeft:15,
        marginTop:10
 
@@ -120,8 +118,8 @@ const styles = StyleSheet.create({
         flexDirection:'row'     
     },
     buttonText:{ 
-       backgroundColor:'green',
-       fontSize:13,
+       backgroundColor:'transparent',
+       fontSize:12,
        width:105,
        marginLeft:5
  

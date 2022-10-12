@@ -7,7 +7,7 @@ import AppIcon from '../Components/AppIcon';
 import AppText from '../Components/AppText';
 
 function AppPrescription({prescription,history,onPress}) {
-  
+
     return (
         
        <View style={styles.container}>
@@ -27,11 +27,11 @@ function AppPrescription({prescription,history,onPress}) {
             <View style={styles.culumncontainer}>
             <View style={styles.rowcontainer}>
             <AppText style={styles.subtitle}>Date: </AppText>
-            <AppText style={styles.subtitle}>{history.Date}</AppText>
+            <AppText style={styles.subtitle}>{history[0].Date}</AppText>
             </View>
             <View style={styles.rowcontainer}>
             <AppText style={styles.subtitle}>Stop Date: </AppText>
-            <AppText style={styles.subtitle}>{history.StopDate}</AppText>
+            <AppText style={styles.subtitle}>{history[0].StopDate}</AppText>
             </View>
             </View>
 
