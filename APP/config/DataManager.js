@@ -79,7 +79,7 @@ export default class DataManager  {
             id:1,
             pId:1,
             name:"Panadol",
-            Does:"100mg",
+            dose:"100mg",
             route:"PO",
             frequency:"TDS",
             note:"Forget to take the medicine",
@@ -89,7 +89,7 @@ export default class DataManager  {
             id:2,
             pId:1,
             name:"Amoxicillin",
-            Does:"80mg",
+            dose:"80mg",
             route:"PO",
             frequency:"TDS",
             note:"Forget to take the medicine",
@@ -99,7 +99,7 @@ export default class DataManager  {
             id:3,
             pId:1,
             name:"Abilify",
-            Does:"50mg",
+            dose:"50mg",
             route:"PO",
             frequency:"TDS",
             note:"Forget to take the medicine",
@@ -167,6 +167,9 @@ export default class DataManager  {
 
     addUser(user){
         this.users.push(user);
+    }
+    editUser(user){
+        return this.users.splice(user.id-1,1,user)
     }
 
     getMHisotry(id){
