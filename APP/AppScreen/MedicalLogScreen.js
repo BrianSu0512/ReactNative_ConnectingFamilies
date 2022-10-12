@@ -1,26 +1,29 @@
 import React , {useState} from 'react';
-import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image,Checkbox } from 'react-native';
+import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image} from 'react-native';
 import { date } from 'yup';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
 import AppIcon from '../Components/AppIcon';
-import AppMHisotry from '../Components/AppMHisotry';
-import AppPrescription from '../Components/AppPrescription';
-import AppProfile from '../Components/AppProfile';
+
+import AppMlog from '../Components/AppMlog';
+
 import AppText from '../Components/AppText';
 import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
 
 function MedicalLogScreen({route,navigation: { goBack },navigation}) {
-    const id =route.params.paramPrescription.pId
+    const patientid =route.params.paramPatient
+
+    console.log(patientid)
 
     const getPrescription = () => {
         let commonData = DataManager.getInstance();
-        let userPrescription=commonData.getPrescription(id);
+        let userPrescription=commonData.getPrescription(patientid);
         return userPrescription;    
     }
-
+    const prescription=getPrescription()
+    console.log(prescription)
     const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
     ];
@@ -56,13 +59,19 @@ function MedicalLogScreen({route,navigation: { goBack },navigation}) {
        <View style={styles.hairline} />
 
        <View style={styles.rowcontainer}>
-        <AppText>Today: </AppText>
-        <AppText>{date}</AppText>
+        <AppText style={styles.time}>Today:</AppText>
+        <AppText style={styles.time}>{date}</AppText>
 
        </View>
 
-
-
+       <FlatList
+            style={styles.list}
+            data={prescription}
+            keyExtractor={Prescriptions=>Prescriptions.id.toString()}
+            renderItem={({item})=>
+            <AppMlog prescription={item}/>
+        }
+        />
              
       </AppScreen>
     );
@@ -94,7 +103,8 @@ const styles = StyleSheet.create({
     Title:{
         fontStyle:'italic',
         marginTop:5,
-        marginLeft:15
+        marginLeft:15,
+        fontSize:22,
     },
     hairline: {
         backgroundColor: '#A2A2A2',
@@ -106,6 +116,11 @@ const styles = StyleSheet.create({
     rowcontainer:{
        flexDirection:'row',
  
+    },
+    time:{
+        fontStyle:'italic',
+        marginTop:5,
+        marginLeft:15,
     }
 })
 export default  MedicalLogScreen;

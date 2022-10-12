@@ -8,12 +8,17 @@ import AppScreen from './AppScreen';
 
 
 function WelcomeScreen({navigation}) {
-    const blurRadiusValue = Platform.OS ==='android' ?0.2 :11;
+    const blurRadiusValue = Platform.OS ==='android' ?0.7 :5;
     return (
        <AppScreen>
-        <ImageBackground source={require("../assets/background.jpg")} blurRadius={blurRadiusValue} style = {styles.back}>
-            <View style={styles.container}>
+        <View>
+        <Image source={require("../assets/background.png")} blurRadius={blurRadiusValue} style = {styles.back}/>
+        </View>
+        
+
+    
             <View style={styles.rowcontainer}>
+
             <Image source={require("../assets/logo.jpg")} style = {styles.logo}/>
                 <View>
                 <AppText style={styles.logoText}>Connecting Families</AppText>
@@ -21,7 +26,7 @@ function WelcomeScreen({navigation}) {
                 </View>
                 
             </View>
-            </View>
+  
           
             <View style={styles.buttonContainer}>
                 <AppButton title="Sign In" 
@@ -31,15 +36,12 @@ function WelcomeScreen({navigation}) {
             </View> 
            
            
-        </ImageBackground>           
+                  
        </AppScreen>
     );
 }
 const styles = StyleSheet.create({
-    container:{
-        height:600,
-        justifyContent:'flex-end',
-    },logo:{
+    logo:{
         width:80,
         height:80,
     },
@@ -61,14 +63,15 @@ const styles = StyleSheet.create({
         marginLeft:60,
 
     }, back:{
-        flex:1,
-        height:844,
-        width:"100%",
+        height:350,
+        width:"100%"
+
     },
     rowcontainer:{
         flexDirection:'row',
         marginBottom:80,
-        marginLeft:10
+        marginLeft:10,
+        marginTop:30
     }
     
 })

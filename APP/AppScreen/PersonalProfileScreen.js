@@ -38,6 +38,15 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
 
         <AppProfile data={data} onPress={()=>navigation.navigate("Emergency",{
                                 paramPatient: data
+                            })}
+                            onPress1={()=>navigation.navigate("MedicalHistory",{
+                                paramPatient: data
+                            })}
+                            onPress2={()=>navigation.navigate("Prescription",{
+                                paramPatient: data.id
+                            })}
+                            onPress3={()=>navigation.navigate("MedicalLog",{
+                                paramPatient: data.id
                             })}/>
 
               
@@ -71,7 +80,8 @@ const styles = StyleSheet.create({
     Title:{
         fontStyle:'italic',
         marginTop:5,
-        marginLeft:15
+        marginLeft:15,
+        fontSize:22
     },
     hairline: {
         backgroundColor: '#A2A2A2',

@@ -68,7 +68,7 @@ function LoginScreen({navigation, props}) {
         <Formik
                     initialValues={{name:'', password:'',}}
                     onSubmit = {(values, {resetForm})=> {
-                        console.log(values.name)
+                     
                             if(validateUser(values)){   
                                 resetForm();
                                 createUser(values);
@@ -155,7 +155,7 @@ function LoginScreen({navigation, props}) {
 const styles = StyleSheet.create({
     heading:{
         flexDirection:"row",
-        width:230,
+        width:220,
         marginLeft:20,
         paddingTop:10,
         justifyContent:'space-between',
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     },
     textStyle:{
         fontSize:18,
-        color:"#D6F8FF",
+        color:"#1338BE",
         textTransform:'none'
     },
     buttonContainer:{

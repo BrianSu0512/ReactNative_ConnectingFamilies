@@ -1,5 +1,5 @@
 import React , {useState} from 'react';
-import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image } from 'react-native';
+import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image,SectionList } from 'react-native';
 import { date } from 'yup';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
@@ -12,25 +12,37 @@ import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
 
-function PrescriptionScreen({route,navigation: { goBack },navigation,history}) {
-   console.log(history)
-    //  const id =route.params.paramPrescription.pId
+function PrescriptionScreen({route,navigation: { goBack },navigation}) {
+
+
+    const patientid =route.params.paramPatient
+
+
+
+  const getMHisotry = () => {
+    let commonData = DataManager.getInstance();
+    let userHistory=commonData.getMHisotry(patientid);
+    return userHistory;    
+}
+
+     const history =getMHisotry();
     
- 
-    // const getPrescription = () => {
-    //     let commonData = DataManager.getInstance();
-    //     let userPrescription=commonData.getPrescription(id);
-    //     return userPrescription;    
-    // }
+     const pID=history[0].pId
+
+    const getPrescription = () => {
+        let commonData = DataManager.getInstance();
+        let userPrescription=commonData.getPrescription(pID);
+        return userPrescription;    
+    }
 
 
-    // const prescription=getPrescription();
-    // const history =route.params.paramPrescription
+    const prescription=getPrescription();
+
 
 
     return (
         <AppScreen>
-        {/* <View style={styles.heading}>
+        <View style={styles.heading}>
       
       <TouchableOpacity onPress={() => goBack()}>
       
@@ -59,9 +71,9 @@ function PrescriptionScreen({route,navigation: { goBack },navigation,history}) {
             data={prescription}
             keyExtractor={Prescriptions=>Prescriptions.id.toString()}
             renderItem={({item})=>
-            <AppPrescription prescription={item} history={history} onPress={()=>{navigation.navigate('MedicalLog',{paramPrescription:item})}}/>
+            <AppPrescription prescription={item} history={history} onPress={()=>{navigation.navigate('MedicalLog',{paramPatient:item.id})}}/>
         }
-        /> */}
+        />
 
 
 
@@ -96,7 +108,8 @@ const styles = StyleSheet.create({
     Title:{
         fontStyle:'italic',
         marginTop:5,
-        marginLeft:15
+        marginLeft:15,
+        fontSize:22
     },
     hairline: {
         backgroundColor: '#A2A2A2',

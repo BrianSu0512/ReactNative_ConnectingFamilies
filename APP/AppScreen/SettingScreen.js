@@ -1,12 +1,9 @@
 import React from 'react';
-import { View,StyleSheet,TouchableOpacity, Image} from 'react-native';
-import AppButton from '../Components/AppButton';
+import { View,StyleSheet,TouchableOpacity, Image,Alert} from 'react-native';
 import AppColour from '../Components/AppColour';
-import AppIcon from '../Components/AppIcon';
-import AppInput from '../Components/AppIput';
+
 import AppListItem from '../Components/AppListItem';
 import AppText from '../Components/AppText';
-import AppTextInput from '../Components/AppTextInput';
 import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
@@ -24,7 +21,8 @@ function SettingScreen({navigation}) {
 
     const data=getUser();
 
-    console.log("Line29",data[0])
+    console.log("this is dtaa",data)
+
 
     return (
         <AppScreen>
@@ -56,7 +54,9 @@ function SettingScreen({navigation}) {
 
         <AppText style={styles.subheading}>Password</AppText>
         <View style={styles.profileContainer}>
-                    <AppListItem  title="Change Password" icon="chevron-right" onPress={() => navigation.navigate("Welcome")}/>
+                    <AppListItem  title="Change Password" icon="chevron-right" onPress={() => navigation.navigate("ChangePass",{
+                                paramPersonalData: data
+                            })}/>
         </View>
 
         <View style={styles.fullLine} />
@@ -64,7 +64,9 @@ function SettingScreen({navigation}) {
         <AppText style={styles.subheading}>Login</AppText>
         <View style={styles.textContainer}>
 
-        <TouchableOpacity  onPress={() => navigation.navigate() }>
+        <TouchableOpacity  onPress={()=>Alert.alert("G'day","Would you like to log out ?",
+                    [{text:"Yes",onPress:()=>navigation.navigate("Welcome")},
+                    {text:"NO"}])}>
 
         <AppText style={styles.textStyle}> Log out</AppText>
 
@@ -96,7 +98,8 @@ const styles = StyleSheet.create({
     Title:{
         fontStyle:'italic',
         marginTop:10,
-        marginLeft:15
+        marginLeft:15,
+        fontSize:22
     },
     subheading:{
         fontSize:18,
@@ -111,17 +114,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#A2A2A2',
         height: 2,
         width: 500,
-        marginBottom: 15
+        marginTop:10,
+        marginBottom: 10
     },
       profileContainer:{
         marginTop: 10,
         height: 90,
-        backgroundColor:AppColour.otherColorLite,
         justifyContent:"center",
     },
     textStyle:{
         fontSize:18,
-        color:"#D6F8FF",
+        color:"#1338BE",
         textTransform:'none',
         marginTop:10,
         marginLeft:31

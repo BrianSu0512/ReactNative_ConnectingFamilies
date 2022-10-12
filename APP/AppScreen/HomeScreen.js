@@ -71,7 +71,7 @@ function HomeScreen({navigation,route}) {
                                 paramPatient: item
                             })}
                             onPress2={()=>navigation.navigate("Prescription",{
-                            
+                                paramPatient: item.id
                             })}
                             onPress3={()=>navigation.navigate("MedicalLog",{
                                 paramParamPrescription: item
@@ -133,7 +133,8 @@ const styles = StyleSheet.create({
     Title:{
         fontStyle:'italic',
         marginTop:5,
-        marginLeft:15
+        marginLeft:15,
+        fontSize:22
     },
     hairline: {
         backgroundColor: '#A2A2A2',

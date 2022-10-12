@@ -131,7 +131,8 @@ const styles = StyleSheet.create({
     Title:{
         fontStyle:'italic',
         marginTop:10,
-        marginLeft:15
+        marginLeft:15,
+        fontSize:22
     },
     subTitle:{
         fontSize:18,

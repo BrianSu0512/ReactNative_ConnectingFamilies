@@ -12,13 +12,13 @@ import AppScreen from './AppScreen';
 
 
 function MedicalHistoryScreen({route,navigation: { goBack },navigation}) {
-    const pId =route.params.paramPatient.id
+    const patientid =route.params.paramPatient.id
 
 
     const getMHisotry = () => {
-        console.log(pId)
+
         let commonData = DataManager.getInstance();
-        let userHistory=commonData.getMHisotry(pId);
+        let userHistory=commonData.getMHisotry(patientid);
         return userHistory;    
     }
 
@@ -61,7 +61,9 @@ function MedicalHistoryScreen({route,navigation: { goBack },navigation}) {
                 data={history}
                 keyExtractor={medicalHistories=>medicalHistories.pId.toString()}
                 renderItem={({item})=>
-                <AppMHisotry data={item} onPress={()=>{navigation.navigate('Prescription',{paramPrescription:item})}} />
+                <AppMHisotry data={item} onPress={()=>navigation.navigate("Prescription",{
+                    paramPatient: item.id
+                })}/>
             
             }
             />
@@ -99,7 +101,8 @@ const styles = StyleSheet.create({
     Title:{
         fontStyle:'italic',
         marginTop:5,
-        marginLeft:15
+        marginLeft:15,
+        fontSize:22
     },
     hairline: {
         backgroundColor: '#A2A2A2',

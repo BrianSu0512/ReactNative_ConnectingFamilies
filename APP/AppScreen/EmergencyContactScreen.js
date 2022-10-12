@@ -80,7 +80,8 @@ const styles = StyleSheet.create({
     Title:{
         fontStyle:'italic',
         marginTop:5,
-        marginLeft:15
+        marginLeft:15,
+        fontSize:22
     },
     hairline: {
         backgroundColor: '#A2A2A2',
