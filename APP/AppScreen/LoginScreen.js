@@ -29,6 +29,7 @@ function LoginScreen({navigation, props}) {
     const usersList=getUsers();
 
     const validateUser = ({name,password})=>{
+        //console.log(name);
         return(
             usersList.filter((user) => user.name === name && user.password === password).length>0
         );
@@ -42,6 +43,51 @@ function LoginScreen({navigation, props}) {
         let commonData = DataManager.getInstance();
         let userID = getUser({name}).id;
         commonData.setUserID(userID);
+    }
+
+    const validateUser2 = ({name,password})=>{
+        var logins = '';
+    
+        const UserName = name;
+        const UserPassword = password;
+        var InsertAPIURL = "https://medidecks.homes/api/Login.php";
+    
+        var header={
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        };
+    
+        var Data={
+            userName: UserName,
+            userPass: UserPassword
+        };
+    
+        fetch(InsertAPIURL,
+            {
+                method:'POST',
+                headers:header,
+                body: JSON.stringify(Data)
+            })
+            .then((response)=>response.json())
+            .then((responseJson)=>
+                {
+                    if(responseJson != 'failed'){
+                        NextScreen(UserName);
+                    } else{
+                        alert("Wrong detail");
+                    }                   
+                })
+            .catch((error)=>
+            {
+                alert("Error: " +error);
+            })
+    }
+    
+    const NextScreen=(name)=>{
+        navigation.navigate({
+            name: 'Home',
+            params: {Username:name}
+        })
     }
 
     return (
@@ -68,24 +114,9 @@ function LoginScreen({navigation, props}) {
         <Formik
                     initialValues={{name:'', password:'',}}
                     onSubmit = {(values, {resetForm})=> {
-                     
-                            if(validateUser(values)){   
-                                resetForm();
-                                createUser(values);
-                                navigation.navigate("Home",{
-                                    screen:"Home",
-                                    params: {
-                                        paramId: getUser(values).id
-                                     
-                                    }
-                                  
-                                }
-                                    );
-                            }
-                            else{
-                                resetForm();
-                                alert("Invalid Login Details")
-                            }
+                        //console.log(values.name)
+                        validateUser2(values)
+                        //resetForm();
                         }}
                     validationSchema={schema}
                     >
@@ -155,7 +186,7 @@ function LoginScreen({navigation, props}) {
 const styles = StyleSheet.create({
     heading:{
         flexDirection:"row",
-        width:220,
+        width:230,
         marginLeft:20,
         paddingTop:10,
         justifyContent:'space-between',
@@ -196,7 +227,7 @@ const styles = StyleSheet.create({
     },
     textStyle:{
         fontSize:18,
-        color:"#1338BE",
+        color:"#D6F8FF",
         textTransform:'none'
     },
     buttonContainer:{

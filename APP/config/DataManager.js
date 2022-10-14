@@ -109,7 +109,7 @@ export default class DataManager  {
 
     users = [
         {
-            id: "user1",
+            id: "1",
             name:"B",
             phone:"0412345678",
             level:"Privilege Level 1",
@@ -118,7 +118,7 @@ export default class DataManager  {
             image: require('../assets/icon.png'),
         },
         {
-            id: "user2",
+            id: "2",
             name:"Jon Snow",
             email: "j@gmail.com",
             password: "2345",
