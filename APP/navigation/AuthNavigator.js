@@ -14,7 +14,7 @@ import ChangePasswordScreen from '../AppScreen/ChangePasswordScreen';
 
 const AppStack = createStackNavigator();
 
-const AuthNavigator = ({route, navigation}) => (
+const AuthNavigator = () => (
     <AppStack.Navigator>
         <AppStack.Screen name="Welcome" component={WelcomeScreen} options={{headerShown:false}}/>
         <AppStack.Screen name="Login" component={LoginScreen} options={{headerShown:false}}/>

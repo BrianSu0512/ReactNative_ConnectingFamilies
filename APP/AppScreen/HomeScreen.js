@@ -8,8 +8,7 @@ import AppIcon from '../Components/AppIcon';
 import DataManager from '../config/DataManager';
 import AppCard from '../Components/AppCard';
 
-function HomeScreen({route, navigation}) {
-
+function HomeScreen({navigation,route}) {
 
         const getPatients = () => {
             let commonData = DataManager.getInstance();
@@ -37,7 +36,6 @@ function HomeScreen({route, navigation}) {
         const[patients, setPatients] =  useState(newpatients);
  
     return (
-        
        <AppScreen>
          <View style={styles.heading}>
     
