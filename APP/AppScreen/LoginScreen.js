@@ -68,19 +68,37 @@ function LoginScreen({navigation, props}) {
         <Formik
                     initialValues={{name:'', password:'',}}
                     onSubmit = {(values, {resetForm})=> {
-                     
+                        console.log(getUser(values))
+                                const userLevel=getUser(values).level
                             if(validateUser(values)){   
-                                resetForm();
-                                createUser(values);
-                                navigation.navigate("Home",{
-                                    screen:"Home",
-                                    params: {
-                                        paramId: getUser(values).id
-                                     
+                                if(userLevel==='Privilege Level 1'){
+                                    resetForm();
+                                    createUser(values);
+                                    navigation.navigate("Home",{
+                                        screen:"Home",
+                                        params: {
+                                            paramId: getUser(values).id
+                                         
+                                        }
+                                      
                                     }
-                                  
+                                        );
+                                }else{
+                                    console.log("level 2")
+                                    resetForm();
+                                    createUser(values);
+                                    navigation.navigate("MHome",{
+                                        screen:"Home",
+                                        params: {
+                                            screen:"MHome",
+                                            paramId: getUser(values).id
+                                         
+                                        }
+                                      
+                                    }
+                                        );
                                 }
-                                    );
+                               
                             }
                             else{
                                 resetForm();

@@ -65,10 +65,10 @@ function HomeScreen({navigation,route}) {
                             rNbNO={item.rNbNO}
                             note={item.note}
                             onPress={()=>navigation.navigate("PersonalProfile",{
-                                paramPatient: item
+                                paramPatient: item.id
                             })}
                             onPress1={()=>navigation.navigate("MedicalHistory",{
-                                paramPatient: item
+                                paramPatient: item.id
                             })}
                             onPress2={()=>navigation.navigate("Prescription",{
                                 paramPatient: item.id
@@ -100,8 +100,8 @@ const styles = StyleSheet.create({
     logo:{
         marginTop:10,
         marginLeft:30,
-        width:80,
-        height:80,
+        width:50,
+        height:50,
     },
     logoText:{
         fontSize:13,

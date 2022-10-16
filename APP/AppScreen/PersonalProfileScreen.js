@@ -22,8 +22,7 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
            return userdetials
         }
      
-         const pd=patients()
-         console.log("line102",pd)
+         const data=patients()
 
     return (
         <AppScreen>
@@ -55,13 +54,13 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
                                 paramPatient: data
                             })}
                             onPress1={()=>navigation.navigate("MedicalHistory",{
-                                paramPatient: data.id
+                                paramPatient: data[0].id
                             })}
                             onPress2={()=>navigation.navigate("Prescription",{
-                                paramPatient: data.id
+                                paramPatient: data[0].id
                             })}
                             onPress3={()=>navigation.navigate("MedicalLog",{
-                                paramPatient: data.id
+                                paramPatient: data[0].id
                             })}/>
 
               
