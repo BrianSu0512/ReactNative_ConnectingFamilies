@@ -7,7 +7,7 @@ export default class DataManager  {
             userid: "user1",
             id:1,
             name:"Lucas",
-            age:24,
+            age:"24",
             gender:"Male",
             bloodType:"B type",
             dob:"27/09/2000",
@@ -17,7 +17,7 @@ export default class DataManager  {
             referredBy:"Dr. Tyson",
             rNbNO:"room 104",
             note:"take the pills three times per day",
-            image:require("../assets/favicon.png"),
+            image:require("../assets/Patient.png"),
             eName:"Tim",
             relationship:"Aunt",
             ePhone:"0423456789",
@@ -28,7 +28,7 @@ export default class DataManager  {
                 userid: "user1",
                 id:2,
                 name:"Tme",
-                age:20,
+                age:"20",
                 gender:"Male",
                 bloodType:"B type",
                 dob:"27/09/2000",
@@ -38,7 +38,25 @@ export default class DataManager  {
                 referredBy:"Dr. Tyson",
                 rNbNO:"room 104",
                 note:"take the pills three times per day",
-                image:require("../assets/favicon.png"),
+                image:require("../assets/Patient.png"),
+            
+        },
+        {
+        
+                userid: "user2",
+                id:3,
+                name:"Vivid",
+                age:"20",
+                gender:"Female",
+                bloodType:"AB type",
+                dob:"27/09/2010",
+                phone:"0412345678",
+                address:"999 X Street Sydney 2000",
+                referTo:"AP",
+                referredBy:"Dr. Steve",
+                rNbNO:"room 220",
+                note:"take the pills three times per day",
+                image:require("../assets/Patient.png"),
             
         }
         
@@ -115,13 +133,41 @@ export default class DataManager  {
             level:"Privilege Level 1",
             email: "b@gmail.com",
             password: "1234",
-            image: require('../assets/icon.png'),
+            age:22,
+            gender:"Female",
+            bloodType:"B type",
+            dob:"27/03/2000",
+            phone:"0467867867",
+            image: require('../assets/Carer.png'),
         },
         {
             id: "user2",
             name:"Jon Snow",
+            phone:"0412345678",
             email: "j@gmail.com",
+            level:"Privilege Level 1",
             password: "2345",
+            age:20,
+            gender:"Male",
+            bloodType:"B type",
+            dob:"20/07/2002",
+            phone:"04567856789",
+            image: require('../assets/Carer.png'),
+            
+        },
+        {
+            id: "user3",
+            name:"M",
+            phone:"04345678901",
+            email: "A@gmail.com",
+            level:"Privilege Level 2",
+            password: "1234",
+            age:28,
+            gender:"Male",
+            bloodType:"B type",
+            dob:"27/09/1992",
+            phone:"0412345678",
+            image: require('../assets/Carer.png'),
             
         },
     ];
@@ -140,9 +186,14 @@ export default class DataManager  {
     setUserID(id){
         this.userID = id;
     }
-
-    getPatients(id){
-        return this.patients.filter((patient)=> patient.userid === id);
+    getAllPatients(){
+        return this.patients;
+    }
+    getPatients(userid){
+        return this.patients.filter((patient)=> patient.userid === userid);
+    }
+    getPatient(id){
+        return this.patients.filter((patient)=> patient.id === id);
     }
 
     addPatient(patient){
@@ -172,14 +223,37 @@ export default class DataManager  {
         return this.users.splice(user.id-1,1,user)
     }
 
+    getLevel(id){
+        const user= this.users.filter((user)=> user.id === id)
+        return user[0].level
+    }
+
+    getCarers(){
+        return this.users.filter((u)=>u.level==="Privilege Level 1")
+    }
+
     getMHisotry(id){
         return this.medicalHistories.filter((m)=> m.id === id);
+    }
+    getHisotry(pid){
+        return this.medicalHistories.filter((m)=> m.pId === pid);
+    }
+    editHistory(history){
+        return this.medicalHistories.splice(history.pId-1,1,history)
     }
 
     getPrescription(id){
         return this.Prescriptions.filter((p)=> p.pId === id);
     }
 
+    addHistory(history){
+        console.log("line244",history)
+        this.medicalHistories.push(history);
+    }
+    addPrescription(prescription){
+        console.log("line244",prescription)
+        this.Prescriptions.push(prescription);
+    }
 
 
    
