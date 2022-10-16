@@ -10,8 +10,7 @@ import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
 
-
-function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
+function MPersonalProfileScreen({navigation: { goBack },navigation,route}) {
     const id= route.params.paramPatient
     console.log("line13",id)
 
@@ -22,14 +21,13 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
            return userdetials
         }
      
-         const pd=patients()
-         console.log("line102",pd)
-
+         const data=patients()
+         console.log("line102",data[0].pId)
     return (
         <AppScreen>
         <View style={styles.heading}>
       
-      <TouchableOpacity onPress={() => goBack()}>
+      <TouchableOpacity onPress={()=>goBack()}>
       
           <AppIcon
               name="chevron-left"
@@ -39,12 +37,21 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
           
       </TouchableOpacity>
 
-
  
       <View>
           <Image source={require("../assets/logo.jpg")} style={styles.logo}/>
           <AppText style={styles.logoText}>Connecting Families</AppText>
       </View>
+
+      <TouchableOpacity onPress={()=>navigation.navigate("EditProfile", {paramPersonalData:data[0]})} >
+      
+      <AppIcon
+          name="pencil"
+          size={35}
+          style={[styles.headingIcon,{ marginTop:25}]}
+      />
+      
+  </TouchableOpacity>
 
        </View>   
 
@@ -55,13 +62,13 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
                                 paramPatient: data
                             })}
                             onPress1={()=>navigation.navigate("MedicalHistory",{
-                                paramPatient: data.id
+                                paramPatient: data[0].id
                             })}
                             onPress2={()=>navigation.navigate("Prescription",{
-                                paramPatient: data.id
+                                paramPatient: data[0].id
                             })}
                             onPress3={()=>navigation.navigate("MedicalLog",{
-                                paramPatient: data.id
+                                paramPatient: data[0].id
                             })}/>
 
               
@@ -71,7 +78,7 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
 const styles = StyleSheet.create({
     heading:{
         flexDirection:"row",
-        width:240,
+        width:360,
         paddingTop:10,
         justifyContent:'space-between',
         
@@ -79,6 +86,7 @@ const styles = StyleSheet.create({
     },
     headingIcon:{
         marginTop:10,
+        height:80,
 
     },
     logo:{
@@ -106,4 +114,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default PersonalProfileScreen;
+export default MPersonalProfileScreen;

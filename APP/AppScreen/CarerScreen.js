@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,StyleSheet,TouchableOpacity, Image,Alert} from 'react-native';
+import { View,StyleSheet,TouchableOpacity, Image,Alert,FlatList} from 'react-native';
 import AppColour from '../Components/AppColour';
 
 import AppListItem from '../Components/AppListItem';
@@ -8,18 +8,16 @@ import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
 
-function SettingScreen({navigation}) {
+function CarerScreen({navigation}) {
 
-    const getUser = () => {
+    const getCarers = () => {
         let commonData = DataManager.getInstance();
-        let userid = commonData.getUserID();
-        let user=commonData.getUser(userid)
-
-        return user;
+        let Carers=commonData.getCarers()
+        return Carers;
             
     }
 
-    const data=getUser();
+    const data=getCarers();
 
 
 
@@ -33,44 +31,29 @@ function SettingScreen({navigation}) {
                 </View>
           
         </View>
-        <AppText style={styles.Title}>Settings</AppText>
+        <AppText style={styles.Title}>All Carers</AppText>
         <View style={styles.hairline} />
-     
-        <View style={styles.profileContainer}>
-                    <AppListItem image={data[0].image} title={data[0].name} subtitle={data[0].email} thirdtitle={data[0].phone} icon="chevron-right" onPress={() => navigation.navigate("EditAcc",{
-                                paramPersonalData: data
-                            })}/>
-        </View>
-
-        <View style={styles.fullLine} />
         
-        <AppText style={styles.subheading}>Account Privilege Level</AppText>
-        <View style={styles.profileContainer}>
-                    <AppListItem title={data[0].level} />
-        </View>
 
-        <View style={styles.fullLine} />
+        <FlatList
+            style={styles.list}
+            data={data}
+            keyExtractor={Users=>Users.id.toString()}
+            renderItem={({item})=>
+            <AppListItem image={item.image} title={item.name} subtitle={item.email} thirdtitle={item.phone} icon="chevron-right" onPress={() => navigation.navigate("CPatient",{paramCarer:item.id})} onPress1={() => navigation.navigate("CProfile",{paramPatient:item})}
+            />   
+        }
+        />
 
-        <AppText style={styles.subheading}>Password</AppText>
-        <View style={styles.profileContainer}>
-                    <AppListItem  title="Change Password" icon="chevron-right" onPress={() => navigation.navigate("ChangePass",{
-                                paramPersonalData: data
-                            })}/>
-        </View>
+                   
 
-        <View style={styles.fullLine} />
 
-        <AppText style={styles.subheading}>Login</AppText>
-        <View style={styles.textContainer}>
 
-        <TouchableOpacity  onPress={()=>Alert.alert("G'day","Would you like to log out ?",
-                    [{text:"Yes",onPress:()=>navigation.navigate("Welcome")},
-                    {text:"NO"}])}>
 
-        <AppText style={styles.textStyle}> Log out</AppText>
+        
 
-        </TouchableOpacity>
-        </View>
+  
+
         </AppScreen>
         
     );
@@ -131,4 +114,4 @@ const styles = StyleSheet.create({
     
 })
 
-export default SettingScreen;
+export default CarerScreen;

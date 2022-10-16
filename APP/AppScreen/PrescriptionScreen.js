@@ -14,21 +14,28 @@ import AppScreen from './AppScreen';
 
 function PrescriptionScreen({route,navigation: { goBack },navigation}) {
 
-
+    
+    const pID =route.params.paramPatient
     const patientid =route.params.paramPatient
-
-
+    console.log(patientid)
+  
+    const getlevel = () => {
+        let commonData = DataManager.getInstance();
+        let userid = commonData.getUserID();
+        let level=commonData.getLevel(userid);
+        return level;    
+    }
+const level =getlevel()
 
   const getMHisotry = () => {
     let commonData = DataManager.getInstance();
-    let userHistory=commonData.getMHisotry(patientid);
+    let userHistory=commonData.getMHisotry(pID);
     return userHistory;    
 }
 
      const history =getMHisotry();
     
-     const pID=history[0].pId
-
+console.log("tttt",history)
     const getPrescription = () => {
         let commonData = DataManager.getInstance();
         let userPrescription=commonData.getPrescription(pID);
@@ -38,8 +45,14 @@ function PrescriptionScreen({route,navigation: { goBack },navigation}) {
 
     const prescription=getPrescription();
 
+    const plus = level ==='Privilege Level 1' 
+    ? <></> 
+    : <TouchableOpacity onPress={()=>{navigation.navigate('AddPrescription',{paramPatient:patientid})}}>
+        <AppIcon name="plus-circle-outline" size={40} style={{marginDown:10}}/>
+      </TouchableOpacity>
+  
 
-
+ 
     return (
         <AppScreen>
         <View style={styles.heading}>
@@ -63,7 +76,10 @@ function PrescriptionScreen({route,navigation: { goBack },navigation}) {
 
        </View>   
 
-      <AppText style={styles.Title}>Medical Prescription</AppText>
+       <View style={styles.rowcontainer}>
+        <AppText style={styles.Title}>Medical Prescription</AppText>
+            {plus}
+        </View>
        <View style={styles.hairline} />
 
         <FlatList
@@ -71,10 +87,24 @@ function PrescriptionScreen({route,navigation: { goBack },navigation}) {
             data={prescription}
             keyExtractor={Prescriptions=>Prescriptions.id.toString()}
             renderItem={({item})=>
-            <AppPrescription prescription={item} history={history} onPress={()=>{navigation.navigate('MedicalLog',{paramPatient:item.id})}}/>
+            <AppPrescription 
+            prescription={item} 
+            history={history} 
+            level={level}
+            onPress={()=>{navigation.navigate('MedicalLog',{paramPatient:item.pId})}}
+            onPress1={()=>navigation.navigate('EditHistoryScreen',{
+                paramPatient:item.pId,
+                paramPatientid:item.id})}
+            onSwipeLeft={() => (
+                <View style={styles.deleteView}>
+                    <TouchableOpacity onPress={() => handleDelete(item)}>
+                        <AppIcon name="trash-can" size={50} style={{marginTop:40,height:80,}}/> 
+                    </TouchableOpacity>
+                </View>)}/>
         }
         />
 
+      
 
 
              
@@ -97,13 +127,18 @@ const styles = StyleSheet.create({
     logo:{
         marginTop:10,
         marginLeft:30,
-        width:80,
-        height:80,
+        width:50,
+        height:50,
     },
     logoText:{
         fontSize:13,
         paddingLeft:5,
         fontStyle:'italic'
+    },
+    rowcontainer:{
+        flexDirection:'row',
+        width:350,
+        justifyContent:'space-between'
     },
     Title:{
         fontStyle:'italic',

@@ -122,7 +122,7 @@ function EditAccountScreen({navigation,navigation: { goBack },route}) {
         <TextInput 
          style={styles.inputText}
          value={email}
-         onChangeText={(inputText) => setName(inputText)}/>
+         onChangeText={(inputText) => setEmail(inputText)}/>
 
         <View style={styles.fullLine} />
 
@@ -130,7 +130,7 @@ function EditAccountScreen({navigation,navigation: { goBack },route}) {
         <TextInput 
         style={styles.inputText}
         value={phone}
-        onChangeText={(inputText) => setName(inputText)}/>
+        onChangeText={(inputText) => setPhone(inputText)}/>
 
       <View style={styles.fullLine} />
       <View style={styles.center}>
@@ -164,8 +164,8 @@ headingIcon:{
 logo:{
    marginTop:10,
    marginLeft:35,
-   width:80,
-   height:80,
+   width:50,
+   height:50,
 },
 logoText:{
    fontSize:13,
@@ -188,7 +188,8 @@ hairline: {
    width: 340,
    marginLeft: 15,
    marginBottom: 15
-},fullLine: {
+},
+fullLine: {
    backgroundColor: '#A2A2A2',
    height: 2,
    width: 500,
@@ -215,7 +216,7 @@ inputText:{
    width:100,
    marginLeft: 20,
    marginBottom:10,
-   borderRadius:"50%"
+   borderRadius:50
 },button:{
    width:80,
 },center:{

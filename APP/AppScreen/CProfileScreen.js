@@ -6,25 +6,10 @@ import AppColour from '../Components/AppColour';
 import AppIcon from '../Components/AppIcon';
 import AppProfile from '../Components/AppProfile';
 import AppText from '../Components/AppText';
-import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
-
-
-function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
-    const id= route.params.paramPatient
-    console.log("line13",id)
-
-    const patients= () => {
-        let commonData = DataManager.getInstance();
-         const userdetials = commonData.getPatient(id);
-     
-           return userdetials
-        }
-     
-         const pd=patients()
-         console.log("line102",pd)
-
+function CProfileScreen({navigation:{goBack},route}) {
+    const data= route.params.paramPatient
     return (
         <AppScreen>
         <View style={styles.heading}>
@@ -48,21 +33,10 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
 
        </View>   
 
-      <AppText style={styles.Title}>Personal Profiles</AppText>
+      <AppText style={styles.Title}>Carer's Profiles</AppText>
        <View style={styles.hairline} />
 
-        <AppProfile data={data[0]} onPress={()=>navigation.navigate("Emergency",{
-                                paramPatient: data
-                            })}
-                            onPress1={()=>navigation.navigate("MedicalHistory",{
-                                paramPatient: data.id
-                            })}
-                            onPress2={()=>navigation.navigate("Prescription",{
-                                paramPatient: data.id
-                            })}
-                            onPress3={()=>navigation.navigate("MedicalLog",{
-                                paramPatient: data.id
-                            })}/>
+        <AppProfile data={data} level={data.level}/>
 
               
       </AppScreen>
@@ -106,4 +80,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default PersonalProfileScreen;
+export default CProfileScreen;

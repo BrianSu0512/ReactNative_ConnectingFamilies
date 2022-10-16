@@ -42,8 +42,8 @@ function WelcomeScreen({navigation}) {
 }
 const styles = StyleSheet.create({
     logo:{
-        width:80,
-        height:80,
+        width:50,
+        height:50,
     },
     logoText:{
         fontSize:28,

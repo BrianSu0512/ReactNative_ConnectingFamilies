@@ -15,7 +15,7 @@ import AppScreen from './AppScreen';
 function MedicalLogScreen({route,navigation: { goBack },navigation}) {
     const patientid =route.params.paramPatient
 
-    console.log(patientid)
+    console.log("line18",patientid)
 
     const getPrescription = () => {
         let commonData = DataManager.getInstance();
@@ -30,7 +30,6 @@ function MedicalLogScreen({route,navigation: { goBack },navigation}) {
 
     let today = new Date();
     let date = today.getDate()+'/'+monthNames[today.getMonth()]+'/'+today.getFullYear();
-    console.log(date)
 
     return (
         <AppScreen>
@@ -92,8 +91,8 @@ const styles = StyleSheet.create({
     logo:{
         marginTop:10,
         marginLeft:30,
-        width:80,
-        height:80,
+        width:50,
+        height:50,
     },
     logoText:{
         fontSize:13,

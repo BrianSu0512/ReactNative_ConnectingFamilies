@@ -12,21 +12,34 @@ import AppScreen from './AppScreen';
 
 
 function MedicalHistoryScreen({route,navigation: { goBack },navigation}) {
-    const patientid =route.params.paramPatient.id
+    const patientid =route.params.paramPatient
 
-
+    console.log(route.params)
     const getMHisotry = () => {
-
         let commonData = DataManager.getInstance();
         let userHistory=commonData.getMHisotry(patientid);
         return userHistory;    
     }
 
+    const getlevel = () => {
+        let commonData = DataManager.getInstance();
+        let userid = commonData.getUserID();
+        let level=commonData.getLevel(userid);
+        return level;    
+    }
+const level =getlevel()
 
-    const newHistory=getMHisotry();
+
+    const history=getMHisotry();
+    console.log('line34',history)
 
 
-    const[history, setHistory] =  useState(newHistory);
+
+    const plus = level ==='Privilege Level 1' 
+    ? <></> 
+    : <TouchableOpacity onPress={()=>{navigation.navigate('AddHistory',{paramPatient:patientid})}}>
+        <AppIcon name="plus-circle-outline" size={40} style={{marginDown:10}}/>
+      </TouchableOpacity>
   
     return (
         <AppScreen>
@@ -50,25 +63,36 @@ function MedicalHistoryScreen({route,navigation: { goBack },navigation}) {
       </View>
 
        </View>   
-
-      <AppText style={styles.Title}>Medical Hisotry</AppText>
+        <View style={styles.rowcontainer}>
+        <AppText style={styles.Title}>Medical Hisotry</AppText>
+            {plus}
+        </View>
+     
        <View style={styles.hairline} />
 
-       <View style={styles.container}>
+
 
             <FlatList 
                 style={styles.list}
                 data={history}
                 keyExtractor={medicalHistories=>medicalHistories.pId.toString()}
                 renderItem={({item})=>
-                <AppMHisotry data={item} onPress={()=>navigation.navigate("Prescription",{
-                    paramPatient: item.id
-                })}/>
+                <AppMHisotry 
+                data={item} 
+                onPress={()=>navigation.navigate("Prescription",{
+                    paramPatient: item.pId,
+                    paramPatientid:item.id
+                })}
+                onPress1={()=>navigation.navigate('EditHistoryScreen',{
+                    paramPatient:item.pId,
+                    paramPatientid:item.id})}
+                />
             
             }
             />
+         
 
-</View> 
+
 
              
       </AppScreen>
@@ -98,6 +122,11 @@ const styles = StyleSheet.create({
         paddingLeft:5,
         fontStyle:'italic'
     },
+    rowcontainer:{
+        flexDirection:'row',
+        width:350,
+        justifyContent:'space-between'
+    },
     Title:{
         fontStyle:'italic',
         marginTop:5,
@@ -109,6 +138,7 @@ const styles = StyleSheet.create({
         height: 2,
         width: 340,
         marginLeft: 15
+
     }
 })
 export default MedicalHistoryScreen;
