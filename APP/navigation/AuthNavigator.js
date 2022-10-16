@@ -8,6 +8,9 @@ import SettingScreen from '../AppScreen/SettingScreen';
 import TabNavigator from './TabNavigator';
 import EditAccountScreen from '../AppScreen/EditAccountScreen';
 import ChangePasswordScreen from '../AppScreen/ChangePasswordScreen';
+import MTabNavigator from './MTabNavigator';
+
+import CProfileScreen from '../AppScreen/CProfileScreen';
 
 
 
@@ -22,7 +25,10 @@ const AuthNavigator = () => (
         <AppStack.Screen name="EditAcc" component={EditAccountScreen} options={{headerShown:false}}/>  
         <AppStack.Screen name="ChangePass" component={ChangePasswordScreen} options={{headerShown:false}}/>
         <AppStack.Screen name="Home" component={TabNavigator} options={{headerShown:false}}/> 
+        <AppStack.Screen name="MHome" component={MTabNavigator} options={{headerShown:false}}/> 
         <AppStack.Screen name="Setting" component={TabNavigator} options={{headerShown:false}}/> 
+
+        <AppStack.Screen name="CProfile" component={CProfileScreen} options={{headerShown:false}}/>
     </AppStack.Navigator>
 )
 
