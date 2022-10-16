@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         borderColor:'black',
         borderWidth:2,
         marginTop:20,
-        marginLeft:30
+        marginLeft:22
  
     },
     rowcontainer:{

@@ -6,14 +6,23 @@ import AppColour from '../Components/AppColour';
 import AppIcon from '../Components/AppIcon';
 import AppText from '../Components/AppText';
 
-function AppMHisotry({data,onPress}) {
+function AppMHisotry({data,onPress,onPress1}) {
     
     return (
         
        <View style={styles.container}>
         <TouchableOpacity onPress={onPress}>
-        <AppText style={styles.subtitle}>Pathogenic diagnosis</AppText>
-             <AppText style={styles.title}>{data.diagnosis}</AppText>
+            <View style={styles.rowcontainer}>
+            <View>
+            <AppText style={styles.subtitle}>Pathogenic diagnosis</AppText>
+            <AppText style={styles.title}>{data.diagnosis}</AppText>
+            </View>
+            <TouchableOpacity onPress={onPress1}>
+            <AppIcon name="pencil-outline" size={20} style={{marginDown:10}}/>
+            </TouchableOpacity>
+            </View>
+            
+        
              <View style={styles.rowcontainer}>
             <View style={styles.rowcontainer}>
             <AppText style={styles.subtitle}>Date: </AppText>

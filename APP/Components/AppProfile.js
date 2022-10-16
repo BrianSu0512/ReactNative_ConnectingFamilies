@@ -6,63 +6,105 @@ import AppColour from '../Components/AppColour';
 import AppIcon from '../Components/AppIcon';
 import AppText from '../Components/AppText';
 
-function AppProfile({data,onPress,onPress1,onPress2,onPress3}) {
+function AppProfile({data,onPress,onPress1,onPress2,onPress3,level}) {
+
+    const profile= level==='Privilege Level 1'
+    ?   <View>
+
+    <View style={styles.rowcontainer}>
+    
+            {data.image && <Image source={data.image} style={styles.picture}/>}
+    
+
+           </View>
+    
+           <View style={styles.contentcontainer}>
+           <View style={styles.culumncontainer}>
+            <AppText style={styles.subtitle}>Age</AppText>
+            <AppText style={styles.subtitle}>Gender</AppText>
+            <AppText style={styles.subtitle}>Blood Type</AppText>
+            <AppText style={styles.subtitle}>Date of Birth</AppText>
+            <AppText style={styles.subtitle}>Phone number</AppText>
+           </View>
+           <View style={styles.culumncontainer}>
+            <AppText style={styles.text}>{data.age}</AppText>
+            <View style={styles.line} />
+            <AppText style={styles.text}>{data.gender}</AppText>
+            <View style={styles.line} />
+            <AppText style={styles.text}>{data.bloodType}</AppText>
+            <View style={styles.line} />
+            <AppText style={styles.text}>{data.dob}</AppText>
+            <View style={styles.line} />
+            <AppText style={styles.text}>{data.phone}</AppText>
+            <View style={styles.line} />
+           </View>
+           </View>
+            
+            <View style={styles.botttomcontainer}>
+            <AppText style={styles.subtitle}>Privilege Level</AppText>
+           <AppText style={styles.text}>{data.level}</AppText>
+           <View style={styles.line1} />
+            </View>
+         </View>
+    :     <View>
+
+    <View style={styles.rowcontainer}>
+    
+            {data.image && <Image source={data.image} style={styles.picture}/>}
+    
+            <View style={styles.culumncontainer}>
+            <View style={styles.buttoncontainer}>
+            <AppIcon style={styles.buttonicon} name="folder-multiple-plus-outline" size={20} />
+            <AppButton style={styles.buttonText} style1={styles.buttonText} title="Medical History" onPress={onPress1}/>
+            </View>
+            <View style={styles.buttoncontainer}>
+            <AppIcon  style={styles.buttonicon} name="file-sign" size={20} />
+            <AppButton style={styles.buttonText} style1={styles.buttonText} title="Prescription" onPress={onPress2}/>
+            </View>
+            <View style={styles.buttoncontainer}>
+            <AppIcon style={styles.buttonicon} name="calendar-edit" size={20} />
+            <AppButton style={styles.buttonText}style1={styles.buttonText} title="Medication Log" onPress={onPress3}/>
+            </View>
+            </View>
+           </View>
+    
+           <View style={styles.contentcontainer}>
+           <View style={styles.culumncontainer}>
+            <AppText style={styles.subtitle}>Age</AppText>
+            <AppText style={styles.subtitle}>Gender</AppText>
+            <AppText style={styles.subtitle}>Blood Type</AppText>
+            <AppText style={styles.subtitle}>Date of Birth</AppText>
+            <AppText style={styles.subtitle}>Phone number</AppText>
+           </View>
+           <View style={styles.culumncontainer}>
+            <AppText style={styles.text}>{data.age}</AppText>
+            <View style={styles.line} />
+            <AppText style={styles.text}>{data.gender}</AppText>
+            <View style={styles.line} />
+            <AppText style={styles.text}>{data.bloodType}</AppText>
+            <View style={styles.line} />
+            <AppText style={styles.text}>{data.dob}</AppText>
+            <View style={styles.line} />
+            <AppText style={styles.text}>{data.phone}</AppText>
+            <View style={styles.line} />
+           </View>
+           </View>
+            
+            <View style={styles.botttomcontainer}>
+            <AppText style={styles.subtitle}>Address</AppText>
+           <AppText style={styles.text}>{data.address}</AppText>
+           <View style={styles.line1} />
+            </View>
+    
+            <View style={styles.emergencyButton} >
+            <AppButton title="Emergency Contact" 
+            onPress={onPress}/>
+            </View>
+         </View>
     return (
-     <View>
-
-<View style={styles.rowcontainer}>
-
-        {data.image && <Image source={data.image} style={styles.picture}/>}
-
-        <View style={styles.culumncontainer}>
-        <View style={styles.buttoncontainer}>
-        <AppIcon style={styles.buttonicon} name="folder-multiple-plus-outline" size={20} />
-        <AppButton style={styles.buttonText} style1={styles.buttonText} title="Medical History" onPress={onPress1}/>
+        <View>
+            {profile}
         </View>
-        <View style={styles.buttoncontainer}>
-        <AppIcon  style={styles.buttonicon} name="file-sign" size={20} />
-        <AppButton style={styles.buttonText} style1={styles.buttonText} title="Prescription" onPress={onPress2}/>
-        </View>
-        <View style={styles.buttoncontainer}>
-        <AppIcon style={styles.buttonicon} name="calendar-edit" size={20} />
-        <AppButton style={styles.buttonText}style1={styles.buttonText} title="Medication Log" onPress={onPress3}/>
-        </View>
-        </View>
-       </View>
-
-       <View style={styles.contentcontainer}>
-       <View style={styles.culumncontainer}>
-        <AppText style={styles.subtitle}>Age</AppText>
-        <AppText style={styles.subtitle}>Gender</AppText>
-        <AppText style={styles.subtitle}>Blood Type</AppText>
-        <AppText style={styles.subtitle}>Date of Birth</AppText>
-        <AppText style={styles.subtitle}>Phone number</AppText>
-       </View>
-       <View style={styles.culumncontainer}>
-        <AppText style={styles.text}>{data.age}</AppText>
-        <View style={styles.line} />
-        <AppText style={styles.text}>{data.gender}</AppText>
-        <View style={styles.line} />
-        <AppText style={styles.text}>{data.bloodType}</AppText>
-        <View style={styles.line} />
-        <AppText style={styles.text}>{data.dob}</AppText>
-        <View style={styles.line} />
-        <AppText style={styles.text}>{data.phone}</AppText>
-        <View style={styles.line} />
-       </View>
-       </View>
-        
-        <View style={styles.botttomcontainer}>
-        <AppText style={styles.subtitle}>Address</AppText>
-       <AppText style={styles.text}>{data.address}</AppText>
-       <View style={styles.line1} />
-        </View>
-
-        <View style={styles.emergencyButton} >
-        <AppButton title="Emergency Contact" 
-        onPress={onPress}/>
-        </View>
-     </View>
     
        
     );
