@@ -139,11 +139,15 @@ function EditPrescriptionScreen({route,navigation: { goBack },navigation}) {
         value={routee}
         onChangeText={(inputText) => setRoutee(inputText)}/>
 
+        <View style={styles.fullLine} />
+
         <AppText style={styles.subheading}>Frequency</AppText>
         <TextInput 
         style={styles.inputText}
         value={frequency}
         onChangeText={(inputText) => setFrequency(inputText)}/>
+
+         <View style={styles.fullLine} />
 
         <AppText style={styles.subheading}>Note</AppText>
         <TextInput 
@@ -238,7 +242,6 @@ const styles = StyleSheet.create({
      },center:{
         justifyContent:'center',
         alignItems:'center',
-        marginTop:20
      }
      
      })

@@ -44,7 +44,6 @@ function AppListItem({image, title, subtitle,thirdtitle,IconComponent, icon, onP
 const styles = StyleSheet.create({
     container:{
         flexDirection:"row",
-        padding:10,
         justifyContent:'space-between'
     },
     image:{

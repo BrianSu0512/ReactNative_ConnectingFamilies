@@ -36,7 +36,7 @@ function CProfileScreen({navigation:{goBack},route}) {
       <AppText style={styles.Title}>Carer's Profiles</AppText>
        <View style={styles.hairline} />
 
-        <AppProfile data={data} title={data.name} level={data.level}/>
+        <AppProfile data={data} title={data.name} subtitle={data.email} thirdtitle={data.phone} level={data.level}/>
 
               
       </AppScreen>
