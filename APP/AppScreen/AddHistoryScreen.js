@@ -111,7 +111,7 @@ function AddHistoryScreen({route,navigation: { goBack },navigation}) {
            </View>
      
    </View>
-   <AppText style={styles.Title}>Add History</AppText>
+   <AppText style={styles.Title}>Add Histroy</AppText>
    <View style={styles.hairline} />
 
    <AppText style={styles.subheading}>Diagnosis</AppText>

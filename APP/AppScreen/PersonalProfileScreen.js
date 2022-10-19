@@ -15,6 +15,8 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
     const id= route.params.paramPatient
     console.log("line13",id)
 
+   
+
     const patients= () => {
         let commonData = DataManager.getInstance();
          const userdetials = commonData.getPatient(id);
@@ -23,6 +25,8 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
         }
      
          const data=patients()
+
+   
 
     return (
         <AppScreen>
@@ -38,7 +42,6 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
           
       </TouchableOpacity>
 
-
  
       <View>
           <Image source={require("../assets/logo.jpg")} style={styles.logo}/>
@@ -51,7 +54,7 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
        <View style={styles.hairline} />
 
         <AppProfile data={data[0]} onPress={()=>navigation.navigate("Emergency",{
-                                paramPatient: data
+                                paramPatient: data[0]
                             })}
                             onPress1={()=>navigation.navigate("MedicalHistory",{
                                 paramPatient: data[0].id

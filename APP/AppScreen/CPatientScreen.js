@@ -34,7 +34,7 @@ console.log("ther",route.params.paramCarer)
         const history=getMHisotry();
 
 
-        const[patients, setPatients] =  useState(newpatients);
+        const patients=newpatients;
  
     return (
        <AppScreen>

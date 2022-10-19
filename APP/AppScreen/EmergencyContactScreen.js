@@ -8,12 +8,31 @@ import AppIcon from '../Components/AppIcon';
 import AppListItem from '../Components/AppListItem';
 import AppText from '../Components/AppText';
 import AppScreen from './AppScreen';
+import DataManager from '../config/DataManager';
 
 
 
 function EmergencyContactScreen({navigation: { goBack },navigation,route}) {
-    console.log("Line10",route)
+    console.log("Line10",route.params.paramPatient)
     const data= route.params.paramPatient
+    const getlevel = () => {
+        let commonData = DataManager.getInstance();
+        let userid = commonData.getUserID();
+        let level=commonData.getLevel(userid);
+        return level;    
+    }
+    const level =getlevel()
+
+    const pencil = level === 'Privilege Level 1' 
+    ? <></> 
+    : <TouchableOpacity onPress={()=>navigation.navigate("EditProfile", {paramPersonalData:data})} >
+         <AppIcon
+         name="pencil"
+         size={35}
+         style={[styles.headingIcon,{ marginTop:25, height:80}]}
+     />
+     
+    </TouchableOpacity>
     return (
         <AppScreen>
         <View style={styles.heading}>
@@ -34,6 +53,8 @@ function EmergencyContactScreen({navigation: { goBack },navigation,route}) {
           <Image source={require("../assets/logo.jpg")} style={styles.logo}/>
           <AppText style={styles.logoText}>Connecting Families</AppText>
       </View>
+
+      {pencil}
 
        </View>   
 
@@ -56,7 +77,7 @@ function EmergencyContactScreen({navigation: { goBack },navigation,route}) {
 const styles = StyleSheet.create({
     heading:{
         flexDirection:"row",
-        width:240,
+        width:350,
         paddingTop:10,
         justifyContent:'space-between',
         

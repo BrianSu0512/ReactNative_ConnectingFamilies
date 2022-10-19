@@ -14,7 +14,7 @@ import EditProfileScreen from '../AppScreen/EditProfileScreen';
 import AddHistoryScreen from '../AppScreen/AddHistoryScreen';
 import EditHistoryScreen from '../AppScreen/EditHistoryScreen';
 import AddPrescriptionScreen from '../AppScreen/AddPrescription';
-
+import EditPrescriptionScreen from '../AppScreen/EditPrescription';
 
 
 
@@ -29,6 +29,7 @@ const HomeNavigator = () => (
         <AppStack.Screen name="MPersonalProfile" component={MPersonalProfileScreen} options={{headerShown:false}}/>
         <AppStack.Screen name="EditProfile" component={EditProfileScreen} options={{headerShown:false}}/>
         <AppStack.Screen name="EditHistoryScreen" component={EditHistoryScreen} options={{headerShown:false}}/>
+        <AppStack.Screen name="EditPrescription" component={EditPrescriptionScreen} options={{headerShown:false}}/>
         <AppStack.Screen name="CPatient" component={CPatientScreen} options={{headerShown:false}}/>
         <AppStack.Screen name="AddHistory" component={AddHistoryScreen} options={{headerShown:false}}/>
         <AppStack.Screen name="AddPrescription" component={AddPrescriptionScreen} options={{headerShown:false}}/>

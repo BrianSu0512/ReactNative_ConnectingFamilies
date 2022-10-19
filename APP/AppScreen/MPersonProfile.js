@@ -51,7 +51,7 @@ function MPersonalProfileScreen({navigation: { goBack },navigation,route}) {
           style={[styles.headingIcon,{ marginTop:25}]}
       />
       
-  </TouchableOpacity>
+     </TouchableOpacity>
 
        </View>   
 
@@ -59,7 +59,7 @@ function MPersonalProfileScreen({navigation: { goBack },navigation,route}) {
        <View style={styles.hairline} />
 
         <AppProfile data={data[0]} onPress={()=>navigation.navigate("Emergency",{
-                                paramPatient: data
+                                paramPatient: data[0]
                             })}
                             onPress1={()=>navigation.navigate("MedicalHistory",{
                                 paramPatient: data[0].id

@@ -242,8 +242,12 @@ export default class DataManager  {
         return this.medicalHistories.splice(history.pId-1,1,history)
     }
 
-    getPrescription(id){
-        return this.Prescriptions.filter((p)=> p.pId === id);
+    getPrescription(pid){
+        return this.Prescriptions.filter((p)=> p.pId === pid);
+    }
+
+    getSpecificPres(id){
+        return this.Prescriptions.filter((p)=> p.id === id);
     }
 
     addHistory(history){
@@ -255,6 +259,9 @@ export default class DataManager  {
         this.Prescriptions.push(prescription);
     }
 
+    editPrescription(prescription){
+        return this.Prescriptions.splice(prescription.id-1,1,prescription)
+    }
 
    
 }

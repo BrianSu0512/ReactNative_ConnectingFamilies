@@ -8,6 +8,7 @@ import AppListItem from './AppListItem';
 import AppText from './AppText';
 
 function AppEContact({data}) {
+    console.log(data)
     return (
         <View>
                    <View style={styles.profileContainer}>

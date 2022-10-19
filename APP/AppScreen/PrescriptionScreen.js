@@ -1,5 +1,5 @@
 import React , {useState} from 'react';
-import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image,SectionList } from 'react-native';
+import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image, Animated} from 'react-native';
 import { date } from 'yup';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
@@ -10,6 +10,8 @@ import AppProfile from '../Components/AppProfile';
 import AppText from '../Components/AppText';
 import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
+
+import Swipeable from 'react-native-gesture-handler/Swipeable'
 
 
 function PrescriptionScreen({route,navigation: { goBack },navigation}) {
@@ -45,13 +47,50 @@ console.log("tttt",history)
 
     const prescription=getPrescription();
 
+    console.log("tttt",prescription)
+
     const plus = level ==='Privilege Level 1' 
     ? <></> 
     : <TouchableOpacity onPress={()=>{navigation.navigate('AddPrescription',{paramPatient:patientid})}}>
         <AppIcon name="plus-circle-outline" size={40} style={{marginDown:10}}/>
       </TouchableOpacity>
   
-
+  const RightActions = (progress, dragX) => {
+    const scale = dragX.interpolate({
+      inputRange: [-100, 0],
+      outputRange: [0.7, 0]
+    })
+    return (
+      <>
+        <View style={{ justifyContent: 'center' }}>
+          <Animated.View
+            style={{
+              color: 'white',
+              paddingHorizontal: 10,
+              fontWeight: '600',
+              transform: [{ scale }]
+            }}>
+             <TouchableOpacity>
+                    <AppIcon name="trash-can" size={50} style={{height:80,}}/> 
+            </TouchableOpacity>
+          </Animated.View>
+        </View>
+        <View style={{justifyContent: 'center' }}>
+        <Animated.View
+            style={{
+              color: 'white',
+              paddingHorizontal: 10,
+              fontWeight: '600',
+              transform: [{ scale }]
+            }}>
+             <TouchableOpacity>
+                    <AppIcon name="pencil" size={40} style={{height:80,}}/> 
+            </TouchableOpacity>
+          </Animated.View>
+      </View>
+    </>
+  )
+ }
  
     return (
         <AppScreen>
@@ -77,7 +116,9 @@ console.log("tttt",history)
        </View>   
 
        <View style={styles.rowcontainer}>
+       <Swipeable renderRightActions={RightActions}>
         <AppText style={styles.Title}>Medical Prescription</AppText>
+        </Swipeable>
             {plus}
         </View>
        <View style={styles.hairline} />
@@ -87,6 +128,7 @@ console.log("tttt",history)
             data={prescription}
             keyExtractor={Prescriptions=>Prescriptions.id.toString()}
             renderItem={({item})=>
+ 
             <AppPrescription 
             prescription={item} 
             history={history} 
@@ -95,14 +137,51 @@ console.log("tttt",history)
             onPress1={()=>navigation.navigate('EditHistoryScreen',{
                 paramPatient:item.pId,
                 paramPatientid:item.id})}
-            onSwipeLeft={() => (
-                <View style={styles.deleteView}>
-                    <TouchableOpacity onPress={() => handleDelete(item)}>
-                        <AppIcon name="trash-can" size={50} style={{marginTop:40,height:80,}}/> 
-                    </TouchableOpacity>
-                </View>)}/>
+            
+            onSwipeLeft={(progress, dragX) => {
+                const scale = dragX.interpolate({
+                  inputRange: [-100, 0],
+                  outputRange: [0.7, 0]
+                })
+                return (
+                  <>
+                    <View style={{ justifyContent: 'center' }}>
+                      <Animated.View
+                        style={{
+                          paddingHorizontal: 10,
+                          transform: [{ scale }]
+                        }}>
+                         <TouchableOpacity>
+                                <AppIcon name="trash-can" size={50} style={{height:80,}}/> 
+                        </TouchableOpacity>
+                      </Animated.View>
+                    </View>
+                    <View style={{justifyContent: 'center' }}>
+                    <Animated.View
+                        style={{
+                          paddingHorizontal: 10,
+                          transform: [{ scale }]
+                        }}>
+                         <TouchableOpacity  onPress={()=>navigation.navigate('EditPrescription',{
+                                                paramPatient:item.pId,
+                                                paramPatientid:item.id})}>
+                                <AppIcon name="pencil" size={40} style={{height:80,}}/> 
+                        </TouchableOpacity>
+                      </Animated.View>
+                  </View>
+                </>
+              )
+             }}
+            />
+         
+               
+          
         }
         />
+
+
+
+ 
 
       
 

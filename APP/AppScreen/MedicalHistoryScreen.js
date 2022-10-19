@@ -64,7 +64,7 @@ const level =getlevel()
 
        </View>   
         <View style={styles.rowcontainer}>
-        <AppText style={styles.Title}>Medical Hisotry</AppText>
+        <AppText style={styles.Title}>Medical History</AppText>
             {plus}
         </View>
      

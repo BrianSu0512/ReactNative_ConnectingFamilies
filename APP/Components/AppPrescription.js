@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image } from 'react-native';
+import { View,StyleSheet,TouchableOpacity, Animated } from 'react-native';
 import { date } from 'yup';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
@@ -8,7 +8,10 @@ import AppText from '../Components/AppText';
 import { Swipeable } from 'react-native-gesture-handler';
 
 function AppPrescription({prescription,history,onPress,onSwipeLeft,level}) {
+
     const contain= level==='Privilege Level 1'
+    
+
     ?<View style={styles.container}>
 
 <View style={styles.headcontainer}>
@@ -42,7 +45,7 @@ function AppPrescription({prescription,history,onPress,onSwipeLeft,level}) {
 
         <View style={styles.headcontainer}>
         <View style={styles.culumncontainer}>
-        <AppText style={styles.subtitle}>Medicine Name</AppText>
+        <AppText style={styles.subtitle}>Medicine fffName</AppText>
         <AppText style={styles.title}>{prescription.name}</AppText>
         </View>
         <TouchableOpacity onPress={onPress}>

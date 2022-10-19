@@ -11,7 +11,7 @@ import AppText from './AppText';
 function AppListItem({image, title, subtitle,thirdtitle,IconComponent, icon, onPress,onPress1, onSwipeLeft}) {
 
     const picture=image>0 ?<Image source={image} style={styles.image}/>
-    :<Image source={{uri: image}} style={styles.image}/>
+                        :<Image source={{uri: image}} style={styles.image}/>
 
     return (
         <Swipeable renderRightActions={onSwipeLeft}>

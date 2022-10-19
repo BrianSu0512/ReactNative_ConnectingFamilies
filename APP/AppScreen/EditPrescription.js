@@ -12,11 +12,14 @@ import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
 
-function EditHistoryScreen({route,navigation: { goBack },navigation}) {
+function EditPrescriptionScreen({route,navigation: { goBack },navigation}) {
     const pID =route.params.paramPatient
+    console.log('fsdf',pID)
 
 
     const id =route.params.paramPatientid
+
+    console.log('dsd',id)
 
    
 
@@ -38,7 +41,7 @@ function EditHistoryScreen({route,navigation: { goBack },navigation}) {
    
     const getPrescription = () => {
         let commonData = DataManager.getInstance();
-        let userPrescription=commonData.getPrescription(pID);
+        let userPrescription=commonData.getSpecificPres(id);
         return userPrescription;    
     }
 
@@ -46,43 +49,45 @@ function EditHistoryScreen({route,navigation: { goBack },navigation}) {
     const prescription=getPrescription();
    
 
-    const[diagnosis, setDiagnosis] = useState(history[0].diagnosis);
-    const[date, setDate]=useState(history[0].Date);
-    const[stopDate, setStopDate]=useState(history[0].StopDate);
+    const[name, setName] = useState(prescription[0].name);
+    const[dose, setDose]=useState(prescription[0].dose);
+    const[routee, setRoutee]=useState(prescription[0].route);
+    const[frequency, setFrequency]=useState(prescription[0].frequency);
+    const[note, setNote]=useState(prescription[0].note);
 
 
 
-
-    const[diagnosisError, setDiagnosisError]=useState("");
-    const[dateError, setDateError]=useState("");
+    const[nameError, setNameError]=useState("");
+    const[doseError, setDoseError]=useState("");
 
 
 
     const doErrorCheck = () => {
-        setDiagnosisError( diagnosis.length>0 ? "": "Please set a valid Caption");
-        setDateError(date.length>0 ? "": "Please set a valid Email");
+        setNameError( name.length>0 ? "": "Please set a Name");
+        setDoseError(dose.length>0 ? "": "Please set a valid Dose");
      
-        return ((diagnosis.length>0) && (date.length>0) )
+        return ((name.length>0) && (dose.length>0) )
     }
 
-    const addPrescription = () => {
+    const editPrescription = () => {
         let commonData = DataManager.getInstance();
-        const id = history[0].id
-        let hrecord = commonData.getMHisotry(id).length;
 
      
         const newdetial = {
             
             id:id,  
-            pId:hrecord,
-            diagnosis:diagnosis,
-            Date:date,
-            StopDate:stopDate,
+            pId:pID,
+            name:name,
+            dose:dose,
+            route:routee,
+            frequency:frequency,
+            note:note,
+            time:["6:00","12:00","18:00"]
         };
 
         
-        commonData.editHistory(newdetial);
-        let all = commonData.getMHisotry(id);
+        commonData.editPrescription(newdetial);
+        let all = commonData.getPrescription(pID);
         console.log("line show ", all)
         
 
@@ -109,37 +114,49 @@ function EditHistoryScreen({route,navigation: { goBack },navigation}) {
            </View>
      
    </View>
-   <AppText style={styles.Title}>Edit History</AppText>
+   <AppText style={styles.Title}>Edit Prescription</AppText>
    <View style={styles.hairline} />
 
-   <AppText style={styles.subheading}>Diagnosis</AppText>
+   <AppText style={styles.subheading}>name</AppText>
    <TextInput 
       style={styles.inputText}
-      value={diagnosis}
-      onChangeText={(inputText) => setDiagnosis(inputText)}/>
+      value={name}
+      onChangeText={(inputText) => setName(inputText)}/>
 
         <View style={styles.fullLine} />
 
-        <AppText style={styles.subheading}>Date</AppText>
+        <AppText style={styles.subheading}>Dose</AppText>
         <TextInput 
          style={styles.inputText}
-         value={date}
-         onChangeText={(inputText) => setDate(inputText)}/>
+         value={dose}
+         onChangeText={(inputText) => setDose(inputText)}/>
 
         <View style={styles.fullLine} />
 
-        <AppText style={styles.subheading}>Stop Date</AppText>
+        <AppText style={styles.subheading}>Route</AppText>
         <TextInput 
         style={styles.inputText}
-        value={stopDate}
-        onChangeText={(inputText) => setStopDate(inputText)}/>
+        value={routee}
+        onChangeText={(inputText) => setRoutee(inputText)}/>
+
+        <AppText style={styles.subheading}>Frequency</AppText>
+        <TextInput 
+        style={styles.inputText}
+        value={frequency}
+        onChangeText={(inputText) => setFrequency(inputText)}/>
+
+        <AppText style={styles.subheading}>Note</AppText>
+        <TextInput 
+        style={styles.inputText}
+        value={note}
+        onChangeText={(inputText) => setNote(inputText)}/>
 
       <View style={styles.fullLine} />
       <View style={styles.center}>
       <AppButton style={styles.button}title="Done" onPress={() => { 
                         if(doErrorCheck()){
-                            addPrescription();
-                            navigation.navigate('MedicalHistory',{paramPatient:id})
+                            editPrescription();
+                            navigation.navigate('Prescription',{paramPatient:id})
                         }
                      }}/>
       </View>
@@ -226,4 +243,4 @@ const styles = StyleSheet.create({
      
      })
 
-export default EditHistoryScreen;
+export default EditPrescriptionScreen;

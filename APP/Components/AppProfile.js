@@ -5,6 +5,9 @@ import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
 import AppIcon from '../Components/AppIcon';
 import AppText from '../Components/AppText';
+import AppListItem from './AppListItem';
+
+
 
 function AppProfile({data,onPress,onPress1,onPress2,onPress3,level}) {
 
@@ -12,10 +15,9 @@ function AppProfile({data,onPress,onPress1,onPress2,onPress3,level}) {
     ?   <View>
 
     <View style={styles.rowcontainer}>
-    
-            {data.image && <Image source={data.image} style={styles.picture}/>}
-    
 
+    
+            <AppListItem image={data.image} title={data.name}/>
            </View>
     
            <View style={styles.contentcontainer}>
@@ -50,7 +52,7 @@ function AppProfile({data,onPress,onPress1,onPress2,onPress3,level}) {
 
     <View style={styles.rowcontainer}>
     
-            {data.image && <Image source={data.image} style={styles.picture}/>}
+    <AppListItem image={data.image} title={data.name}/>
     
             <View style={styles.culumncontainer}>
             <View style={styles.buttoncontainer}>
