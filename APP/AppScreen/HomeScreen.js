@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React , {useEffect, useState} from 'react';
 import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image } from 'react-native';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
@@ -10,30 +10,16 @@ import AppCard from '../Components/AppCard';
 
 function HomeScreen({navigation,route}) {
 
-        const getPatients = () => {
-            let commonData = DataManager.getInstance();
-            let user = commonData.getUserID();
-            let userPatients=commonData.getPatients(user).filter((patient)=>patient.userid===user)
-            return userPatients;
-                
-        }
+    const [Patient, setPatient] = useState([]);
 
-        const newpatients=getPatients();
+    function getPatients(){
+        let commonData = DataManager.getInstance();
+        setPatient(commonData.patients)
+    }
 
-        const pId =newpatients.id
-
-
-        const getMHisotry = () => {
-            let commonData = DataManager.getInstance();
-            let userHistory=commonData.getMHisotry(pId);
-            return userHistory;    
-        }
-    
-    
-        const history=getMHisotry();
-
-
-        const[patients, setPatients] =  useState(newpatients);
+    useEffect(() =>{
+        getPatients();
+    });
  
     return (
        <AppScreen>
@@ -53,28 +39,26 @@ function HomeScreen({navigation,route}) {
             
                 <FlatList 
                     style={styles.list}
-                    data ={patients}
-                    keyExtractor = {patients => patients.id.toString()}
+                    data ={Patient}
+                    keyExtractor = {Patient => Patient.PatientID}
                     renderItem = {({item}) => 
                    
                     <AppCard
-                            name={item.name} 
-                            image={item.image}
-                            referTo={item.referTo}
-                            referredBy={item.referredBy}
-                            rNbNO={item.rNbNO}
-                            note={item.note}
+                            name={item.PatientName} 
+                            referTo={item.PatientReferTo}
+                            referredBy={item.PatientReferBy}
+                            rNbNO={item.PatientRoomNo}
                             onPress={()=>navigation.navigate("PersonalProfile",{
-                                paramPatient: item.id
+                                paramPatient: item
                             })}
                             onPress1={()=>navigation.navigate("MedicalHistory",{
-                                paramPatient: item.id
+                                paramPatient: item
                             })}
                             onPress2={()=>navigation.navigate("Prescription",{
-                                paramPatient: item.id
+                                paramPatient: item
                             })}
                             onPress3={()=>navigation.navigate("MedicalLog",{
-                                paramPatient: item.id
+                                paramPatient: item
                             })}
                             onSwipeLeft={() => (
                                 <View style={styles.deleteView}>

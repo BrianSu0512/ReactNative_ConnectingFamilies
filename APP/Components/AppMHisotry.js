@@ -5,9 +5,9 @@ import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
 import AppIcon from '../Components/AppIcon';
 import AppText from '../Components/AppText';
+import DataManager from '../config/DataManager';
 
 function AppMHisotry({data,onPress,onPress1}) {
-    
     return (
         
        <View style={styles.container}>
@@ -15,7 +15,7 @@ function AppMHisotry({data,onPress,onPress1}) {
             <View style={styles.rowcontainer}>
             <View>
             <AppText style={styles.subtitle}>Pathogenic diagnosis</AppText>
-            <AppText style={styles.title}>{data.diagnosis}</AppText>
+            <AppText style={styles.title}>{data.Diagnosis}</AppText>
             </View>
             <TouchableOpacity onPress={onPress1}>
             <AppIcon name="pencil-outline" size={20} style={{marginDown:10}}/>
@@ -26,11 +26,11 @@ function AppMHisotry({data,onPress,onPress1}) {
              <View style={styles.rowcontainer}>
             <View style={styles.rowcontainer}>
             <AppText style={styles.subtitle}>Date: </AppText>
-            <AppText style={styles.subtitle}>{data.Date}</AppText>
+            <AppText style={styles.subtitle}>{data.BeginDate}</AppText>
             </View>
             <View style={styles.rowcontainer}>
             <AppText style={styles.subtitle}>Referred By: </AppText>
-            <AppText style={styles.subtitle}>{data.StopDate}</AppText>
+            <AppText style={styles.subtitle}>{data.EndDate}</AppText>
             </View>
             </View>
         </TouchableOpacity>

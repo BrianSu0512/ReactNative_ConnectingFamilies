@@ -16,38 +16,25 @@ import Swipeable from 'react-native-gesture-handler/Swipeable'
 
 function PrescriptionScreen({route,navigation: { goBack },navigation}) {
 
-    
-    const pID =route.params.paramPatient
-    const patientid =route.params.paramPatient
-    console.log(patientid)
-  
+    const patient =route.params.paramPatient
+
     const getlevel = () => {
         let commonData = DataManager.getInstance();
         let userid = commonData.getUserID();
         let level=commonData.getLevel(userid);
         return level;    
     }
-const level =getlevel()
 
-  const getMHisotry = () => {
-    let commonData = DataManager.getInstance();
-    let userHistory=commonData.getMHisotry(pID);
-    return userHistory;    
-}
+    const level =getlevel()
 
-     const history =getMHisotry();
-    
-console.log("tttt",history)
     const getPrescription = () => {
         let commonData = DataManager.getInstance();
-        let userPrescription=commonData.getPrescription(pID);
+        let userPrescription=commonData.getPrescription(patient.PatientID);
         return userPrescription;    
     }
 
 
     const prescription=getPrescription();
-
-    console.log("tttt",prescription)
 
     const plus = level ==='Privilege Level 1' 
     ? <></> 
@@ -126,7 +113,7 @@ console.log("tttt",history)
         <FlatList
             style={styles.list}
             data={prescription}
-            keyExtractor={Prescriptions=>Prescriptions.id.toString()}
+            keyExtractor={Prescriptions=>Prescriptions.PrescripID}
             renderItem={({item})=>
  
             <AppPrescription 

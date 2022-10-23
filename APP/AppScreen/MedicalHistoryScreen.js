@@ -12,13 +12,12 @@ import AppScreen from './AppScreen';
 
 
 function MedicalHistoryScreen({route,navigation: { goBack },navigation}) {
-    const patientid =route.params.paramPatient
+    const patientData =route.params.paramPatient
 
-    console.log(route.params)
     const getMHisotry = () => {
         let commonData = DataManager.getInstance();
-        let userHistory=commonData.getMHisotry(patientid);
-        return userHistory;    
+        let userHistory=commonData.getHistory(patientData.PatientID);
+        return userHistory;  
     }
 
     const getlevel = () => {
@@ -27,14 +26,12 @@ function MedicalHistoryScreen({route,navigation: { goBack },navigation}) {
         let level=commonData.getLevel(userid);
         return level;    
     }
-const level =getlevel()
 
+    const level =getlevel()
 
     const history=getMHisotry();
-    console.log('line34',history)
 
-
-
+    //console.log(history)
     const plus = level ==='Privilege Level 1' 
     ? <></> 
     : <TouchableOpacity onPress={()=>{navigation.navigate('AddHistory',{paramPatient:patientid})}}>
@@ -55,8 +52,6 @@ const level =getlevel()
           
       </TouchableOpacity>
 
-
- 
       <View>
           <Image source={require("../assets/logo.jpg")} style={styles.logo}/>
           <AppText style={styles.logoText}>Connecting Families</AppText>
@@ -70,30 +65,24 @@ const level =getlevel()
      
        <View style={styles.hairline} />
 
-
-
             <FlatList 
                 style={styles.list}
                 data={history}
-                keyExtractor={medicalHistories=>medicalHistories.pId.toString()}
+                keyExtractor={medicalHistories=>medicalHistories.MedicHistID}
                 renderItem={({item})=>
                 <AppMHisotry 
                 data={item} 
                 onPress={()=>navigation.navigate("Prescription",{
-                    paramPatient: item.pId,
-                    paramPatientid:item.id
+                    paramPatient: item.PatientID,
+                    paramPatientid:item.PatientID
                 })}
                 onPress1={()=>navigation.navigate('EditHistoryScreen',{
-                    paramPatient:item.pId,
-                    paramPatientid:item.id})}
+                    paramPatient:item.PatientID,
+                    paramPatientid:item.PatientID})}
                 />
             
             }
             />
-         
-
-
-
              
       </AppScreen>
     );

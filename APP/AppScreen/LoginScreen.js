@@ -21,27 +21,58 @@ const schema = Yup.object().shape(
 
 function LoginScreen({navigation, props}) {
 
-    const getUsers=()=>{
-        let commonData=DataManager.getInstance();
-        return commonData.users;
-    }
-
-    const usersList=getUsers();
-
-    const validateUser = ({name,password})=>{
-        return(
-            usersList.filter((user) => user.name === name && user.password === password).length>0
-        );
-    }
-
-    const getUser = ({name}) => {
-        return usersList.find((user) => user.name === name );
-    }
-
-    const createUser = ({name}) => {
+    const validateUser = async ({name,password})=>{
+        const UserName = name;
+        const UserPassword = password;
         let commonData = DataManager.getInstance();
-        let userID = getUser({name}).id;
-        commonData.setUserID(userID);
+
+        var InsertAPIURL = "https://medidecks.homes/api/Login.php";
+    
+        var header={
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        };
+    
+        var Data={
+            userName: UserName,
+            userPass: UserPassword
+        };
+
+        const res = await fetch(InsertAPIURL,
+            {
+                method:'POST',
+                headers:header,
+                body: JSON.stringify(Data)
+            });
+        
+        const getData = await res.json();
+
+        if(getData != 'failed'){
+            await commonData.addCurUser(getData)
+            const curUser = commonData.getCurUser();
+            if(curUser.UserPriv == '1'){
+                await commonData.getPatient();
+                await commonData.getPatientData('GetPrescription');
+                commonData.getPatientData('GetHistory');
+                commonData.getPatientData('GetLog');
+                commonData.getPatientData('GetEmergency')
+                navigation.navigate({
+                    name: 'Home',
+                })
+            }else if(curUser.UserPriv == '2'){
+                await commonData.getPatients();
+                await commonData.getPatientData('GetPrescription');
+                commonData.getPatientData('GetHistory');
+                commonData.getPatientData('GetLog');
+                commonData.getPatientData('GetEmergency')
+                navigation.navigate({
+                    name: 'MHome',
+                })
+            }
+            
+        }else{
+            alert("Wrong detail");
+        }
     }
 
     return (
@@ -68,42 +99,8 @@ function LoginScreen({navigation, props}) {
         <Formik
                     initialValues={{name:'', password:'',}}
                     onSubmit = {(values, {resetForm})=> {
-                        console.log(getUser(values))
-                                const userLevel=getUser(values).level
-                            if(validateUser(values)){   
-                                if(userLevel==='Privilege Level 1'){
-                                    resetForm();
-                                    createUser(values);
-                                    navigation.navigate("Home",{
-                                        screen:"Home",
-                                        params: {
-                                            paramId: getUser(values).id
-                                         
-                                        }
-                                      
-                                    }
-                                        );
-                                }else{
-                                    console.log("level 2")
-                                    resetForm();
-                                    createUser(values);
-                                    navigation.navigate("MHome",{
-                                        screen:"Home",
-                                        params: {
-                                            screen:"MHome",
-                                            paramId: getUser(values).id
-                                         
-                                        }
-                                      
-                                    }
-                                        );
-                                }
-                               
-                            }
-                            else{
-                                resetForm();
-                                alert("Invalid Login Details")
-                            }
+                        validateUser(values)
+                        resetForm();
                         }}
                     validationSchema={schema}
                     >

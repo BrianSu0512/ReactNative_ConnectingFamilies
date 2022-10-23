@@ -1,176 +1,18 @@
+import { TouchableWithoutFeedbackBase } from 'react-native';
+
 export default class DataManager  {
     static myInstance = null;
-    userID = "";
 
-    patients =[
-        {
-            userid: "user1",
-            id:1,
-            name:"Lucas",
-            age:"24",
-            gender:"Male",
-            bloodType:"B type",
-            dob:"27/09/2000",
-            phone:"0412345678",
-            address:"123 A Street Sydney 2000",
-            referTo:"AP",
-            referredBy:"Dr. Tyson",
-            rNbNO:"room 104",
-            note:"take the pills three times per day",
-            image:require("../assets/Patient.png"),
-            eName:"Tim",
-            relationship:"Aunt",
-            ePhone:"0423456789",
-            eAddress:"888 B Street Sydney 2000"
-        },
-        {
-        
-                userid: "user1",
-                id:2,
-                name:"Tme",
-                age:"20",
-                gender:"Male",
-                bloodType:"B type",
-                dob:"27/09/2000",
-                phone:"0412345678",
-                address:"123 A Street Sydney 2000",
-                referTo:"AP",
-                referredBy:"Dr. Tyson",
-                rNbNO:"room 104",
-                note:"take the pills three times per day",
-                image:require("../assets/Patient.png"),
-            
-        },
-        {
-        
-                userid: "user2",
-                id:3,
-                name:"Vivid",
-                age:"20",
-                gender:"Female",
-                bloodType:"AB type",
-                dob:"27/09/2010",
-                phone:"0412345678",
-                address:"999 X Street Sydney 2000",
-                referTo:"AP",
-                referredBy:"Dr. Steve",
-                rNbNO:"room 220",
-                note:"take the pills three times per day",
-                image:require("../assets/Patient.png"),
-            
-        }
-        
-    ]
+    patients = [];
 
-    medicalHistories=[{
-              id:1,  
-              pId:1,
-              diagnosis:"Covid-19",
-              Date:"12/03/2019",
-              StopDate:"10/06/2019"
-            },
-            {
-                id:1,  
-                pId:2,
-                diagnosis:"High Blood Pressure",
-                Date:"12/09/2018",
-                StopDate:"10/10/2018"
-            },
-              {
-                id:1,  
-                pId:3,
-                diagnosis:"Coughing",
-                Date:"22/01/2018",
-                StopDate:"10/04/2018"
-            },
-            {
-                id:2,  
-                pId:1,
-                diagnosis:"Covid-19",
-                Date:"12/03/2019",
-                StopDate:"10/06/2019"
-              },
-        ]
+    medicalHistories=[];
     
-    Prescriptions=[
-        {
-            id:1,
-            pId:1,
-            name:"Panadol",
-            dose:"100mg",
-            route:"PO",
-            frequency:"TDS",
-            note:"Forget to take the medicine",
-            time:["6:00","12:00","18:00"],
-        },
-        {
-            id:2,
-            pId:1,
-            name:"Amoxicillin",
-            dose:"80mg",
-            route:"PO",
-            frequency:"TDS",
-            note:"Forget to take the medicine",
-            time:["6:00","11:00","18:00"],
-        },
-        {
-            id:3,
-            pId:1,
-            name:"Abilify",
-            dose:"50mg",
-            route:"PO",
-            frequency:"TDS",
-            note:"Forget to take the medicine",
-            time:["7:00","12:00","19:00"],
-        }
-    ]
+    Prescriptions=[];
 
-    users = [
-        {
-            id: "user1",
-            name:"B",
-            phone:"0412345678",
-            level:"Privilege Level 1",
-            email: "b@gmail.com",
-            password: "1234",
-            age:22,
-            gender:"Female",
-            bloodType:"B type",
-            dob:"27/03/2000",
-            phone:"0467867867",
-            image: require('../assets/Carer.png'),
-        },
-        {
-            id: "user2",
-            name:"Jon Snow",
-            phone:"0412345678",
-            email: "j@gmail.com",
-            level:"Privilege Level 1",
-            password: "2345",
-            age:20,
-            gender:"Male",
-            bloodType:"B type",
-            dob:"20/07/2002",
-            phone:"04567856789",
-            image: require('../assets/Carer.png'),
-            
-        },
-        {
-            id: "user3",
-            name:"M",
-            phone:"04345678901",
-            email: "A@gmail.com",
-            level:"Privilege Level 2",
-            password: "1234",
-            age:28,
-            gender:"Male",
-            bloodType:"B type",
-            dob:"27/09/1992",
-            phone:"0412345678",
-            image: require('../assets/Carer.png'),
-            
-        },
-    ];
+    curUser = [];
+    allUsers = [];
+
+    emergencyC= [];
 
     static getInstance(){
         if(DataManager.myInstance==null){
@@ -180,28 +22,30 @@ export default class DataManager  {
     }
 
     getUserID(){
-        return this.userID;
+        return this.curUser[0].UserID;
     }
 
-    setUserID(id){
-        this.userID = id;
-    }
     getAllPatients(){
         return this.patients;
     }
-    getPatients(userid){
-        return this.patients.filter((patient)=> patient.userid === userid);
-    }
+
     getPatient(id){
-        return this.patients.filter((patient)=> patient.id === id);
+        return this.patients.filter((patient)=> patient.PatientID === id);
     }
 
     addPatient(patient){
         this.patients.push(patient);
     }
 
+    addPrescript(prescript){
+        this.Prescriptions.push(prescript)
+    }
+
+    addHistory(history){
+        this.medicalHistories.push(history)
+    }
+
     editPatient(patient){
-        console.log("line 87",patient.id-1)
         return this.patients.splice(patient.id-1,1,patient)
     }
 
@@ -212,16 +56,27 @@ export default class DataManager  {
         
     }
 
-    getUser(id){
-        return this.users.filter((user)=> user.id === id);
+    reset(){
+        this.patients = [];
+        this.medicalHistories=[];
+        this.Prescriptions=[];
+        this.allUsers = [];
+        this.curUser = [];
+        this.prescriptLogs= [];
     }
 
-    addUser(user){
-        this.users.push(user);
+    addCurUser(user){
+        this.curUser.push(user);
     }
-    editUser(user){
-        return this.users.splice(user.id-1,1,user)
+
+    getCurUser(){
+        return this.curUser[0];
     }
+
+    addAllUser(user){
+        this.allUsers.push(user);
+    }
+
 
     getLevel(id){
         const user= this.users.filter((user)=> user.id === id)
@@ -235,6 +90,7 @@ export default class DataManager  {
     getMHisotry(id){
         return this.medicalHistories.filter((m)=> m.id === id);
     }
+    
     getHisotry(pid){
         return this.medicalHistories.filter((m)=> m.pId === pid);
     }
@@ -246,22 +102,111 @@ export default class DataManager  {
         return this.Prescriptions.filter((p)=> p.pId === pid);
     }
 
-    getSpecificPres(id){
-        return this.Prescriptions.filter((p)=> p.id === id);
+    getHistory(id){
+        return this.medicalHistories.filter((m)=> m.PatientID === id);
     }
 
-    addHistory(history){
-        console.log("line244",history)
-        this.medicalHistories.push(history);
-    }
-    addPrescription(prescription){
-        console.log("line244",prescription)
-        this.Prescriptions.push(prescription);
+    getPrescription(id){
+        return this.Prescriptions.filter((p)=> p.PatientID=== id);
     }
 
-    editPrescription(prescription){
-        return this.Prescriptions.splice(prescription.id-1,1,prescription)
+    addLog(log){
+        this.prescriptLogs.push(log)
     }
 
-   
+    getLog(){
+        return this.prescriptLogs;
+    }
+
+    addEmergency(contact){
+        this.emergencyC.push(contact)
+    }
+
+    getEmergency(id){
+        return this.emergencyC.filter((p)=> p.PatientID=== id);;
+    }
+
+
+    getLevel(userid){
+        var priv = '';
+        if(this.curUser[0].UserPriv == '1'){
+            priv = 'Privilege Level 1'
+        } else{
+            priv = 'Privilege Level 2'
+        }
+        return priv
+    }
+
+    async getPatient(){
+        var InsertAPIURL = "https://medidecks.homes/api/Patient.php";
+        
+        var header={
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        };
+    
+        var Data={
+            userID: this.curUser[0].UserID,
+            DataType: 'GetPatient'
+        };
+
+        const res = await fetch(InsertAPIURL, {
+            method:'POST',
+            headers:header,
+            body: JSON.stringify(Data)
+        });
+        const getData = await res.json();
+        for(var i =0; i < getData.length; i++){
+            this.addPatient(getData[i])
+        }
+    }
+
+    async getPatientData(Type){
+        var InsertAPIURL = "https://medidecks.homes/api/Patient.php";
+        
+        var header={
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        };
+    
+        var Data={
+            userID: this.curUser[0].UserID,
+            DataType: Type
+        };
+
+        const res = await fetch(InsertAPIURL, {
+            method:'POST',
+            headers:header,
+            body: JSON.stringify(Data)
+        });
+        const getData = await res.json();
+        var time = [];
+        var curID = '1';
+        if(getData.length>0){
+            for(var i =0; i < getData.length; i++){
+                if(Type == 'GetPrescription'){
+                    this.addPrescript(getData[i])
+                }else if(Type == 'GetHistory'){
+                    this.addHistory(getData[i])
+                }else if(Type =='GetEmergency'){
+                    this.addEmergency(getData[i])
+                }else if(Type == 'GetLog'){
+                    if(getData[i].PrescripID == curID){
+                        time.push(getData[i].MedicineTime)
+                    }else{
+                        this.Prescriptions.filter((p)=> p.PrescripID=== curID).time = time
+                        curID = getData[i].PrescripID
+                        time = [];
+                        time.push(getData[i].MedicineTime);
+
+                    }
+
+                    if(i == getData.length - 1){
+                        this.Prescriptions.filter((p)=> p.PrescripID=== curID).time = time
+                    }
+                }
+            }
+        }
+    }
+
 }

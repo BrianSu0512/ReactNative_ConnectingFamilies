@@ -52,7 +52,7 @@ function AppProfile({data,onPress,onPress1,onPress2,onPress3,level}) {
 
     <View style={styles.rowcontainer}>
     
-    <AppListItem image={data.image} title={data.name}/>
+    <AppListItem title={data.PatientName}/>
     
             <View style={styles.culumncontainer}>
             <View style={styles.buttoncontainer}>
@@ -79,22 +79,22 @@ function AppProfile({data,onPress,onPress1,onPress2,onPress3,level}) {
             <AppText style={styles.subtitle}>Phone number</AppText>
            </View>
            <View style={styles.culumncontainer}>
-            <AppText style={styles.text}>{data.age}</AppText>
+            <AppText style={styles.text}>{data.PatientAge}</AppText>
             <View style={styles.line} />
-            <AppText style={styles.text}>{data.gender}</AppText>
+            <AppText style={styles.text}>{data.PatientGender}</AppText>
             <View style={styles.line} />
-            <AppText style={styles.text}>{data.bloodType}</AppText>
+            <AppText style={styles.text}>{data.PatientBloodType}</AppText>
             <View style={styles.line} />
-            <AppText style={styles.text}>{data.dob}</AppText>
+            <AppText style={styles.text}>{data.PatientDOB}</AppText>
             <View style={styles.line} />
-            <AppText style={styles.text}>{data.phone}</AppText>
+            <AppText style={styles.text}>{data.PatientPH}</AppText>
             <View style={styles.line} />
            </View>
            </View>
             
             <View style={styles.botttomcontainer}>
             <AppText style={styles.subtitle}>Address</AppText>
-           <AppText style={styles.text}>{data.address}</AppText>
+           <AppText style={styles.text}>{data.PatientAddress}</AppText>
            <View style={styles.line1} />
             </View>
     

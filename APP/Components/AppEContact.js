@@ -6,13 +6,22 @@ import AppColour from './AppColour';
 import AppIcon from './AppIcon';
 import AppListItem from './AppListItem';
 import AppText from './AppText';
+import DataManager from '../config/DataManager';
+
 
 function AppEContact({data}) {
-    console.log(data)
+    const getEContact = () => {
+        let commonData = DataManager.getInstance();
+        let emergency = commonData.getEmergency(data);
+        return emergency[0];    
+    }
+
+    const EContact = getEContact();
+
     return (
         <View>
                    <View style={styles.profileContainer}>
-                    <AppListItem image={data.image} title={data.name} subtitle={data.gender} thirdtitle={data.phone} />
+                    <AppListItem title={EContact.EmergencyName} subtitle={EContact.EmergencyGender} thirdtitle={data.phone} />
         </View>
 
         <View style={styles.botttomcontainer}>
@@ -23,23 +32,26 @@ function AppEContact({data}) {
         <View style={styles.contentcontainer}>
        <View style={styles.culumncontainer}>
         <AppText style={styles.subtitle}>Name</AppText>
+        <AppText style={styles.subtitle}>Gender</AppText>
         <AppText style={styles.subtitle}>Relationship</AppText>
         <AppText style={styles.subtitle}>Phone</AppText>
     
        </View>
        <View style={styles.culumncontainer}>
-        <AppText style={styles.text}>{data.eName}</AppText>
+        <AppText style={styles.text}>{EContact.EmergencyName}</AppText>
         <View style={styles.line} />
-        <AppText style={styles.text}>{data.relationship}</AppText>
+        <AppText style={styles.text}>{EContact.EmergencyGender}</AppText>
         <View style={styles.line} />
-        <AppText style={styles.text}>{data.ePhone}</AppText>
+        <AppText style={styles.text}>{EContact.EmergencyRel}</AppText>
+        <View style={styles.line} />
+        <AppText style={styles.text}>{EContact.EmergencyPH}</AppText>
         <View style={styles.line} />
        </View>
        </View>
 
        <View style={styles.botttomcontainer}>
         <AppText style={styles.subtitle}>Address</AppText>
-       <AppText style={styles.text}>{data.eAddress}</AppText>
+       <AppText style={styles.text}>{EContact.EmergencyAddress}</AppText>
        <View style={styles.line1} />
         </View>
 

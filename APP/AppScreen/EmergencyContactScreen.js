@@ -13,14 +13,15 @@ import DataManager from '../config/DataManager';
 
 
 function EmergencyContactScreen({navigation: { goBack },navigation,route}) {
-    console.log("Line10",route.params.paramPatient)
     const data= route.params.paramPatient
+
     const getlevel = () => {
         let commonData = DataManager.getInstance();
         let userid = commonData.getUserID();
         let level=commonData.getLevel(userid);
         return level;    
     }
+
     const level =getlevel()
 
     const pencil = level === 'Privilege Level 1' 
@@ -65,11 +66,6 @@ function EmergencyContactScreen({navigation: { goBack },navigation,route}) {
 
      <AppEContact data={data}/>
 
-        
-        
-     
-
-              
       </AppScreen>
     );
 }
