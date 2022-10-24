@@ -1,4 +1,4 @@
-import { TouchableWithoutFeedbackBase } from 'react-native';
+import { Alert, TouchableWithoutFeedbackBase } from 'react-native';
 
 export default class DataManager  {
     static myInstance = null;
@@ -77,7 +77,6 @@ export default class DataManager  {
         this.allUsers.push(user);
     }
 
-
     getLevel(id){
         const user= this.users.filter((user)=> user.id === id)
         return user[0].level
@@ -137,6 +136,55 @@ export default class DataManager  {
         return priv
     }
 
+    async editAccount(data, types){
+        var InsertAPIURL = "https://medidecks.homes/api/Account.php";
+        
+        var header={
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        };
+
+        var Data={}
+        if(types == 'info'){
+            Data={
+                userName: data.name,
+                userEmail: data.email,
+                userPH: data.phone,
+                userID: data.id,
+                type: types
+            };
+        }else if(types == 'password'){
+            Data={
+                userPass: data.password,
+                userID: this.curUser[0].UserID,
+                type: types
+            };
+        }
+
+        const res = await fetch(InsertAPIURL, {
+            method:'POST',
+            headers:header,
+            body: JSON.stringify(Data)
+        });
+        const getData = await res.json();
+        if(getData == 'success'){
+            if(types == 'info'){
+                Alert.alert("Successfully edit account")
+                var currentUser = this.getCurUser();
+                currentUser.UserName = data.name;
+                currentUser.UserEmail = data.email;
+                currentUser.UserPH = data.phone;
+            }else if(types == 'password'){
+                Alert.alert("Successfully change password")
+                var currentUser = this.getCurUser();
+                currentUser.UserPass = data.password;
+            }
+            
+        }else{
+            Alert.alert("Failed to edit account")
+        }
+    }
+
     async getPatient(){
         var InsertAPIURL = "https://medidecks.homes/api/Patient.php";
         
@@ -156,8 +204,10 @@ export default class DataManager  {
             body: JSON.stringify(Data)
         });
         const getData = await res.json();
-        for(var i =0; i < getData.length; i++){
-            this.addPatient(getData[i])
+        if(getData.length>0 && getData != 'failed'){
+            for(var i =0; i < getData.length; i++){
+                this.addPatient(getData[i])
+            }
         }
     }
 
@@ -182,7 +232,7 @@ export default class DataManager  {
         const getData = await res.json();
         var time = [];
         var curID = '1';
-        if(getData.length>0){
+        if(getData.length>0 && getData != 'failed'){
             for(var i =0; i < getData.length; i++){
                 if(Type == 'GetPrescription'){
                     this.addPrescript(getData[i])

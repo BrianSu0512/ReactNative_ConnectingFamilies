@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+ import React,{useState} from 'react';
 import { View,StyleSheet,TouchableOpacity, Image,Alert,TextInput } from 'react-native';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
@@ -11,49 +11,30 @@ import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
 function ChangePasswordScreen({navigation,navigation: { goBack },route}) {
-    const data=[route.params.paramPersonalData];
+    const data=route.params.paramPersonalData;
 
     const[password, setPassword] = useState("");
     const[newPassword, setNewPassword]=useState("");
-    const[cpassword, setCPassord]=useState("");
+    const[cpassword, setCPassword]=useState("");
 
-
-
-    const[passwordError, setPassordError]=useState("");
-    const[newPasswordError, setNewPassordError]=useState("");
-    const[cpasswordError, setCPassordError]=useState("");
+    const[passwordError, setPasswordError]=useState("");
+    const[newPasswordError, setNewPasswordError]=useState("");
+    const[cpasswordError, setCPasswordError]=useState("");
  
 
     const doErrorCheck = () => {
-        setPassordError( password.length>0 ? "": "Please enter a valid current password");
-        setNewPassordError(newPassword.length>0 ? "": "Please enter a valid new password");
-        setCPassordError(cpassword.match(newPassword) ? "": "Password do NOT match");
+        setPasswordError( password.length>0 ? "": "Please enter the current password");
+        setNewPasswordError(newPassword.length>0 ? "": "Please enter a valid new password");
+        setCPasswordError(cpassword.match(newPassword) ? "": "Password do NOT match");
         return ((password.length>0) && (newPassword.length>0) && ((cpassword.match(newPassword)))? true: false)
     }
 
-    const editPersonal = () => {
-        let commonData = DataManager.getInstance();
-        let user = commonData.getUserID();
-
-        const id = data[0][0].id
-
-        const newdetial = {
-            
-            name:data[0][0].name,
-            email:data[0][0].email,
-            phone:data[0][0].phone,
-            id: id,
-            image: data[0][0].image,
+    const editPersonal = async () => {
+        commonData = DataManager.getInstance();
+        const newdetail = {      
             password:newPassword,
-            level:data[0][0].level
         };
-
-        
-        commonData.editUser(newdetial);
-        const userdetials = commonData.getUser(user);
-
-        console.log("line102",userdetials)
-
+        await commonData.editAccount(newdetail, 'password')
     }
 
     return (
@@ -109,7 +90,7 @@ function ChangePasswordScreen({navigation,navigation: { goBack },route}) {
 
         <View style={styles.fullLine} />
 
-        <AppText style={styles.subheading}>Confirm Password</AppText>
+        <AppText style={styles.subheading}>Confirm New Password</AppText>
         <TextInput 
         style={styles.inputText}
         value={cpassword}
@@ -118,14 +99,14 @@ function ChangePasswordScreen({navigation,navigation: { goBack },route}) {
        autoCorrect={false}
        keyboardType="password"
        textContentType="password"
-        onChangeText={(inputText) => setCPassord(inputText)}/>
+        onChangeText={(inputText) => setCPassword(inputText)}/>
         {cpasswordError.length>0 ? <AppText style={{margin:5, color:"red", fontSize:16}}>{cpasswordError}</AppText>: <></> }
 
       <View style={styles.fullLine} />
 
     <View style={styles.center}>
     <AppButton style={styles.button} title="Done" onPress={() => { 
-                        if(doErrorCheck()&& (password ===data[0][0].password)  ){
+                        if(doErrorCheck()&& (password ===data.UserPass)  ){
                             editPersonal();
                             navigation.navigate("Setting",{screen: "Setting"})
                         }

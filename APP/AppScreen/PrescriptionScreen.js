@@ -33,7 +33,6 @@ function PrescriptionScreen({route,navigation: { goBack },navigation}) {
         return userPrescription;    
     }
 
-
     const prescription=getPrescription();
 
     const plus = level ==='Privilege Level 1' 
@@ -118,7 +117,7 @@ function PrescriptionScreen({route,navigation: { goBack },navigation}) {
  
             <AppPrescription 
             prescription={item} 
-            history={history} 
+            //history={history} 
             level={level}
             onPress={()=>{navigation.navigate('MedicalLog',{paramPatient:item.pId})}}
             onPress1={()=>navigation.navigate('EditHistoryScreen',{

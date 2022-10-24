@@ -1,13 +1,57 @@
 import React from 'react';
-import { View,StyleSheet,TouchableOpacity, Image} from 'react-native';
+import { View,StyleSheet,TouchableOpacity, Alert, Image} from 'react-native';
 import AppButton from '../Components/AppButton';
 import AppIcon from '../Components/AppIcon';
 import AppInput from '../Components/AppIput';
 import AppText from '../Components/AppText';
 import AppTextInput from '../Components/AppTextInput';
 import AppScreen from './AppScreen';
+import { Formik } from 'formik';
+import * as Yup from 'yup'; 
+
+const schema = Yup.object().shape( 
+    {
+        email: Yup.string().required().label("Email"),
+        name: Yup.string().required().label("Name"),
+        password: Yup.string().required().min(4).max(8).label("Password"),
+        confirmPass: Yup.string().required().min(4).max(8).label("Confirm Password"),
+    }
+);
 
 function RegisterScreen({navigation, props}) {
+
+    const registerUser = async ({email,name,password}) => {
+        const UserEmail = email;
+        const UserName = name;
+        const UserPassword = password;
+
+        var InsertAPIURL = "https://medidecks.homes/api/Register.php";
+    
+        var header={
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        };
+    
+        var Data={
+            userEmail: UserEmail,
+            userName: UserName,
+            userPass: UserPassword
+        };
+
+        const res = await fetch(InsertAPIURL,
+            {
+                method:'POST',
+                headers:header,
+                body: JSON.stringify(Data)
+            });
+        
+        const getData = await res.json();
+        if(getData == 'success'){
+            Alert.alert("Account registered successfully")
+        }else{
+            Alert.alert("Failed to register account")
+        }
+    }
     return (
         <AppScreen>
              <View style={styles.heading}>
@@ -28,57 +72,99 @@ function RegisterScreen({navigation, props}) {
                 </View>
           
         </View>
-        <AppText style={styles.Title}>Register Form</AppText>
+        <Formik
+                    initialValues={{email:'', name:'', password:'', confirmPass:''}}
+                    onSubmit = {(values, {resetForm})=> {
+                        if(values.password != values.confirmPass){
+                            Alert.alert("Password and Confirm Password are not the same.")
+                        }else{
+                            registerUser(values)
+                        }
+                        resetForm();
+                        }}
+                    validationSchema={schema}
+                    >
+
+        {({values,handleChange, handleSubmit,errors, setFieldTouched, touched})=> (
+        <>
+
         <View style={styles.inputContainer}>
-        
             <View style={styles.inputContent}>
-            <AppText style={styles.subTitle}>User Name</AppText>
-                <AppInput
+                <AppTextInput
+                            icon="account-circle-outline"
+                            style={styles.inputStlye}
+                            autoCapitalize="none"
+                            placeholder="Email Address"
+                            keyboardType="email"
+                            textContentType="email"
+                            value={values.email}
+                            onBlur= {()=> setFieldTouched("email")}
+                            onChangeText = {handleChange("email")}
+                />
+                
+                </View>
+
+                <View style={styles.inputContent}>
+                <AppTextInput
+                            icon="account-circle-outline"
+                            style={styles.inputStlye}
+                            autoCapitalize="none"
                             placeholder="User Name"
                             keyboardType="name"
                             textContentType="username"
+                            value={values.name}
+                            onBlur= {()=> setFieldTouched("name")}
+                            onChangeText = {handleChange("name")}
                 />
                 
+                </View>
+
+            <View style={styles.inputContent}>
+                       
+                       <AppTextInput
+                           icon="lock"
+                           style={styles.inputStlye}
+                           autoCapitalize="none"
+                           secureTextEntry
+                           autoCorrect={false}
+                           placeholder="Password"
+                           keyboardType="password"
+                           textContentType="password"
+                           value={values.password}
+                           onBlur= {()=> setFieldTouched("password")}
+                           onChangeText = {handleChange("password")}
+                        />
             </View>
 
             <View style={styles.inputContent}>
-            <AppText style={styles.subTitle}>EMail</AppText>
-                <AppInput
-                            placeholder="Email"
-                            keyboardType="Email"
-                            textContentType="Email"
-                />
-                
+                       
+                       <AppTextInput
+                           icon="lock"
+                           style={styles.inputStlye}
+                           autoCapitalize="none"
+                           secureTextEntry
+                           autoCorrect={false}
+                           placeholder="Confirm Password"
+                           keyboardType="confirmPass"
+                           textContentType="confirmPass"
+                           value={values.confirmPass}
+                           onBlur= {()=> setFieldTouched("confirmPass")}
+                           onChangeText = {handleChange("confirmPass")}
+                        />
             </View>
 
-            <View style={styles.inputContent}>
-            <AppText style={styles.subTitle}>Password</AppText>
-                <AppInput
-                            placeholder="Password"
-                            keyboardType="Password"
-                            textContentType="Password"
-                />
-                
-            </View>
-
-            <View style={styles.inputContent}>
-            <AppText style={styles.subTitle}>Confirm Password</AppText>
-                <AppInput
-                            placeholder="confirmPassword"
-                            keyboardType="confirmPassword"
-                            textContentType="confirmPassword"
-                />
-                
-            </View>
-            
-        
+            {touched.password && 
+                        <AppText style={styles.errorMessage}>{errors.password}</AppText>}
 
         </View>
             
         <View style={styles.buttonContainer}>
-            <AppButton style={styles.buttonText} title="Log In" />
+            <AppButton style={styles.buttonText} title="Register" onPress={handleSubmit}/>
         </View>
         
+        </>
+            )}
+            </Formik>
 
         <View style={styles.textContainer}>
 

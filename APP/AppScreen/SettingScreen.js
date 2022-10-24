@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View,StyleSheet,TouchableOpacity, Image,Alert} from 'react-native';
 import AppColour from '../Components/AppColour';
 
@@ -7,21 +7,26 @@ import AppText from '../Components/AppText';
 import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
-
 function SettingScreen({navigation}) {
 
     const getUser = () => {
         let commonData = DataManager.getInstance();
-        let userid = commonData.getUserID();
-        let user=commonData.getUser(userid)
-
+        let user=commonData.getCurUser()
+        console.log(user)
         return user;
-            
     }
 
-    const data=getUser();
+    useEffect(()=>{
+        data=getUser();
+    })
+    
+    var data = getUser();
 
-
+    function logOut(){
+        let commonData = DataManager.getInstance();
+        commonData.reset();
+        navigation.navigate("Welcome")
+    }
 
     return (
         <AppScreen>
@@ -37,7 +42,7 @@ function SettingScreen({navigation}) {
         <View style={styles.hairline} />
      
         <View style={styles.profileContainer}>
-                    <AppListItem image={data[0].image} title={data[0].name} subtitle={data[0].email} thirdtitle={data[0].phone} icon="chevron-right" onPress={() => navigation.navigate("EditAcc",{
+                    <AppListItem title={data.UserName} subtitle={data.UserEmail} thirdtitle={data.UserPH} icon="chevron-right" onPress={() => navigation.navigate("EditAcc",{
                                 paramPersonalData: data
                             })}/>
         </View>
@@ -46,7 +51,7 @@ function SettingScreen({navigation}) {
         
         <AppText style={styles.subheading}>Account Privilege Level</AppText>
         <View style={styles.profileContainer}>
-                    <AppListItem title={data[0].level} />
+                    <AppListItem title={data.UserPriv} />
         </View>
 
         <View style={styles.fullLine} />
@@ -64,7 +69,7 @@ function SettingScreen({navigation}) {
         <View style={styles.textContainer}>
 
         <TouchableOpacity  onPress={()=>Alert.alert("G'day","Would you like to log out ?",
-                    [{text:"Yes",onPress:()=>navigation.navigate("Welcome")},
+                    [{text:"Yes",onPress:()=>logOut()},
                     {text:"NO"}])}>
 
         <AppText style={styles.textStyle}> Log out</AppText>

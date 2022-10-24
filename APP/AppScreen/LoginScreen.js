@@ -79,7 +79,7 @@ function LoginScreen({navigation, props}) {
         <AppScreen>
              <View style={styles.heading}>
             
-                <TouchableOpacity >
+                <TouchableOpacity onPress={() => navigation.navigate("Welcome")}>
                 
                     <AppIcon
                         name="chevron-left"
@@ -155,7 +155,7 @@ function LoginScreen({navigation, props}) {
 
             <TouchableOpacity  onPress={() => navigation.navigate("Register") }>
 
-            <AppText style={styles.textStyle}> Haven't an account ? ? ?</AppText>
+            <AppText style={styles.textStyle}>Don't have an account?</AppText>
             
             </TouchableOpacity>
         </View>

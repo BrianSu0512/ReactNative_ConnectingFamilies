@@ -21,6 +21,14 @@ function HomeScreen({navigation,route}) {
         getPatients();
     });
  
+    const renderNoStateMessage = () => {
+        return(
+            <View>
+            <Text>No participants are assigned to this carer.</Text>
+          </View>
+        )
+    }
+
     return (
        <AppScreen>
          <View style={styles.heading}>
@@ -42,31 +50,30 @@ function HomeScreen({navigation,route}) {
                     data ={Patient}
                     keyExtractor = {Patient => Patient.PatientID}
                     renderItem = {({item}) => 
-                   
                     <AppCard
-                            name={item.PatientName} 
-                            referTo={item.PatientReferTo}
-                            referredBy={item.PatientReferBy}
-                            rNbNO={item.PatientRoomNo}
-                            onPress={()=>navigation.navigate("PersonalProfile",{
-                                paramPatient: item
-                            })}
-                            onPress1={()=>navigation.navigate("MedicalHistory",{
-                                paramPatient: item
-                            })}
-                            onPress2={()=>navigation.navigate("Prescription",{
-                                paramPatient: item
-                            })}
-                            onPress3={()=>navigation.navigate("MedicalLog",{
-                                paramPatient: item
-                            })}
-                            onSwipeLeft={() => (
-                                <View style={styles.deleteView}>
-                                    <TouchableOpacity onPress={() => handleDelete(item)}>
-                                        <AppIcon name="trash-can" size={50}/> 
-                                    </TouchableOpacity>
-                                </View>)}/>}
-
+                        name={item.PatientName} 
+                        referTo={item.PatientReferTo}
+                        referredBy={item.PatientReferBy}
+                        rNbNO={item.PatientRoomNo}
+                        onPress={()=>navigation.navigate("PersonalProfile",{
+                            paramPatient: item
+                        })}
+                        onPress1={()=>navigation.navigate("MedicalHistory",{
+                            paramPatient: item
+                        })}
+                        onPress2={()=>navigation.navigate("Prescription",{
+                            paramPatient: item
+                        })}
+                        onPress3={()=>navigation.navigate("MedicalLog",{
+                            paramPatient: item
+                        })}
+                        onSwipeLeft={() => (
+                            <View style={styles.deleteView}>
+                                <TouchableOpacity onPress={() => handleDelete(item)}>
+                                    <AppIcon name="trash-can" size={50}/> 
+                                </TouchableOpacity>
+                            </View>)}/>}
+                    ListEmptyComponent={renderNoStateMessage()}
                 /> 
             </View>         
        </AppScreen>

@@ -7,7 +7,7 @@ import AppIcon from '../Components/AppIcon';
 import AppText from '../Components/AppText';
 import { Swipeable } from 'react-native-gesture-handler';
 
-function AppPrescription({prescription,history,onPress,onSwipeLeft,level}) {
+function AppPrescription({prescription,onPress,onSwipeLeft,level}) {
 
     const contain= level==='Privilege Level 1'
     
@@ -17,7 +17,7 @@ function AppPrescription({prescription,history,onPress,onSwipeLeft,level}) {
 <View style={styles.headcontainer}>
 <View style={styles.culumncontainer}>
 <AppText style={styles.subtitle}>Medicine Name</AppText>
-<AppText style={styles.title}>{prescription.name}</AppText>
+<AppText style={styles.title}>{prescription.PrescripName}</AppText>
 </View>
 <TouchableOpacity onPress={onPress}>
 <AppIcon style={styles.buttonicon} name="calendar-edit" size={20} />
@@ -28,12 +28,12 @@ function AppPrescription({prescription,history,onPress,onSwipeLeft,level}) {
 
 <View style={styles.culumncontainer}>
 <View style={styles.rowcontainer}>
-<AppText style={styles.subtitle}>Date: </AppText>
-<AppText style={styles.subtitle}>{history[0].Date}</AppText>
+<AppText style={styles.subtitle}>Begin Date: </AppText>
+<AppText style={styles.subtitle}>{prescription.BeginDate}</AppText>
 </View>
 <View style={styles.rowcontainer}>
 <AppText style={styles.subtitle}>Stop Date: </AppText>
-<AppText style={styles.subtitle}>{history[0].StopDate}</AppText>
+<AppText style={styles.subtitle}>{prescription.EndDate}</AppText>
 </View>
 </View>
 
@@ -45,7 +45,7 @@ function AppPrescription({prescription,history,onPress,onSwipeLeft,level}) {
 
         <View style={styles.headcontainer}>
         <View style={styles.culumncontainer}>
-        <AppText style={styles.subtitle}>Medicine fffName</AppText>
+        <AppText style={styles.subtitle}>Medicine Name</AppText>
         <AppText style={styles.title}>{prescription.name}</AppText>
         </View>
         <TouchableOpacity onPress={onPress}>
@@ -58,11 +58,11 @@ function AppPrescription({prescription,history,onPress,onSwipeLeft,level}) {
         <View style={styles.culumncontainer}>
         <View style={styles.rowcontainer}>
         <AppText style={styles.subtitle}>Date: </AppText>
-        <AppText style={styles.subtitle}>{history[0].Date}</AppText>
+        <AppText style={styles.subtitle}>{prescription.BeginDate}</AppText>
         </View>
         <View style={styles.rowcontainer}>
         <AppText style={styles.subtitle}>Stop Date: </AppText>
-        <AppText style={styles.subtitle}>{history[0].StopDate}</AppText>
+        <AppText style={styles.subtitle}>{prescription.EndDate}</AppText>
         </View>
         </View>
 

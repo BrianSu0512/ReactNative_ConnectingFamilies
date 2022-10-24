@@ -13,15 +13,12 @@ import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
 function EditAccountScreen({navigation,navigation: { goBack },route}) {
-    const data=[route.params.paramPersonalData];
-    console.log("line14",data[0][0])
+    const data=route.params.paramPersonalData;
 
-    const[name, setName] = useState(data[0][0].name);
-    const[email, setEmail]=useState(data[0][0].email);
-    const[phone, setPhone]=useState(data[0][0].phone);
-    const[image, setImage] = useState(data[0][0].image);
-
-
+    const[name, setName] = useState(data.UserName);
+    const[email, setEmail]=useState(data.UserEmail);
+    const[phone, setPhone]=useState(data.UserPH);
+    const[image, setImage] = useState(data.image);
 
     const[nameError, setNameError]=useState("");
     const[emailError, setEmailError]=useState("");
@@ -32,7 +29,7 @@ function EditAccountScreen({navigation,navigation: { goBack },route}) {
         let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
         if (permissionResult.granted === false) {
-        alert("Permission to access camera roll is required!");
+         alert("Permission to access camera roll is required!");
         return;
         }
 
@@ -50,37 +47,30 @@ function EditAccountScreen({navigation,navigation: { goBack },route}) {
         setNameError( name.length>0 ? "": "Please set a valid Caption");
         setEmailError(email.length>0 ? "": "Please set a valid Email");
         setPhoneError(phone.length>0 ? "": "Please set a valid Phone number");
-        setImageError(image? "": "Please pick an image");
-        return ((name.length>0) && (email.length>0) && (phone.length>0) && (image)? true: false)
+        //setImageError(image? "": "Please pick an image");
+        return ((name.length>0) && (email.length>0) && (phone.length>0) ? true: false)
     }
 
-    const editPersonal = () => {
+    const editPersonal = async () => {
         let commonData = DataManager.getInstance();
         let user = commonData.getUserID();
 
-        const id = data[0][0].id
-        console.log("line86", id)
-        const newdetial = {
-            
+        const id = data.UserID
+        const newdetail = {
             name:name,
             email:email,
             phone:phone,
             id: id,
-            image: image.path,
-            password:data[0][0].password,
-            level:data[0][0].level
+            //image: image.path,
+            password:data.UserPass,
+            level:data.UserPriv
         };
 
-        
-        commonData.editUser(newdetial);
-        const userdetials = commonData.getUser(user);
-
-        console.log("line102",userdetials)
-
+        await commonData.editAccount(newdetail, 'info')
     }
 
-    const picture=image>0 ?<Image source={image} style={styles.image}/>
-                         :<Image source={{uri: image.path}} style={styles.image}/>
+    //const picture=image>0 ?<Image source={image} style={styles.image}/>
+    //                     :<Image source={{uri: image.path}} style={styles.image}/>
 
     return (
         <AppScreen>
@@ -105,10 +95,6 @@ function EditAccountScreen({navigation,navigation: { goBack },route}) {
    </View>
    <AppText style={styles.Title}>Edit Account</AppText>
    <View style={styles.hairline} />
-
-   <TouchableOpacity style={styles.imageButton} onPress={openImagePickerAsync}>
-      {picture}             
-   </TouchableOpacity>
 
    <AppText style={styles.subheading}>User Name</AppText>
    <TextInput 
