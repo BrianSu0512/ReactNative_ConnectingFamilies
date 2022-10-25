@@ -40,7 +40,7 @@ const level =getlevel()
 console.log("tttt",history)
     const getPrescription = () => {
         let commonData = DataManager.getInstance();
-        let userPrescription=commonData.getPrescription(pID);
+        let userPrescription=commonData.getDatePrescription(pID,1);
         return userPrescription;    
     }
 

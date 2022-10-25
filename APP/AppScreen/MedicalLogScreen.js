@@ -19,11 +19,20 @@ function MedicalLogScreen({route,navigation: { goBack },navigation}) {
 
     const getPrescription = () => {
         let commonData = DataManager.getInstance();
-        let userPrescription=commonData.getPrescription(patientid);
+        let userPrescription=commonData.getDatePrescription(patientid,1);
         return userPrescription;    
     }
-    const prescription=getPrescription()
+
+    const getDatePrescription = () => {
+        let commonData = DataManager.getInstance();
+        let userPrescription=commonData.getDatePrescription(patientid,0);
+        return userPrescription;    
+    }
+
+    const [prescription, setPrescription]=useState(getPrescription())
+    const yest=getDatePrescription()
     console.log(prescription)
+    console.log("line34",yest)
     const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
     ];
@@ -57,11 +66,18 @@ function MedicalLogScreen({route,navigation: { goBack },navigation}) {
       <AppText style={styles.Title}>Medical Log</AppText>
        <View style={styles.hairline} />
 
+
        <View style={styles.rowcontainer}>
         <AppText style={styles.time}>Today:</AppText>
         <AppText style={styles.time}>{date}</AppText>
 
        </View>
+
+       <View style={styles.rowcontainer}>
+        <AppButton onPress={()=>setPrescription(yest)} title="Yesterday"/>
+        <AppButton onPress={()=>setPrescription(getPrescription())}title="Today"/>
+       </View>
+
 
        <FlatList
             style={styles.list}

@@ -96,6 +96,7 @@ export default class DataManager  {
         {
             id:1,
             pId:1,
+            date:0,
             name:"Panadol",
             dose:"100mg",
             route:"PO",
@@ -106,6 +107,7 @@ export default class DataManager  {
         {
             id:2,
             pId:1,
+            date:0,
             name:"Amoxicillin",
             dose:"80mg",
             route:"PO",
@@ -116,13 +118,46 @@ export default class DataManager  {
         {
             id:3,
             pId:1,
+            date:0,
             name:"Abilify",
             dose:"50mg",
             route:"PO",
             frequency:"TDS",
             note:"Forget to take the medicine",
             time:["7:00","12:00","19:00"],
-        }
+        },{
+            id:4,
+            pId:1,
+            date:1,
+            name:"Panadol",
+            dose:"100mg",
+            route:"PO",
+            frequency:"TDS",
+            note:"Nope",
+            time:["6:00","12:00","18:00"],
+        },
+        {
+            id:5,
+            pId:1,
+            date:1,
+            name:"Amoxicillin",
+            dose:"80mg",
+            route:"PO",
+            frequency:"TDS",
+            note:"Nope",
+            time:["6:00","11:00","18:00"],
+        },
+        {
+            id:6,
+            pId:1,
+            date:1,
+            name:"Abilify",
+            dose:"50mg",
+            route:"PO",
+            frequency:"TDS",
+            note:"Nope",
+            time:["7:00","12:00","19:00"],
+        },
     ]
 
     users = [
@@ -244,6 +279,12 @@ export default class DataManager  {
 
     getPrescription(pid){
         return this.Prescriptions.filter((p)=> p.pId === pid);
+    }
+
+    getDatePrescription(pid,pDate){
+        const  all =this.Prescriptions.filter((p)=> p.pId === pid);
+        return all.filter((p)=>p.date===pDate)
+      
     }
 
     getSpecificPres(id){

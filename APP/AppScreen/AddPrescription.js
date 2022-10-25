@@ -39,7 +39,7 @@ function AddPrescriptionScreen({route,navigation: { goBack },navigation}) {
    
     const getPrescription = () => {
         let commonData = DataManager.getInstance();
-        let userPrescription=commonData.getPrescription(pID);
+        let userPrescription=commonData.getDatePrescription(pID,1);
         return userPrescription;    
     }
 

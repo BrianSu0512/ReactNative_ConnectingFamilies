@@ -1,8 +1,6 @@
 import React  , {useState}from 'react';
 import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image,Switch} from 'react-native';
-import { Checkbox } from 'react-native-paper';
-import { date } from 'yup';
-import AppButton from '../Components/AppButton';
+
 import AppColour from '../Components/AppColour';
 import AppIcon from '../Components/AppIcon';
 import AppText from '../Components/AppText';
