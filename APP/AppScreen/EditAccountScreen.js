@@ -42,7 +42,8 @@ function EditAccountScreen({navigation,navigation: { goBack },route}) {
         if (pickerResult.cancelled === true) {
             return;
         }
-        setImage({path: pickerResult.uri});
+
+        setImage(pickerResult.uri);
        
     }
 
@@ -66,7 +67,7 @@ function EditAccountScreen({navigation,navigation: { goBack },route}) {
             email:email,
             phone:phone,
             id: id,
-            image: image.path,
+            image: image,
             password:data[0][0].password,
             level:data[0][0].level
         };
@@ -80,7 +81,7 @@ function EditAccountScreen({navigation,navigation: { goBack },route}) {
     }
 
     const picture=image>0 ?<Image source={image} style={styles.image}/>
-                         :<Image source={{uri: image.path}} style={styles.image}/>
+                         :<Image source={{uri: image}} style={styles.image}/>
 
     return (
         <AppScreen>

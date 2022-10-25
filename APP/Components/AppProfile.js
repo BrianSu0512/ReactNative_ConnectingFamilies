@@ -11,14 +11,15 @@ import AppListItem from './AppListItem';
 
 function AppProfile({data,onPress,onPress1,onPress2,onPress3,level}) {
 
+    const picture=data.image>0 ?<Image source={data.image} style={styles.image}/>
+    :<Image source={{uri: data.image}} style={styles.image}/>
+
     const profile= level==='Privilege Level 1'
     ?   <View>
-
-    <View style={styles.rowcontainer}>
-
-    
-            <AppListItem image={data.image} title={data.name}/>
-           </View>
+            <View>
+            {picture}
+            <AppText style={styles.imageName}>{data.name}</AppText>
+            </View>
     
            <View style={styles.contentcontainer}>
            <View style={styles.culumncontainer}>
@@ -52,7 +53,10 @@ function AppProfile({data,onPress,onPress1,onPress2,onPress3,level}) {
 
     <View style={styles.rowcontainer}>
     
-    <AppListItem image={data.image} title={data.name}/>
+            <View>
+            {picture}
+            <AppText style={styles.imageName}>{data.name}</AppText>
+            </View>
     
             <View style={styles.culumncontainer}>
             <View style={styles.buttoncontainer}>
@@ -179,6 +183,15 @@ const styles = StyleSheet.create({
     },subtitle:{
         fontSize:20,
         marginTop:10,
+    },
+    image:{
+        height: 75,
+        width: 75,
+        borderRadius: 37,
+        marginLeft: 10,
+        marginTop:10
+    },imageName:{
+        marginLeft:15,
     }
 })
 

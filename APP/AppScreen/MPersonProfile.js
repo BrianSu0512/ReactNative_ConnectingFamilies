@@ -43,19 +43,20 @@ function MPersonalProfileScreen({navigation: { goBack },navigation,route}) {
           <AppText style={styles.logoText}>Connecting Families</AppText>
       </View>
 
+       </View>   
+        <View style={styles.rowcontaoner}>
+        <AppText style={styles.Title}>Personal Profiles</AppText>
       <TouchableOpacity onPress={()=>navigation.navigate("EditProfile", {paramPersonalData:data[0]})} >
       
       <AppIcon
           name="pencil"
           size={35}
-          style={[styles.headingIcon,{ marginTop:25}]}
+          style={{height:80}}
       />
       
      </TouchableOpacity>
+        </View>
 
-       </View>   
-
-      <AppText style={styles.Title}>Personal Profiles</AppText>
        <View style={styles.hairline} />
 
         <AppProfile data={data[0]} onPress={()=>navigation.navigate("Emergency",{
@@ -78,15 +79,10 @@ function MPersonalProfileScreen({navigation: { goBack },navigation,route}) {
 const styles = StyleSheet.create({
     heading:{
         flexDirection:"row",
-        width:360,
+        width:240,
         paddingTop:10,
         justifyContent:'space-between',
         
-
-    },
-    headingIcon:{
-        marginTop:10,
-        height:80,
 
     },
     logo:{
@@ -111,6 +107,10 @@ const styles = StyleSheet.create({
         height: 2,
         width: 340,
         marginLeft: 15
+    },rowcontaoner:{
+        flexDirection:'row',
+        justifyContent:'space-between',
+        width:345
     }
 })
 

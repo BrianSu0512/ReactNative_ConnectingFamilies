@@ -34,7 +34,7 @@ function MHomeScreen({navigation,route}) {
  
         </View>   
 
-       <AppText style={styles.Title}>MHome</AppText>
+       <AppText style={styles.Title}>Manager's Home</AppText>
         <View style={styles.hairline} />
 
         
@@ -87,9 +87,9 @@ const styles = StyleSheet.create({
     },
     logo:{
         marginTop:10,
-        marginLeft:30,
-        width:80,
-        height:80,
+        marginLeft:40,
+        width:50,
+        height:50,
     },
     logoText:{
         fontSize:13,

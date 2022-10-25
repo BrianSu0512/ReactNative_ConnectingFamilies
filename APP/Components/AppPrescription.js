@@ -45,7 +45,7 @@ function AppPrescription({prescription,history,onPress,onSwipeLeft,level}) {
 
         <View style={styles.headcontainer}>
         <View style={styles.culumncontainer}>
-        <AppText style={styles.subtitle}>Medicine fffName</AppText>
+        <AppText style={styles.subtitle}>Medicine Name</AppText>
         <AppText style={styles.title}>{prescription.name}</AppText>
         </View>
         <TouchableOpacity onPress={onPress}>

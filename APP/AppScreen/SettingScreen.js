@@ -21,6 +21,8 @@ function SettingScreen({navigation}) {
 
     const data=getUser();
 
+    console.log(data)
+
 
 
     return (
@@ -63,7 +65,7 @@ function SettingScreen({navigation}) {
         <AppText style={styles.subheading}>Login</AppText>
         <View style={styles.textContainer}>
 
-        <TouchableOpacity  onPress={()=>Alert.alert("G'day","Would you like to log out ?",
+        <TouchableOpacity  onPress={()=>Alert.alert("Log out ! ! !","Would you like to log out ?",
                     [{text:"Yes",onPress:()=>navigation.navigate("Welcome")},
                     {text:"NO"}])}>
 

@@ -13,7 +13,6 @@ import DataManager from '../config/DataManager';
 
 
 function EmergencyContactScreen({navigation: { goBack },navigation,route}) {
-    console.log("Line10",route.params.paramPatient)
     const data= route.params.paramPatient
     const getlevel = () => {
         let commonData = DataManager.getInstance();
@@ -29,7 +28,7 @@ function EmergencyContactScreen({navigation: { goBack },navigation,route}) {
          <AppIcon
          name="pencil"
          size={35}
-         style={[styles.headingIcon,{ marginTop:25, height:80}]}
+         style={{height:80}}
      />
      
     </TouchableOpacity>
@@ -54,11 +53,16 @@ function EmergencyContactScreen({navigation: { goBack },navigation,route}) {
           <AppText style={styles.logoText}>Connecting Families</AppText>
       </View>
 
-      {pencil}
+      
 
-       </View>   
+       </View>  
 
+      <View style={styles.rowcontaoner}>
+      
       <AppText style={styles.Title}>Emergency Contact</AppText>
+      {pencil}
+      </View>
+      
        <View style={styles.hairline} />
 
 
@@ -77,21 +81,17 @@ function EmergencyContactScreen({navigation: { goBack },navigation,route}) {
 const styles = StyleSheet.create({
     heading:{
         flexDirection:"row",
-        width:350,
+        width:240,
         paddingTop:10,
         justifyContent:'space-between',
         
 
     },
-    headingIcon:{
-        marginTop:10,
-
-    },
     logo:{
         marginTop:10,
         marginLeft:30,
-        width:80,
-        height:80,
+        width:50,
+        height:50,
     },
     logoText:{
         fontSize:13,
@@ -109,6 +109,10 @@ const styles = StyleSheet.create({
         height: 2,
         width: 340,
         marginLeft: 15
+    },rowcontaoner:{
+        flexDirection:'row',
+        justifyContent:'space-between',
+        width:345
     }
 })
 

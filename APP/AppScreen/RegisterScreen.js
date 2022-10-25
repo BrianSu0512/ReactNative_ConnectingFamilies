@@ -64,7 +64,7 @@ function RegisterScreen({navigation, props}) {
             <View style={styles.inputContent}>
             <AppText style={styles.subTitle}>Confirm Password</AppText>
                 <AppInput
-                            placeholder="confirmPassword"
+                            placeholder="ConfirmPassword"
                             keyboardType="confirmPassword"
                             textContentType="confirmPassword"
                 />
@@ -76,7 +76,7 @@ function RegisterScreen({navigation, props}) {
         </View>
             
         <View style={styles.buttonContainer}>
-            <AppButton style={styles.buttonText} title="Log In" />
+            <AppButton style={styles.buttonText} title="Sign Up" />
         </View>
         
 
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     },
     textStyle:{
         fontSize:18,
-        color:"#D6F8FF",
+        color:"#1338BE",
         textTransform:'none'
     },
     buttonContainer:{
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
         alignItems:'flex-end',
     },
     buttonText:{
-        width:80,
+        width:90,
         height:40,
         borderRadius:10,
         paddingLeft:10

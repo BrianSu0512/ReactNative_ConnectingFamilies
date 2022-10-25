@@ -50,7 +50,7 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
 
        </View>   
 
-      <AppText style={styles.Title}>Personal Profiles</AppText>
+      <AppText style={styles.Title}>Personal Profile</AppText>
        <View style={styles.hairline} />
 
         <AppProfile data={data[0]} onPress={()=>navigation.navigate("Emergency",{
