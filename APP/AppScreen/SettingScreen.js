@@ -21,8 +21,6 @@ function SettingScreen({navigation}) {
 
     const data=getUser();
 
-    console.log(data)
-
 
 
     return (

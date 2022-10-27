@@ -1,15 +1,31 @@
-import React from 'react';
+import React ,{useState}from 'react';
 import { View,StyleSheet,TouchableOpacity, Image,Alert} from 'react-native';
 import AppColour from '../Components/AppColour';
 
 import AppListItem from '../Components/AppListItem';
+import AppPicker from '../Components/AppPicker';
 import AppScaner from '../Components/AppScaner';
 import AppText from '../Components/AppText';
 import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
 
+
+
 function ScanScreen(props) {
+
+    const getPatients = () => {
+        let commonData = DataManager.getInstance();
+        let user = commonData.getUserID();
+        let userPatients=commonData.getPatients(user).filter((patient)=>patient.userid===user)
+        return userPatients;
+            
+    }
+
+    const newpatients=getPatients();
+
+    const[patients, setPatients] = useState("");
+
     return (
         <AppScreen>
         <View style={styles.heading}>
@@ -20,9 +36,16 @@ function ScanScreen(props) {
            </View>
      
    </View>
-   <AppText style={styles.Title}>Scan RQ Code</AppText>
+   <AppText style={styles.Title}>Scan QR Code</AppText>
    <View style={styles.hairline} />
 
+   <AppPicker 
+                selectedItem={patients}
+                onSelectItem = {item => setPatients(item)}
+                data={newpatients} 
+                icon="apps" 
+                placeholder="Select Patient's Name" 
+                numColumns={2}/>
 
     <AppScaner/>
   
