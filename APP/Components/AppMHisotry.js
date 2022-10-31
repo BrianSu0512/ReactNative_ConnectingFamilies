@@ -29,7 +29,7 @@ function AppMHisotry({data,onPress,onPress1}) {
             <AppText style={styles.subtitle}>{data.Date}</AppText>
             </View>
             <View style={styles.rowcontainer}>
-            <AppText style={styles.subtitle}>Referred By: </AppText>
+            <AppText style={styles.subtitle}>Stop Date: </AppText>
             <AppText style={styles.subtitle}>{data.StopDate}</AppText>
             </View>
             </View>

@@ -5,31 +5,16 @@ import AppColour from '../Components/AppColour';
 import AppIcon from '../Components/AppIcon';
 import AppText from '../Components/AppText';
 
-import { CheckBox } from 'react-native-elements'
+import { CheckBox } from 'react-native-elements'; // 0.16.0
 import AppCheckbox from './AppCheckbox';
 
-function AppMlog({prescription}) {
-    const [checked, setChecked] = React.useState(false);
+function AppMlog({prescription,check}) {
 
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    const [time1, setTime1]=useState(check)
 
-    // const checkingbox=Platform.OS ==='android' ?<Checkbox
-    // status={checked ? 'checked' : 'unchecked'}
-    // onPress={() => {
-    //    setChecked(!checked);
-    // }}
-    // color={'green'}
-    // uncheckColor={'red'}
-    // /> 
-    // :<Switch
-    //     trackColor={{ false: "#767577", true: "#03AC13" }}
-    //     thumbColor={isEnabled ? "##f4f3f4" : "#f4f3f4"}
-    //     ios_backgroundColor="#3e3e3e"
-    //     onValueChange={toggleSwitch}
-    //     value={isEnabled}
-    // />;
+    const [time2, setTime2]=useState(check)
 
+    const [time3, setTime3]=useState(check)
     return (
         
        <View style={styles.container}>
@@ -70,13 +55,24 @@ function AppMlog({prescription}) {
                 <AppText>12:00</AppText>
                 <AppText>18:00</AppText>
             </View>
+
             <View style={styles.checkboxcontainer}>
 
-            <AppCheckbox/>
-            <AppCheckbox/>
-            <AppCheckbox/>
+            <CheckBox
+            checked={time1}
+            onPress={()=>setTime1(!time1)}/>
 
+            <CheckBox
+            checked={time2}
+            onPress={()=>setTime2(!time2)}/>
+
+            <CheckBox
+            checked={time3}
+            onPress={()=>setTime3(!time3)}/>
+
+        
             </View>
+
 
             <View style={styles.rowcontainer}>
             <AppText>Note: </AppText>

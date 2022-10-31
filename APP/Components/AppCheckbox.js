@@ -12,7 +12,7 @@ export default class AppCheckbox extends Component {
     return (
      
         <CheckBox
-          style={styles.box}
+
           checked={this.state.checked}
           onPress={() => this.setState({ checked: !this.state.checked })}
         />

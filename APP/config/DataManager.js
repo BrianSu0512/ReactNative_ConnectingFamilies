@@ -101,7 +101,7 @@ export default class DataManager  {
             dose:"100mg",
             route:"PO",
             frequency:"TDS",
-            note:"Forget to take the medicine",
+            note:"1 hr late to take medicine",
             time:["6:00","12:00","18:00"],
         },
         {
@@ -112,7 +112,7 @@ export default class DataManager  {
             dose:"80mg",
             route:"PO",
             frequency:"TDS",
-            note:"Forget to take the medicine",
+            note:"1 hr late to take medicine",
             time:["6:00","11:00","18:00"],
         },
         {
@@ -123,7 +123,7 @@ export default class DataManager  {
             dose:"50mg",
             route:"PO",
             frequency:"TDS",
-            note:"Forget to take the medicine",
+            note:"1 hr late to take medicine",
             time:["7:00","12:00","19:00"],
         },{
             id:4,

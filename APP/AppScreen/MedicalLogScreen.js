@@ -31,14 +31,29 @@ function MedicalLogScreen({route,navigation: { goBack },navigation}) {
 
     const [prescription, setPrescription]=useState(getPrescription())
     const yest=getDatePrescription()
-    console.log(prescription)
-    console.log("line34",yest)
+
     const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
     ];
 
     let today = new Date();
-    let date = today.getDate()+'/'+monthNames[today.getMonth()]+'/'+today.getFullYear();
+    let tdate = today.getDate()+'/'+monthNames[today.getMonth()]+'/'+today.getFullYear();
+
+    let ydate = today.getDate() -1 +'/'+monthNames[today.getMonth()]+'/'+today.getFullYear();
+    console.log(ydate)
+    const [date, setDate]=useState(tdate)
+
+    const [check, setCheck]=useState(false)
+
+    const isToday = date === tdate 
+    ?  <View style={styles.rowcontainer}>
+    <AppText style={styles.time}>Today:</AppText>
+    <AppText style={styles.time}>{date}</AppText>
+   </View>
+    :  <View style={styles.rowcontainer}>
+    <AppText style={styles.time}>Yesterday:</AppText>
+    <AppText style={styles.time}>{date}</AppText>
+   </View>
 
     return (
         <AppScreen>
@@ -66,16 +81,12 @@ function MedicalLogScreen({route,navigation: { goBack },navigation}) {
       <AppText style={styles.Title}>Medical Log</AppText>
        <View style={styles.hairline} />
 
+        {isToday}
+      
 
        <View style={styles.rowcontainer}>
-        <AppText style={styles.time}>Today:</AppText>
-        <AppText style={styles.time}>{date}</AppText>
-
-       </View>
-
-       <View style={styles.rowcontainer}>
-        <AppButton onPress={()=>setPrescription(yest)} title="Yesterday"/>
-        <AppButton onPress={()=>setPrescription(getPrescription())}title="Today"/>
+        <AppButton style={styles.button} onPress={()=>[setPrescription(yest), setDate(ydate),setCheck(true)]} title="Yesterday"/>
+        <AppButton style={styles.button} onPress={()=>setPrescription(getPrescription(), setDate(tdate), setCheck(false))}title="Today"/>
        </View>
 
 
@@ -84,7 +95,7 @@ function MedicalLogScreen({route,navigation: { goBack },navigation}) {
             data={prescription}
             keyExtractor={Prescriptions=>Prescriptions.id.toString()}
             renderItem={({item})=>
-            <AppMlog prescription={item}/>
+            <AppMlog prescription={item} check={check}/>
         }
         />
              
@@ -136,6 +147,16 @@ const styles = StyleSheet.create({
         fontStyle:'italic',
         marginTop:5,
         marginLeft:15,
+    },
+    button:{
+        width:110,
+        height:40,
+        borderRadius:10,
+        paddingLeft:10,
+        marginRight:10,
+        marginLeft:10,
+        marginTop:15,
+        marginBottom:15
     }
 })
 export default  MedicalLogScreen;
