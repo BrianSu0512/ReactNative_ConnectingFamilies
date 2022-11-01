@@ -1,5 +1,6 @@
 import React , {useState} from 'react';
 import { View,StyleSheet,TouchableOpacity,Text,TextInput , Alert,Image,SectionList } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { date } from 'yup';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
@@ -94,6 +95,7 @@ function EditPrescriptionScreen({route,navigation: { goBack },navigation}) {
     }
 
     return (
+       
         <AppScreen>
         <View style={styles.heading}>
        
@@ -117,6 +119,7 @@ function EditPrescriptionScreen({route,navigation: { goBack },navigation}) {
    <AppText style={styles.Title}>Edit Prescription</AppText>
    <View style={styles.hairline} />
 
+   <ScrollView>
    <AppText style={styles.subheading}>name</AppText>
    <TextInput 
       style={styles.inputText}
@@ -155,6 +158,8 @@ function EditPrescriptionScreen({route,navigation: { goBack },navigation}) {
         value={note}
         onChangeText={(inputText) => setNote(inputText)}/>
 
+        
+
       <View style={styles.fullLine} />
       <View style={styles.center}>
       <AppButton style={styles.button}title="Done" onPress={() => { 
@@ -164,6 +169,10 @@ function EditPrescriptionScreen({route,navigation: { goBack },navigation}) {
                         }
                      }}/>
       </View>
+            
+   </ScrollView>
+
+   
              
       </AppScreen>
     );

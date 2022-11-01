@@ -1,5 +1,6 @@
 import React , {useState} from 'react';
 import { View,StyleSheet,TouchableOpacity,Text,TextInput , Alert,Image,SectionList } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import { date } from 'yup';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
@@ -121,6 +122,7 @@ function AddPrescriptionScreen({route,navigation: { goBack },navigation}) {
    <AppText style={styles.Title}>Add Prescription</AppText>
    <View style={styles.hairline} />
 
+   <ScrollView>
    <AppText style={styles.subheading}>Name</AppText>
    <TextInput 
       style={styles.inputText}
@@ -166,6 +168,10 @@ function AddPrescriptionScreen({route,navigation: { goBack },navigation}) {
                         }
                      }}/>
       </View>
+
+   </ScrollView>
+
+   
              
       </AppScreen>
     );

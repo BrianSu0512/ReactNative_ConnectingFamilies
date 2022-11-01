@@ -1,5 +1,6 @@
 import React , {useState} from 'react';
 import { View,StyleSheet,TouchableOpacity,Text,TextInput , Alert,Image,SectionList } from 'react-native';
+
 import { date } from 'yup';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
@@ -16,6 +17,7 @@ import AppScreen from './AppScreen';
 function AddPatientScreen({route,navigation: { goBack },navigation}) {
 
     return (
+     
         <AppScreen>
         <View style={styles.heading}>
        
@@ -41,7 +43,8 @@ function AddPatientScreen({route,navigation: { goBack },navigation}) {
 
         <AppPForm onPress={()=>navigation.navigate("MHome")}/>
              
-         </AppScreen>
+            
+        </AppScreen>
     );
 }
 const styles = StyleSheet.create({
