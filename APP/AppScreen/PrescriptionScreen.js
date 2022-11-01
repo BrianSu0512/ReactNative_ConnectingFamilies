@@ -37,7 +37,7 @@ function PrescriptionScreen({route,navigation: { goBack },navigation}) {
 
     const plus = level ==='Privilege Level 1' 
     ? <></> 
-    : <TouchableOpacity onPress={()=>{navigation.navigate('AddPrescription',{paramPatient:patientid})}}>
+    : <TouchableOpacity onPress={()=>{navigation.navigate('AddPrescription',{paramPatient:patient})}}>
         <AppIcon name="plus-circle-outline" size={40} style={{marginDown:10}}/>
       </TouchableOpacity>
   
@@ -150,7 +150,7 @@ function PrescriptionScreen({route,navigation: { goBack },navigation}) {
                         }}>
                          <TouchableOpacity  onPress={()=>navigation.navigate('EditPrescription',{
                                                 paramPatient:item.pId,
-                                                paramPatientid:item.id})}>
+                                                paramPatientid:item})}>
                                 <AppIcon name="pencil" size={40} style={{height:80,}}/> 
                         </TouchableOpacity>
                       </Animated.View>
@@ -159,20 +159,8 @@ function PrescriptionScreen({route,navigation: { goBack },navigation}) {
               )
              }}
             />
-         
-               
-          
         }
-        />
-
-
-
- 
-
-      
-
-
-             
+        />   
       </AppScreen>
     );
 }

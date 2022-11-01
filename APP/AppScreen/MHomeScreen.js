@@ -10,19 +10,14 @@ import AppCard from '../Components/AppCard';
 
 function MHomeScreen({navigation,route}) {
 
-        const getPatients = () => {
-            let commonData = DataManager.getInstance();
-            let userPatients=commonData.getAllPatients()
-            return userPatients;
-                
-        }
+    const getPatients = () => {
+        let commonData = DataManager.getInstance();
+        let userPatients=commonData.getAllPatients()
+        return userPatients;
+    }
 
+    const patients=getPatients();
 
-        const patients=getPatients();
-
-        console.log('lininw13',patients)
-   
- 
     return (
        <AppScreen>
          <View style={styles.heading}>
@@ -36,33 +31,30 @@ function MHomeScreen({navigation,route}) {
 
        <AppText style={styles.Title}>MHome</AppText>
         <View style={styles.hairline} />
-
-        
-            
                 <FlatList 
                     style={styles.list}
                     data ={patients}
-                    keyExtractor = {patients => patients.id.toString()}
+                    keyExtractor = {patients => patients.PatientID}
                     renderItem = {({item}) => 
                    
                     <AppCard
-                            name={item.name} 
-                            image={item.image}
-                            referTo={item.referTo}
-                            referredBy={item.referredBy}
-                            rNbNO={item.rNbNO}
-                            note={item.note}
+                            name={item.PatientName} 
+                            //image={item.image}
+                            referTo={item.PatientReferTo}
+                            referredBy={item.PatientReferBy}
+                            rNbNO={item.PatientRoomNo}
+                            //note={item.note}
                             onPress={()=>navigation.navigate("MPersonalProfile",{
-                                paramPatient: item.id
+                                paramPatient: item
                             })}
                             onPress1={()=>navigation.navigate("MedicalHistory",{
-                                paramPatient: item.id
+                                paramPatient: item
                             })}
                             onPress2={()=>navigation.navigate("Prescription",{
-                                paramPatient: item.id
+                                paramPatient: item
                             })}
                             onPress3={()=>navigation.navigate("MedicalLog",{
-                                paramPatient: item.id
+                                paramPatient: item
                             })}
                             onSwipeLeft={() => (
                                 <View style={styles.deleteView}>

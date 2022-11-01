@@ -11,7 +11,6 @@ function AppPrescription({prescription,onPress,onSwipeLeft,level}) {
 
     const contain= level==='Privilege Level 1'
     
-
     ?<View style={styles.container}>
 
 <View style={styles.headcontainer}>
@@ -46,7 +45,7 @@ function AppPrescription({prescription,onPress,onSwipeLeft,level}) {
         <View style={styles.headcontainer}>
         <View style={styles.culumncontainer}>
         <AppText style={styles.subtitle}>Medicine Name</AppText>
-        <AppText style={styles.title}>{prescription.name}</AppText>
+        <AppText style={styles.title}>{prescription.PrescripName}</AppText>
         </View>
         <TouchableOpacity onPress={onPress}>
         <AppIcon style={styles.buttonicon} name="calendar-edit" size={20} />

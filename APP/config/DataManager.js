@@ -51,9 +51,7 @@ export default class DataManager  {
 
     deletePatient(patient){
         const newpatients=this.patients.filter (item => item.id !== patient.id);
-        
         return this.patients.splice(0,this.patients.length,...newpatients)
-        
     }
 
     reset(){
@@ -73,17 +71,13 @@ export default class DataManager  {
         return this.curUser[0];
     }
 
-    addAllUser(user){
+    addAllUsers(user){
         this.allUsers.push(user);
     }
 
-    getLevel(id){
-        const user= this.users.filter((user)=> user.id === id)
-        return user[0].level
-    }
-
-    getCarers(){
-        return this.users.filter((u)=>u.level==="Privilege Level 1")
+    getAllCarers(){
+        console.log(this.allUsers)
+        return this.allUsers
     }
 
     getMHisotry(id){
@@ -105,6 +99,10 @@ export default class DataManager  {
         return this.medicalHistories.filter((m)=> m.PatientID === id);
     }
 
+    getSpecHist(hID){
+        return this.medicalHistories.filter((m)=> m.MedicHistID === hID);
+    }
+
     getPrescription(id){
         return this.Prescriptions.filter((p)=> p.PatientID=== id);
     }
@@ -122,7 +120,7 @@ export default class DataManager  {
     }
 
     getEmergency(id){
-        return this.emergencyC.filter((p)=> p.PatientID=== id);;
+        return this.emergencyC.filter((p)=> p.PatientID=== id);
     }
 
 
@@ -169,19 +167,85 @@ export default class DataManager  {
         const getData = await res.json();
         if(getData == 'success'){
             if(types == 'info'){
-                Alert.alert("Successfully edit account")
                 var currentUser = this.getCurUser();
                 currentUser.UserName = data.name;
                 currentUser.UserEmail = data.email;
                 currentUser.UserPH = data.phone;
             }else if(types == 'password'){
-                Alert.alert("Successfully change password")
                 var currentUser = this.getCurUser();
                 currentUser.UserPass = data.password;
             }
             
         }else{
             Alert.alert("Failed to edit account")
+        }
+    }
+
+    async getCarers(){
+        var InsertAPIURL = "https://medidecks.homes/api/Patient.php";
+        
+        var header={
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        };
+    
+        var Data={
+            userID: this.curUser[0].UserID,
+            userPriv: this.curUser[0].UserPriv,
+            DataType: 'GetCarers'
+        };
+
+        const res = await fetch(InsertAPIURL, {
+            method:'POST',
+            headers:header,
+            body: JSON.stringify(Data)
+        });
+        const getData = await res.json();
+        if(getData.length>0 && getData != 'failed'){
+            for(var i =0; i < getData.length; i++){
+                this.addAllUsers(getData[i])
+            }
+        }
+    }
+
+    async editPatientData(data, types){
+        var InsertAPIURL = "https://medidecks.homes/api/editPatient.php";
+        
+        var header={
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        };
+
+        var Data={}
+
+        if(types == 'history'){
+            Data={
+                patientID: data.PatientID,
+                Diagnosis: data.Diagnosis,
+                BeginDate: data.BeginDate,
+                EndDate: data.EndDate,
+                MedicHistID: data.MedicHistID,
+                DataType: types
+            };
+        }
+        const res = await fetch(InsertAPIURL, {
+            method:'POST',
+            headers:header,
+            body: JSON.stringify(Data)
+        });
+        const getData = await res.json();
+        if(getData == 'success'){
+            if(types == 'history'){
+                console.log(this.medicalHistories)
+                var curHistory = this.getSpecHist(data.MedicHistID);
+                curHistory[0].Diagnosis = data.Diagnosis
+                curHistory[0].BeginDate = data.BeginDate
+                curHistory[0].EndDate = data.EndDate
+                console.log(this.medicalHistories)
+            }
+            
+        }else{
+            Alert.alert("Failed to edit patient data")
         }
     }
 
@@ -195,6 +259,7 @@ export default class DataManager  {
     
         var Data={
             userID: this.curUser[0].UserID,
+            userPriv: this.curUser[0].UserPriv,
             DataType: 'GetPatient'
         };
 

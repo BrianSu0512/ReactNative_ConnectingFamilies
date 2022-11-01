@@ -14,14 +14,8 @@ import AppScreen from './AppScreen';
 
 function EditPrescriptionScreen({route,navigation: { goBack },navigation}) {
     const pID =route.params.paramPatient
-    console.log('fsdf',pID)
-
 
     const id =route.params.paramPatientid
-
-    console.log('dsd',id)
-
-   
 
     const getlevel = () => {
         let commonData = DataManager.getInstance();
@@ -31,17 +25,18 @@ function EditPrescriptionScreen({route,navigation: { goBack },navigation}) {
     }
     const level =getlevel()
 
-  const getMHisotry = () => {
-    let commonData = DataManager.getInstance();
-    let userHistory=commonData.getHisotry(pID);
-    return userHistory;    
-}
+   const getMHisotry = () => {
+      let commonData = DataManager.getInstance();
+      let userHistory=commonData.getHisotry(pID);
+      return userHistory;    
+   }
 
      const history =getMHisotry();
    
     const getPrescription = () => {
         let commonData = DataManager.getInstance();
-        let userPrescription=commonData.getSpecificPres(id);
+        let userPrescription=commonData.getPrescription(id);
+        console.log(userPrescription)
         return userPrescription;    
     }
 
@@ -49,32 +44,29 @@ function EditPrescriptionScreen({route,navigation: { goBack },navigation}) {
     const prescription=getPrescription();
    
 
-    const[name, setName] = useState(prescription[0].name);
-    const[dose, setDose]=useState(prescription[0].dose);
-    const[routee, setRoutee]=useState(prescription[0].route);
-    const[frequency, setFrequency]=useState(prescription[0].frequency);
-    const[note, setNote]=useState(prescription[0].note);
-
-
+    const[name, setName] = useState(id.PrescripName);
+    const[dose, setDose]=useState(id.PrescripDose);
+    const[routee, setRoutee]=useState(id.PrescripRoute);
+    const[frequency, setFrequency]=useState(id.PrescripFrequency);
+    const[note, setNote]=useState(id.note);
 
     const[nameError, setNameError]=useState("");
     const[doseError, setDoseError]=useState("");
-
+    const[routeError, setRouteError]=useState("")
+    const[frequencyError, setFrequencyError]=useState("");
 
 
     const doErrorCheck = () => {
         setNameError( name.length>0 ? "": "Please set a Name");
         setDoseError(dose.length>0 ? "": "Please set a valid Dose");
-     
-        return ((name.length>0) && (dose.length>0) )
+        setRouteError(routee.length>0? "": "Please set a valid Route");
+        setFrequencyError(frequency.length>0? "": "Please set a valid Frequency")
+        return ((name.length>0) && (dose.length>0) && (routee.length>0) && (frequency.length > 0))
     }
 
     const editPrescription = () => {
         let commonData = DataManager.getInstance();
-
-     
-        const newdetial = {
-            
+        const newdetial = {  
             id:id,  
             pId:pID,
             name:name,
@@ -85,12 +77,8 @@ function EditPrescriptionScreen({route,navigation: { goBack },navigation}) {
             time:["6:00","12:00","18:00"]
         };
 
-        
         commonData.editPrescription(newdetial);
         let all = commonData.getPrescription(pID);
-        console.log("line show ", all)
-        
-
     }
 
     return (

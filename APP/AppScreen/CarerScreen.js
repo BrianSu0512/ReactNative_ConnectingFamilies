@@ -12,14 +12,11 @@ function CarerScreen({navigation}) {
 
     const getCarers = () => {
         let commonData = DataManager.getInstance();
-        let Carers=commonData.getCarers()
+        let Carers=commonData.getAllCarers()
         return Carers;
-            
     }
 
     const data=getCarers();
-
-
 
     return (
         <AppScreen>
@@ -38,9 +35,9 @@ function CarerScreen({navigation}) {
         <FlatList
             style={styles.list}
             data={data}
-            keyExtractor={Users=>Users.id.toString()}
+            keyExtractor={Users=>Users.UserID}
             renderItem={({item})=>
-            <AppListItem image={item.image} title={item.name} subtitle={item.email} thirdtitle={item.phone} icon="chevron-right" onPress={() => navigation.navigate("CPatient",{paramCarer:item.id})} onPress1={() => navigation.navigate("CProfile",{paramPatient:item})}
+            <AppListItem title={item.UserName} subtitle={item.UserEmail} thirdtitle={item.UserPH} icon="chevron-right" onPress={() => navigation.navigate("CPatient",{paramCarer:item.UserID})} onPress1={() => navigation.navigate("CProfile",{paramPatient:item})}
             />   
         }
         />

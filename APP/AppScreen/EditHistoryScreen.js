@@ -13,78 +13,38 @@ import AppScreen from './AppScreen';
 
 
 function EditHistoryScreen({route,navigation: { goBack },navigation}) {
-    const pID =route.params.paramPatient
-
-
-    const id =route.params.paramPatientid
-
+    const history =route.params.paramPatient
+    const patientData =route.params.paramPatientData
    
-
-    const getlevel = () => {
-        let commonData = DataManager.getInstance();
-        let userid = commonData.getUserID();
-        let level=commonData.getLevel(userid);
-        return level;    
-    }
-    const level =getlevel()
-
-  const getMHisotry = () => {
-    let commonData = DataManager.getInstance();
-    let userHistory=commonData.getHisotry(pID);
-    return userHistory;    
-}
-
-     const history =getMHisotry();
-   
-    const getPrescription = () => {
-        let commonData = DataManager.getInstance();
-        let userPrescription=commonData.getPrescription(pID);
-        return userPrescription;    
-    }
-
-
-    const prescription=getPrescription();
-   
-
-    const[diagnosis, setDiagnosis] = useState(history[0].diagnosis);
-    const[date, setDate]=useState(history[0].Date);
-    const[stopDate, setStopDate]=useState(history[0].StopDate);
-
-
-
+    const[diagnosis, setDiagnosis] = useState(history.Diagnosis);
+    const[date, setDate]=useState(history.BeginDate);
+    const[stopDate, setStopDate]=useState(history.EndDate);
 
     const[diagnosisError, setDiagnosisError]=useState("");
     const[dateError, setDateError]=useState("");
 
 
-
     const doErrorCheck = () => {
-        setDiagnosisError( diagnosis.length>0 ? "": "Please set a valid Caption");
-        setDateError(date.length>0 ? "": "Please set a valid Email");
+        setDiagnosisError(diagnosis.length>0 ? "": "Please set a valid name");
+        setDateError(date.length>0 ? "": "Please set a valid Date");
      
         return ((diagnosis.length>0) && (date.length>0) )
     }
 
-    const addPrescription = () => {
-        let commonData = DataManager.getInstance();
-        const id = history[0].id
-        let hrecord = commonData.getMHisotry(id).length;
-
-     
-        const newdetial = {
-            
-            id:id,  
-            pId:hrecord,
-            diagnosis:diagnosis,
-            Date:date,
-            StopDate:stopDate,
+    const editPrescription = async () => {
+   
+        const newdetail = {
+            PatientID: history.PatientID,
+            MedicHistID: history.MedicHistID,
+            Diagnosis:diagnosis,
+            BeginDate:date,
+            EndDate:stopDate,
         };
 
-        
-        commonData.editHistory(newdetial);
-        let all = commonData.getMHisotry(id);
-        console.log("line show ", all)
-        
+        let commonData = DataManager.getInstance();
+        await commonData.editPatientData(newdetail, 'history')
+
+        Alert.alert("Success", "Successfully edit patient's history", [{text: 'OK', onPress:()=>navigation.navigate('MedicalHistory',{paramPatient:patientData})}])
 
     }
 
@@ -136,10 +96,9 @@ function EditHistoryScreen({route,navigation: { goBack },navigation}) {
 
       <View style={styles.fullLine} />
       <View style={styles.center}>
-      <AppButton style={styles.button}title="Done" onPress={() => { 
+      <AppButton style={styles.button}title="Done" onPress={ async() => { 
                         if(doErrorCheck()){
-                            addPrescription();
-                            navigation.navigate('MedicalHistory',{paramPatient:id})
+                            await editPrescription();
                         }
                      }}/>
       </View>

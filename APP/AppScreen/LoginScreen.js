@@ -48,11 +48,12 @@ function LoginScreen({navigation, props}) {
         const getData = await res.json();
 
         if(getData != 'failed'){
+            await commonData.reset();
             await commonData.addCurUser(getData)
             const curUser = commonData.getCurUser();
             if(curUser.UserPriv == '1'){
-                await commonData.getPatient();
-                await commonData.getPatientData('GetPrescription');
+                await commonData.getPatient('GetPatient');
+                commonData.getPatientData('GetPrescription');
                 commonData.getPatientData('GetHistory');
                 commonData.getPatientData('GetLog');
                 commonData.getPatientData('GetEmergency')
@@ -60,13 +61,17 @@ function LoginScreen({navigation, props}) {
                     name: 'Home',
                 })
             }else if(curUser.UserPriv == '2'){
-                await commonData.getPatients();
-                await commonData.getPatientData('GetPrescription');
+                await commonData.getPatient('GetPatient');
+                commonData.getPatientData('GetPrescription');
                 commonData.getPatientData('GetHistory');
                 commonData.getPatientData('GetLog');
                 commonData.getPatientData('GetEmergency')
-                navigation.navigate({
-                    name: 'MHome',
+                commonData.getCarers();
+                navigation.navigate("MHome",{
+                    screen:"Home",
+                    params: {
+                        screen:"MHome"
+                    }
                 })
             }
             

@@ -43,13 +43,13 @@ function PersonalProfileScreen({navigation: { goBack },navigation,route}) {
                                 paramPatient: data.PatientID
                             })}
                             onPress1={()=>navigation.navigate("MedicalHistory",{
-                                paramPatient: data.PatientID
+                                paramPatient: data
                             })}
                             onPress2={()=>navigation.navigate("Prescription",{
-                                paramPatient: data.PatientID
+                                paramPatient: data
                             })}
                             onPress3={()=>navigation.navigate("MedicalLog",{
-                                paramPatient: data.PatientID
+                                paramPatient: data
                             })}/>
       </AppScreen>
     );

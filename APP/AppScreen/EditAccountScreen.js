@@ -11,6 +11,7 @@ import AppTextInput from '../Components/AppTextInput';
 import * as ImagePicker from 'expo-image-picker';
 import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
+import { Alert } from 'react-native';
 
 function EditAccountScreen({navigation,navigation: { goBack },route}) {
     const data=route.params.paramPersonalData;
@@ -67,6 +68,9 @@ function EditAccountScreen({navigation,navigation: { goBack },route}) {
         };
 
         await commonData.editAccount(newdetail, 'info')
+
+        Alert.alert("Success", "Successfully edit account", [{text: 'OK', onPress:()=>navigation.navigate("Setting", {screen: 'Setting'})}])
+        
     }
 
     //const picture=image>0 ?<Image source={image} style={styles.image}/>
@@ -120,10 +124,10 @@ function EditAccountScreen({navigation,navigation: { goBack },route}) {
 
       <View style={styles.fullLine} />
       <View style={styles.center}>
-      <AppButton style={styles.button}title="Done" onPress={() => { 
+      <AppButton style={styles.button}title="Done" onPress={async () => { 
                         if(doErrorCheck()){
-                            editPersonal();
-                            navigation.navigate("Setting",{screen: "Setting"})
+                            await editPersonal()
+                            
                         }
                      }}/>
       </View>

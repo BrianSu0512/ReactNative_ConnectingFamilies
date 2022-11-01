@@ -11,18 +11,8 @@ import AppScreen from './AppScreen';
 
 
 function MPersonalProfileScreen({navigation: { goBack },navigation,route}) {
-    const id= route.params.paramPatient
-    console.log("line13",id)
-
-    const patients= () => {
-        let commonData = DataManager.getInstance();
-         const userdetials = commonData.getPatient(id);
-     
-           return userdetials
-        }
-     
-         const data=patients()
-         console.log("line102",data[0].pId)
+    const data= route.params.paramPatient
+    
     return (
         <AppScreen>
         <View style={styles.heading}>
@@ -43,7 +33,7 @@ function MPersonalProfileScreen({navigation: { goBack },navigation,route}) {
           <AppText style={styles.logoText}>Connecting Families</AppText>
       </View>
 
-      <TouchableOpacity onPress={()=>navigation.navigate("EditProfile", {paramPersonalData:data[0]})} >
+      <TouchableOpacity onPress={()=>navigation.navigate("EditProfile", {paramPersonalData:data})} >
       
       <AppIcon
           name="pencil"
@@ -58,17 +48,17 @@ function MPersonalProfileScreen({navigation: { goBack },navigation,route}) {
       <AppText style={styles.Title}>Personal Profiles</AppText>
        <View style={styles.hairline} />
 
-        <AppProfile data={data[0]} onPress={()=>navigation.navigate("Emergency",{
-                                paramPatient: data[0]
+        <AppProfile data={data} onPress={()=>navigation.navigate("Emergency",{
+                                paramPatient: data.PatientID
                             })}
                             onPress1={()=>navigation.navigate("MedicalHistory",{
-                                paramPatient: data[0].id
+                                paramPatient: data
                             })}
                             onPress2={()=>navigation.navigate("Prescription",{
-                                paramPatient: data[0].id
+                                paramPatient: data
                             })}
                             onPress3={()=>navigation.navigate("MedicalLog",{
-                                paramPatient: data[0].id
+                                paramPatient: data
                             })}/>
 
               

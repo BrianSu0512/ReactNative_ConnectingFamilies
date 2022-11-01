@@ -1,5 +1,6 @@
-import React , {useState} from 'react';
+import React , {useEffect, useState} from 'react';
 import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import { date } from 'yup';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
@@ -31,7 +32,6 @@ function MedicalHistoryScreen({route,navigation: { goBack },navigation}) {
 
     const history=getMHisotry();
 
-    //console.log(history)
     const plus = level ==='Privilege Level 1' 
     ? <></> 
     : <TouchableOpacity onPress={()=>{navigation.navigate('AddHistory',{paramPatient:patientid})}}>
@@ -77,8 +77,8 @@ function MedicalHistoryScreen({route,navigation: { goBack },navigation}) {
                     paramPatientid:item.PatientID
                 })}
                 onPress1={()=>navigation.navigate('EditHistoryScreen',{
-                    paramPatient:item.PatientID,
-                    paramPatientid:item.PatientID})}
+                    paramPatient:item,
+                    paramPatientData: patientData})}
                 />
             
             }

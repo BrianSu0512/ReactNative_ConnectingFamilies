@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import { View,StyleSheet,TouchableOpacity, Image,Alert} from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import AppColour from '../Components/AppColour';
 
 import AppListItem from '../Components/AppListItem';
@@ -9,22 +10,19 @@ import AppScreen from './AppScreen';
 
 function SettingScreen({navigation}) {
 
+    const [refresh, setRefresh] = useState(false);
+
+    const isFocused = useIsFocused();
+
     const getUser = () => {
         let commonData = DataManager.getInstance();
         let user=commonData.getCurUser()
-        console.log(user)
         return user;
     }
 
-    useEffect(()=>{
-        data=getUser();
-    })
-    
     var data = getUser();
 
     function logOut(){
-        let commonData = DataManager.getInstance();
-        commonData.reset();
         navigation.navigate("Welcome")
     }
 
@@ -65,7 +63,7 @@ function SettingScreen({navigation}) {
 
         <View style={styles.fullLine} />
 
-        <AppText style={styles.subheading}>Login</AppText>
+        <AppText style={styles.subheading}>Logout</AppText>
         <View style={styles.textContainer}>
 
         <TouchableOpacity  onPress={()=>Alert.alert("G'day","Would you like to log out ?",
