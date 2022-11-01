@@ -40,7 +40,8 @@ const level =getlevel()
     : <TouchableOpacity onPress={()=>{navigation.navigate('AddHistory',{paramPatient:patientid})}}>
         <AppIcon name="plus-circle-outline" size={40} style={{marginDown:10}}/>
       </TouchableOpacity>
-  
+
+   
     return (
         <AppScreen>
         <View style={styles.heading}>
@@ -79,6 +80,7 @@ const level =getlevel()
                 renderItem={({item})=>
                 <AppMHisotry 
                 data={item} 
+                level={level}
                 onPress={()=>navigation.navigate("Prescription",{
                     paramPatient: item.pId,
                     paramPatientid:item.id
@@ -86,6 +88,13 @@ const level =getlevel()
                 onPress1={()=>navigation.navigate('EditHistoryScreen',{
                     paramPatient:item.pId,
                     paramPatientid:item.id})}
+
+                onSwipeLeft={() => (
+                        <View style={styles.deleteView}>
+                            <TouchableOpacity>
+                                <AppIcon name="trash-can" size={50}/> 
+                            </TouchableOpacity>
+                        </View>)}
                 />
             
             }
@@ -139,6 +148,10 @@ const styles = StyleSheet.create({
         width: 340,
         marginLeft: 15
 
+    }, deleteView:{
+        width:75,   
+        justifyContent:"center",
+        alignItems:"center",
     }
 })
 export default MedicalHistoryScreen;
