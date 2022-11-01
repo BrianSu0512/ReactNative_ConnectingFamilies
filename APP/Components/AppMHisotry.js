@@ -10,7 +10,6 @@ import AppText from '../Components/AppText';
 
 
 function AppMHisotry({onSwipeLeft,data,onPress,onPress1,level}) {
-    console.log("13",level)
     const contain= level==='Privilege Level 1'
     ?  <View style={styles.container}>
 <TouchableOpacity onPress={onPress}>

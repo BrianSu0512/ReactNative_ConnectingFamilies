@@ -231,6 +231,12 @@ export default class DataManager  {
         return this.patients.filter((patient)=> patient.id === id);
     }
 
+    getPatientCarerID(carername){
+        console.log(carername)
+        const uxx=this.users.filter((u)=> u.name === carername);
+        return uxx[0].id
+    }
+
     addPatient(patient){
         this.patients.push(patient);
     }
