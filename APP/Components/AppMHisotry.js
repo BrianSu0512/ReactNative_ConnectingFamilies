@@ -8,32 +8,40 @@ import AppText from '../Components/AppText';
 import DataManager from '../config/DataManager';
 
 function AppMHisotry({data,onPress,onPress1}) {
+    const checkEndDate= (date)=> {
+        let onGoing = date
+        if(date == '0000-00-00'){
+            onGoing = 'Ongoing'
+        }
+        return onGoing;
+    }
+
+    var onGoing = checkEndDate(data.EndDate)
+
     return (
         
        <View style={styles.container}>
-        <TouchableOpacity onPress={onPress}>
-            <View style={styles.rowcontainer}>
-            <View>
-            <AppText style={styles.subtitle}>Pathogenic diagnosis</AppText>
-            <AppText style={styles.title}>{data.Diagnosis}</AppText>
-            </View>
-            <TouchableOpacity onPress={onPress1}>
-            <AppIcon name="pencil-outline" size={20} style={{marginDown:10}}/>
-            </TouchableOpacity>
-            </View>
-            
-        
-             <View style={styles.rowcontainer}>
-            <View style={styles.rowcontainer}>
-            <AppText style={styles.subtitle}>Date: </AppText>
-            <AppText style={styles.subtitle}>{data.BeginDate}</AppText>
-            </View>
-            <View style={styles.rowcontainer}>
-            <AppText style={styles.subtitle}>Referred By: </AppText>
-            <AppText style={styles.subtitle}>{data.EndDate}</AppText>
-            </View>
-            </View>
+        <View style={styles.rowcontainer}>
+        <View>
+        <AppText style={styles.subtitle}>Pathogenic diagnosis</AppText>
+        <AppText style={styles.title}>{data.Diagnosis}</AppText>
+        </View>
+        <TouchableOpacity onPress={onPress1}>
+        <AppIcon name="pencil-outline" size={20} style={{marginDown:10}}/>
         </TouchableOpacity>
+        </View>
+        
+    
+        <View style={styles.culumncontainer}>
+        <View style={styles.rowcontainer}>
+        <AppText style={styles.subtitle}>Begin Date: </AppText>
+        <AppText style={styles.subtitle}>{data.BeginDate}</AppText>
+        </View>
+        <View style={styles.rowcontainer}>
+        <AppText style={styles.subtitle}>Stop Date: </AppText>
+        <AppText style={styles.subtitle}>{onGoing}</AppText>
+        </View>
+        </View>
            
         </View>
     );

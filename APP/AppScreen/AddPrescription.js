@@ -13,89 +13,67 @@ import AppScreen from './AppScreen';
 
 
 function AddPrescriptionScreen({route,navigation: { goBack },navigation}) {
-    const pID =route.params.paramPatient
-    console.log("ppp",pID)
-
-    const id =route.params.paramPatient
-    console.log("oooo",id)
-   
-
-    const getlevel = () => {
-        let commonData = DataManager.getInstance();
-        let userid = commonData.getUserID();
-        let level=commonData.getLevel(userid);
-        return level;    
-    }
-    const level =getlevel()
-
-  const getMHisotry = () => {
-    let commonData = DataManager.getInstance();
-    let userHistory=commonData.getHisotry(pID);
-    return userHistory;    
-}
-
-     const history =getMHisotry();
-     console.log("hhhh",history)
-   
-    const getPrescription = () => {
-        let commonData = DataManager.getInstance();
-        let userPrescription=commonData.getPrescription(pID);
-        return userPrescription;    
-    }
-
-
-    const prescription=getPrescription();
-   
+    const patientData =route.params.paramPatient
 
     const[name, setName] = useState('');
     const[dose, setDose]=useState('');
     const[routee, setRoutee]=useState('');
     const[frequency, setFrequency]=useState('');
-    const[note, setNote]=useState('');
-
-
-
+    const[beginDate, setBeginDate]=useState('');
+    const[endDate, setEndDate]=useState('');
+    const[time, setTime]=useState('');
 
     const[nameError, setNameError]=useState("");
     const[doseError, setDoseError]=useState("");
     const[routeeError, setRouteeError]=useState('');
     const[frequencyError, setFrequencyError]=useState('');
-
-
+    const[beginDateError, setBeginDateError]=useState('');
+    const[endDateError, setEndDateError]=useState('');
+    const[timeError, setTimeError]=useState('');
 
     const doErrorCheck = () => {
-        setNameError( name.length>0 ? "": "Please set a valid Caption");
-        setDoseError(dose.length>0 ? "": "Please set a valid Email");
-     
+        setNameError(name.length>0 ? "": "Please set a valid Prescription Name");
+        setDoseError(dose.length>0 ? "": "Please set a valid Dosage");
+        setRouteeError(routee.length>0 ? "": 'Please set a valid Prescription Route')
+        setFrequencyError(frequency.length>0 ? "" : "Please set a valid Frequency")
+        setBeginDate(beginDate.length>0 ? "" : "Please set a date for when prescription intake begin")
+        setTimeError(timeError>0? "": "Please set at least 1 time in the day to give medicine")
         return ((name.length>0) && (dose.length>0) &&(routee.length>0)&&(frequency.length>0) )
     }
 
-    const addPrescription = () => {
+    const addPrescription = async () => {
         let commonData = DataManager.getInstance();
- 
-        let IDLength = commonData.getPrescription(pID).length;
 
-     
-        console.log("line86", IDLength)
         const newdetial = {
-            
-            id:IDLength+1,  
-            pId:pID,
+            pId:patientData.PatientID,
             name:name,
             dose:dose,
-            routee:routee,
+            route:routee,
             frequency:frequency,
-            note:note,
-            time:["6:00","12:00","19:00"]
+            date:'2001-04-25',
+            stopDate:'0000-00-00',
+            time:time
         };
 
-        
-        commonData.addPrescription(newdetial);
-        let all = commonData.getPrescription(pID);
-        console.log("line show ", all)
-        
+        await commonData.addPatientData(newdetial, 'prescription');
 
+        await commonData.getPatientData('GetPrescription');
+        Alert.alert("Success", "Successfully add patient's data", [{text: 'OK', onPress:()=>navigation.navigate('Prescription',{paramPatient:patientData})}])
     }
+
+    /*<AppText style={styles.subheading}>Begin Date</AppText>
+        <TextInput 
+        style={styles.inputText}
+        value={beginDate}
+        onChangeText={(inputText) => setBeginDate(inputText)}/>
+        <View style={styles.fullLine} />
+
+        <AppText style={styles.subheading}>End Date</AppText>
+        <TextInput 
+        style={styles.inputText}
+        value={endDate}
+        onChangeText={(inputText) => setEndDate(inputText)}/>
+        <View style={styles.fullLine} />*/
 
     return (
         <AppScreen>
@@ -121,7 +99,7 @@ function AddPrescriptionScreen({route,navigation: { goBack },navigation}) {
    <AppText style={styles.Title}>Add Prescription</AppText>
    <View style={styles.hairline} />
 
-   <AppText style={styles.subheading}>Name</AppText>
+   <AppText style={styles.subheading}>Prescription Name</AppText>
    <TextInput 
       style={styles.inputText}
       value={name}
@@ -129,7 +107,7 @@ function AddPrescriptionScreen({route,navigation: { goBack },navigation}) {
 
         <View style={styles.fullLine} />
 
-        <AppText style={styles.subheading}>Dose</AppText>
+        <AppText style={styles.subheading}>Dosage</AppText>
         <TextInput 
          style={styles.inputText}
          value={dose}
@@ -151,18 +129,10 @@ function AddPrescriptionScreen({route,navigation: { goBack },navigation}) {
         onChangeText={(inputText) => setFrequency(inputText)}/>
         <View style={styles.fullLine} />
 
-        <AppText style={styles.subheading}>Note</AppText>
-        <TextInput 
-        style={styles.inputText}
-        value={note}
-        onChangeText={(inputText) => setNote(inputText)}/>
-
-      <View style={styles.fullLine} />
       <View style={styles.center}>
       <AppButton style={styles.button}title="Done" onPress={() => { 
                         if(doErrorCheck()){
                             addPrescription();
-                            navigation.navigate('Prescription',{paramPatient:id})
                         }
                      }}/>
       </View>

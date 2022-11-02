@@ -13,51 +13,14 @@ import AppScreen from './AppScreen';
 
 
 function AddHistoryScreen({route,navigation: { goBack },navigation}) {
-    const pID =route.params.paramPatient
-    console.log("ppp",pID)
-
-    const id =route.params.paramPatient
-    console.log("oooo",id)
-   
-
-    const getlevel = () => {
-        let commonData = DataManager.getInstance();
-        let userid = commonData.getUserID();
-        let level=commonData.getLevel(userid);
-        return level;    
-    }
-    const level =getlevel()
-
-  const getMHisotry = () => {
-    let commonData = DataManager.getInstance();
-    let userHistory=commonData.getHisotry(pID);
-    return userHistory;    
-}
-
-     const history =getMHisotry();
-     console.log("hhhh",history)
-   
-    const getPrescription = () => {
-        let commonData = DataManager.getInstance();
-        let userPrescription=commonData.getPrescription(pID);
-        return userPrescription;    
-    }
-
-
-    const prescription=getPrescription();
-   
+    const patientData =route.params.paramPatient
 
     const[diagnosis, setDiagnosis] = useState('');
     const[date, setDate]=useState('');
     const[stopDate, setStopDate]=useState('');
 
-
-
-
     const[diagnosisError, setDiagnosisError]=useState("");
     const[dateError, setDateError]=useState("");
-
-
 
     const doErrorCheck = () => {
         setDiagnosisError( diagnosis.length>0 ? "": "Please set a valid Caption");
@@ -66,28 +29,24 @@ function AddHistoryScreen({route,navigation: { goBack },navigation}) {
         return ((diagnosis.length>0) && (date.length>0) )
     }
 
-    const addPrescription = () => {
+    const addPrescription = async () => {
         let commonData = DataManager.getInstance();
- 
-        let hrecord = commonData.getMHisotry(id).length;
 
-     
-        console.log("line86", hrecord)
+        if(stopDate == ''){
+            setStopDate('0000-00-00')
+        }
+
         const newdetial = {
-            
-            id:id,  
-            pId:hrecord+1,
+            id:patientData.PatientID,  
             diagnosis:diagnosis,
             Date:date,
             StopDate:stopDate,
         };
-
         
-        commonData.addHistory(newdetial);
-        let all = commonData.getMHisotry(id);
-        console.log("line show ", all)
-        
+        await commonData.addPatientData(newdetial, 'history');
 
+        await commonData.getPatientData('GetHistory');
+        Alert.alert("Success", "Successfully add patient's data", [{text: 'OK', onPress:()=>navigation.navigate('MedicalHistory',{paramPatient:patientData})}])
     }
 
     return (
@@ -111,7 +70,7 @@ function AddHistoryScreen({route,navigation: { goBack },navigation}) {
            </View>
      
    </View>
-   <AppText style={styles.Title}>Add Histroy</AppText>
+   <AppText style={styles.Title}>Add History</AppText>
    <View style={styles.hairline} />
 
    <AppText style={styles.subheading}>Diagnosis</AppText>
@@ -122,7 +81,7 @@ function AddHistoryScreen({route,navigation: { goBack },navigation}) {
 
         <View style={styles.fullLine} />
 
-        <AppText style={styles.subheading}>Date</AppText>
+        <AppText style={styles.subheading}>Begin Date</AppText>
         <TextInput 
          style={styles.inputText}
          value={date}
@@ -138,10 +97,9 @@ function AddHistoryScreen({route,navigation: { goBack },navigation}) {
 
       <View style={styles.fullLine} />
       <View style={styles.center}>
-      <AppButton style={styles.button}title="Done" onPress={() => { 
+      <AppButton style={styles.button}title="Done" onPress={async () => { 
                         if(doErrorCheck()){
-                            addPrescription();
-                            navigation.navigate('MedicalHistory',{paramPatient:id})
+                            await addPrescription();
                         }
                      }}/>
       </View>

@@ -34,7 +34,7 @@ function MedicalHistoryScreen({route,navigation: { goBack },navigation}) {
 
     const plus = level ==='Privilege Level 1' 
     ? <></> 
-    : <TouchableOpacity onPress={()=>{navigation.navigate('AddHistory',{paramPatient:patientid})}}>
+    : <TouchableOpacity onPress={()=>{navigation.navigate('AddHistory',{paramPatient:patientData})}}>
         <AppIcon name="plus-circle-outline" size={40} style={{marginDown:10}}/>
       </TouchableOpacity>
   

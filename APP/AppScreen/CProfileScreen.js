@@ -10,6 +10,7 @@ import AppScreen from './AppScreen';
 
 function CProfileScreen({navigation:{goBack},route}) {
     const data= route.params.paramPatient
+
     return (
         <AppScreen>
         <View style={styles.heading}>
@@ -36,7 +37,7 @@ function CProfileScreen({navigation:{goBack},route}) {
       <AppText style={styles.Title}>Carer's Profiles</AppText>
        <View style={styles.hairline} />
 
-        <AppProfile data={data} title={data.name} subtitle={data.email} thirdtitle={data.phone} level={data.level}/>
+        <AppProfile data={data} title={data.UserName} subtitle={data.UserEmail} thirdtitle={data.UserPH} level={data.UserPriv}/>
 
               
       </AppScreen>

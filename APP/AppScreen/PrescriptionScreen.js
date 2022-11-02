@@ -149,8 +149,8 @@ function PrescriptionScreen({route,navigation: { goBack },navigation}) {
                           transform: [{ scale }]
                         }}>
                          <TouchableOpacity  onPress={()=>navigation.navigate('EditPrescription',{
-                                                paramPatient:item.pId,
-                                                paramPatientid:item})}>
+                                                paramPatient:item,
+                                                paramPatientData: patient})}>
                                 <AppIcon name="pencil" size={40} style={{height:80,}}/> 
                         </TouchableOpacity>
                       </Animated.View>

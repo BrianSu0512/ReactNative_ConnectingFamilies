@@ -9,6 +9,15 @@ import { Swipeable } from 'react-native-gesture-handler';
 
 function AppPrescription({prescription,onPress,onSwipeLeft,level}) {
 
+    const endDate = (date) =>{
+        if(date == '0000-00-00'){
+            date = 'Ongoing'
+        }
+        return date
+    }
+
+    prescription.EndDate = endDate(prescription.EndDate)
+
     const contain= level==='Privilege Level 1'
     
     ?<View style={styles.container}>

@@ -30,11 +30,12 @@ function ChangePasswordScreen({navigation,navigation: { goBack },route}) {
     }
 
     const editPersonal = async () => {
-        commonData = DataManager.getInstance();
+        let commonData = DataManager.getInstance();
         const newdetail = {      
             password:newPassword,
         };
         await commonData.editAccount(newdetail, 'password')
+        Alert.alert("Success", "Successfully edit account", [{text: 'OK', onPress:()=>navigation.navigate("Setting", {screen: 'Setting'})}])
     }
 
     return (
@@ -105,10 +106,12 @@ function ChangePasswordScreen({navigation,navigation: { goBack },route}) {
       <View style={styles.fullLine} />
 
     <View style={styles.center}>
-    <AppButton style={styles.button} title="Done" onPress={() => { 
+    <AppButton style={styles.button} title="Done" onPress={async () => { 
                         if(doErrorCheck()&& (password ===data.UserPass)  ){
-                            editPersonal();
-                            navigation.navigate("Setting",{screen: "Setting"})
+                            setPassword('')
+                            setNewPassword('')
+                            setCPassword('')
+                            await editPersonal();
                         }
                      }}/>
     </View>

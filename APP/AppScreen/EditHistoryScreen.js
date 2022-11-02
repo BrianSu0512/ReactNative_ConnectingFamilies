@@ -18,7 +18,18 @@ function EditHistoryScreen({route,navigation: { goBack },navigation}) {
    
     const[diagnosis, setDiagnosis] = useState(history.Diagnosis);
     const[date, setDate]=useState(history.BeginDate);
-    const[stopDate, setStopDate]=useState(history.EndDate);
+
+    const checkEndDate= (date)=> {
+      let onGoing = date
+      if(date == '0000-00-00'){
+          onGoing = ''
+      }
+      return onGoing;
+     }
+
+    var onGoing = checkEndDate(history.EndDate)
+    
+    const[stopDate, setStopDate]=useState(onGoing);
 
     const[diagnosisError, setDiagnosisError]=useState("");
     const[dateError, setDateError]=useState("");
@@ -27,7 +38,7 @@ function EditHistoryScreen({route,navigation: { goBack },navigation}) {
     const doErrorCheck = () => {
         setDiagnosisError(diagnosis.length>0 ? "": "Please set a valid name");
         setDateError(date.length>0 ? "": "Please set a valid Date");
-     
+
         return ((diagnosis.length>0) && (date.length>0) )
     }
 

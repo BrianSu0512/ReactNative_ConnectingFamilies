@@ -15,12 +15,22 @@
     $beginDate=$obj['BeginDate'];
     $endDate=$obj['EndDate'];
 
+    $presID=$obj['prescripID'];
+    $presName=$obj['prescripName'];
+    $presDose=$obj['prescripDose'];
+    $presRoute=$obj['prescripRoute'];
+    $presFrequency=$obj['prescripFrequency'];
+
     $userPriv=$obj['userPriv'];
     $dataType=$obj['DataType'];
 
-  
-    if($dataType == "history"){
-        $result= $cn->query("update MedicalHistory set Diagnosis='{$diag}', BeginDate='{$beginDate}', EndDate='{$endDate}' where MedicHistID='{$histID}'");
+    switch($dataType){
+        case 'history':
+            $result= $cn->query("update MedicalHistory set Diagnosis='{$diag}', BeginDate='{$beginDate}', EndDate='{$endDate}' where MedicHistID='{$histID}'");
+            break;
+        case 'prescription':
+            $result= $cn->query("update Prescription set PrescripName='{$presName}', PrescripDose='{$presDose}', PrescripRoute='{$presRoute}', PrescripFrequency='{$presFrequency}' where PrescripID='{$presID}'");
+            break;
     }
 
 

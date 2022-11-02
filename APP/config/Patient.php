@@ -49,7 +49,7 @@
                 $result= $cn->query("SELECT MedicalHistory.* FROM MedicalHistory");
                 break;
             case 'GetPatient':
-                $result= $cn->query("SELECT Patients.* FROM Patients");
+                $result= $cn->query("SELECT * FROM Patients");
                 break;
             case 'GetPrescription':
                 $result= $cn->query("SELECT Prescription.* FROM Prescription");

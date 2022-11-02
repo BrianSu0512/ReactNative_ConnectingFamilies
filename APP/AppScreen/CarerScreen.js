@@ -42,15 +42,6 @@ function CarerScreen({navigation}) {
         }
         />
 
-                   
-
-
-
-
-        
-
-  
-
         </AppScreen>
         
     );

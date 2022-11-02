@@ -11,42 +11,36 @@ import AppListItem from './AppListItem';
 
 function AppProfile({data,onPress,onPress1,onPress2,onPress3,level}) {
 
-    const profile= level==='Privilege Level 1'
+    const profile= level==='1'
     ?   <View>
 
     <View style={styles.rowcontainer}>
 
     
-            <AppListItem image={data.image} title={data.name}/>
+            <AppListItem image={data.image} title={data.UserName}/>
            </View>
     
            <View style={styles.contentcontainer}>
            <View style={styles.culumncontainer}>
             <AppText style={styles.subtitle}>Age</AppText>
             <AppText style={styles.subtitle}>Gender</AppText>
-            <AppText style={styles.subtitle}>Blood Type</AppText>
-            <AppText style={styles.subtitle}>Date of Birth</AppText>
             <AppText style={styles.subtitle}>Phone number</AppText>
+            <AppText style={styles.subtitle}>Email</AppText>
+            <AppText style={styles.subtitle}>Privilege Level</AppText>
            </View>
            <View style={styles.culumncontainer}>
             <AppText style={styles.text}>{data.age}</AppText>
             <View style={styles.line} />
             <AppText style={styles.text}>{data.gender}</AppText>
             <View style={styles.line} />
-            <AppText style={styles.text}>{data.bloodType}</AppText>
+            <AppText style={styles.text}>{data.UserPH}</AppText>
             <View style={styles.line} />
-            <AppText style={styles.text}>{data.dob}</AppText>
+            <AppText style={styles.text}>{data.UserEmail}</AppText>
             <View style={styles.line} />
-            <AppText style={styles.text}>{data.phone}</AppText>
+            <AppText style={styles.text}>{data.UserPriv}</AppText>
             <View style={styles.line} />
            </View>
            </View>
-            
-            <View style={styles.botttomcontainer}>
-            <AppText style={styles.subtitle}>Privilege Level</AppText>
-           <AppText style={styles.text}>{data.level}</AppText>
-           <View style={styles.line1} />
-            </View>
          </View>
     :     <View>
 

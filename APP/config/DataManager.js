@@ -107,6 +107,10 @@ export default class DataManager  {
         return this.Prescriptions.filter((p)=> p.PatientID=== id);
     }
 
+    getSpecPrescrip(id){
+        return this.Prescriptions.filter((p)=> p.PrescripID===id);
+    }
+
     addLog(log){
         this.prescriptLogs.push(log)
     }
@@ -132,6 +136,10 @@ export default class DataManager  {
             priv = 'Privilege Level 2'
         }
         return priv
+    }
+
+    getUserPatient(userid){
+        return this.patients.filter((m)=> m.UserID === userid)
     }
 
     async editAccount(data, types){
@@ -209,7 +217,7 @@ export default class DataManager  {
     }
 
     async editPatientData(data, types){
-        var InsertAPIURL = "https://medidecks.homes/api/editPatient.php";
+        var InsertAPIURL = "https://medidecks.homes/api/EditPatientData.php";
         
         var header={
             'Accept':'application/json',
@@ -227,6 +235,15 @@ export default class DataManager  {
                 MedicHistID: data.MedicHistID,
                 DataType: types
             };
+        } else if(types == 'prescription'){
+            Data={
+                prescripID: data.id,
+                prescripName: data.name,
+                prescripDose: data.dose,
+                prescripRoute: data.route,
+                prescripFrequency: data.frequency,
+                DataType: types
+            };
         }
         const res = await fetch(InsertAPIURL, {
             method:'POST',
@@ -236,14 +253,69 @@ export default class DataManager  {
         const getData = await res.json();
         if(getData == 'success'){
             if(types == 'history'){
-                console.log(this.medicalHistories)
                 var curHistory = this.getSpecHist(data.MedicHistID);
                 curHistory[0].Diagnosis = data.Diagnosis
                 curHistory[0].BeginDate = data.BeginDate
                 curHistory[0].EndDate = data.EndDate
-                console.log(this.medicalHistories)
+            } else if(types == 'prescription'){
+                var curPrescrip = this.getSpecPrescrip(data.id)
+                console.log(curPrescrip)
+                curPrescrip[0].PrescripName = data.name
+                curPrescrip[0].PrescripDose = data.dose
+                curPrescrip[0].PrescripRoute = data.route
+                curPrescrip[0].PrescripFrequency = data.frequency
+                console.log(curPrescrip)
             }
             
+        }else{
+            Alert.alert("Failed to edit patient data")
+        }
+    }
+
+    async addPatientData(data, types){
+        var InsertAPIURL = "https://medidecks.homes/api/AddPatientData.php";
+        
+        var header={
+            'Accept':'application/json',
+            'Content-Type':'application/json'
+        };
+
+        var Data={}
+
+        if(types == 'history'){
+            Data={
+                patientID: data.id,
+                Diagnosis: data.diagnosis,
+                BeginDate: data.Date,
+                EndDate: data.StopDate,
+                DataType: types
+            };
+        } else if(types == 'prescription'){
+            Data={
+                patientID: data.pId,
+                prescripName: data.name,
+                prescripDose: data.dose,
+                prescripRoute: data.route,
+                prescripFrequency: data.frequency,
+                prescripTime: data.time,
+                BeginDate: data.date,
+                EndDate: data.stopDate,
+                DataType: types
+            };
+        }
+        const res = await fetch(InsertAPIURL, {
+            method:'POST',
+            headers:header,
+            body: JSON.stringify(Data)
+        });
+
+        const getData = await res.json();
+        if(getData == 'success'){
+            if(types == 'history'){
+                this.medicalHistories = [];
+            }else if(types == 'prescription'){
+                this.Prescriptions = [];
+            }
         }else{
             Alert.alert("Failed to edit patient data")
         }
