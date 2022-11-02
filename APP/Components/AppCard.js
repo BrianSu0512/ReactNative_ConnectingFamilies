@@ -8,12 +8,14 @@ import AppText from './AppText';
 
 
 function AppCard({image,name,referTo, referredBy, rNbNO, note,onPress,onPress1,onPress2,onPress3}) {
+    const picture=image>0 ?<Image source={image} style={styles.image}/>
+                        :<Image source={{uri: image}} style={styles.image}/>
     return (
     <View style={styles.container}>
         
         <TouchableOpacity onPress={onPress}>
         <View style={styles.rowcontainer}>
-        {image && <Image source={image} style={styles.image}/>}
+        {picture}
         <AppText style={styles.nametext}>{name}</AppText>
         <TouchableOpacity onPress={onPress3}>
         <AppIcon style={styles.icon} name="calendar-edit" size={20} />

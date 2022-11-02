@@ -55,7 +55,7 @@ function AppPForm({onPress,navigation}) {
         if (pickerResult.cancelled === true) {
             return;
         }
-        setImage({path: pickerResult.uri});
+        setImage(pickerResult.uri);
        
     }
 
@@ -102,10 +102,10 @@ function AppPForm({onPress,navigation}) {
 
         
         commonData.addPatient(newdetial);
-        // const userdetials = commonData.getPatient(id);
+        const userdetials = commonData.getPatient(id);
         // const allP=commonData.getAllPatients()
 
-        // console.log("line102",userdetials)
+        console.log("line102",userdetials)
         // console.log("all",allP)
 
     }
