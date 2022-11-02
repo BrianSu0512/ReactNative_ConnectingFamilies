@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import { View,StyleSheet,TouchableOpacity, Image,TextInput,ScrollView} from 'react-native';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
-
+import AppIcon from '../Components/AppIcon';
 import AppText from '../Components/AppText';
 
 
@@ -10,20 +10,29 @@ import * as ImagePicker from 'expo-image-picker';
 import DataManager from '../config/DataManager';
 
 
-function AppForm({data,onPress,navigation}) {
-    const[name, setName] = useState(data.PatientName);
-    const[age, setAge]=useState(data.PatientAge);
-    const[gender, setGender]=useState(data.PatientGender);
-    const[bloodType, setBloodType]=useState(data.PatientBloodType);
-    const[dob, setDob]=useState(data.PatientDOB);
-    const[address, setAddress]=useState(data.PatientAddress);
-    const[phone, setPhone]=useState(data.PatientPH);
-    const[image, setImage] = useState(data.image);
 
-    const[eName, seteName]=useState(data.eName);
-    const[relationship, setRelationship]=useState(data.relationship);
-    const[ephone, setePhone]=useState(data.ePhone);
-    const[eAddress, seteAddress]=useState(data.eAddress);
+function AppPForm({onPress,navigation}) {
+    const[name, setName] = useState('');
+    const[age, setAge]=useState('');
+    const[gender, setGender]=useState('');
+    const[bloodType, setBloodType]=useState('');
+    const[dob, setDob]=useState('');
+    const[address, setAddress]=useState('');
+    const[phone, setPhone]=useState('');
+    const[image, setImage] = useState('null');
+    const[eName, seteName]=useState('');
+    const[relationship, setRelationship]=useState('');
+    const[ephone, setePhone]=useState('');
+    const[eAddress, seteAddress]=useState('');
+
+    const[referto, setReferto]=useState('');
+    const[referby, setReferby] = useState('');
+    const[carer, setCarer] = useState('');
+    const[roomNO, setRoomNO]=useState('');
+    const[note, setNote]=useState('');
+
+    const[medicare, setemedicare]=useState('');
+    const[Insurant, setInsurant]=useState('');
 
 
 
@@ -57,23 +66,24 @@ function AppForm({data,onPress,navigation}) {
         return ((name.length>0) && (phone.length>0) && (image)? true: false)
     }
 
-    const editProfile = () => {
+    const addPatient = () => {
         let commonData = DataManager.getInstance();
         let user = commonData.getUserID();
 
-        const id = data.id
 
+        const patients = commonData.getAllPatients(user);
+        const id = patients.length+1;
 
-        const userdetial = commonData.getPatient(id);
+        const uid = commonData.getPatientCarerID(carer);
 
 
         const newdetial = {
-            userid:data.userid,
-            referTo:data.referTo,
-            referredBy:data.referredBy,
-            rNbNO:data.rNbNO,
-            note:data.note,
-            id:data.id,
+            userid:uid,
+            referTo:referto,
+            referredBy:referby,
+            rNbNO:roomNO,
+            note:note,
+            id:id,
             name:name,
             age:age,
             gender:gender,
@@ -85,37 +95,98 @@ function AppForm({data,onPress,navigation}) {
             eName:eName,
             relationship:relationship,
             ePhone:ephone,
-            eAddress:eAddress
+            eAddress:eAddress,
+            medicare:medicare,
+            Insurant:Insurant
         };
 
         
-        commonData.editPatient(newdetial);
-        const userdetials = commonData.getPatient(id);
-        const allP=commonData.getAllPatients()
+        commonData.addPatient(newdetial);
+        // const userdetials = commonData.getPatient(id);
+        // const allP=commonData.getAllPatients()
 
         // console.log("line102",userdetials)
         // console.log("all",allP)
 
     }
 
-    //const picture=image>0 ?<Image source={image} style={styles.image}/>
-    //                      : <Image source={{uri: image.path}} style={styles.image}/>
-    
-    //{picture}
+    const picture=image === 'null' ? <AppIcon name="image" size={80} />
+                          : <Image source={{uri: image.path}} style={styles.image}/>
     return (
-        <ScrollView>
-                <TouchableOpacity style={styles.imageButton} onPress={openImagePickerAsync}>
-          
-   </TouchableOpacity>
+    <ScrollView>
+    <View style={styles.rowcontianer1}>
+        <TouchableOpacity style={styles.imageButton} onPress={openImagePickerAsync}> 
+        {picture}
+        </TouchableOpacity>
 
-    <View style={styles.rowcontianer}>
+    </View>
+    <View style={styles.fullLine} />
+    <View style={styles.rowcontianer1}>
+        <View style={styles.rowcontianer}>
+        
         <AppText style={styles.subheading}>Patient's Name</AppText>
         <TextInput 
         style={styles.inputText}
+        placeholder="Name"
         value={name}
         onChangeText={(inputText) => setName(inputText)}/>
+        </View>
+      
+        <View style={styles.rowcontianer}>
+        <AppText style={styles.subheading}>Carer's Name</AppText>
+            <TextInput 
+            style={styles.inputText}
+            placeholder="Carer's Name"
+            value={carer}
+            onChangeText={(inputText) => setCarer(inputText)}/>
+        </View>
     </View>
+
     <View style={styles.fullLine} />
+
+    <View style={styles.rowcontianer1}>
+        <View style={styles.rowcontianer}>
+        
+        <AppText style={styles.subheading}>Refer To</AppText>
+        <TextInput 
+         style={styles.inputText}
+         placeholder="Refer To"
+         value={referto}
+         onChangeText={(inputText) => setReferto(inputText)}/>
+        </View>
+      
+        <View style={styles.rowcontianer}>
+        <AppText style={styles.subheading}>Referred By</AppText>
+            <TextInput 
+            style={styles.inputText}
+            placeholder="Referred By"
+            value={referby}
+            onChangeText={(inputText) => setReferby(inputText)}/>
+        </View>
+    </View>
+
+    <View style={styles.fullLine} />
+
+
+    <AppText style={styles.subheading}>Room No. / Building</AppText>
+        <TextInput 
+        style={styles.inputText}
+        placeholder="Room No. / Building"
+        value={roomNO}
+        onChangeText={(inputText) => setRoomNO(inputText)}/>
+  
+    <View style={styles.fullLine} />
+
+        <AppText style={styles.subheading}>Note</AppText>
+        <TextInput 
+         style={styles.inputText}
+         placeholder="Note"
+         value={note}
+         onChangeText={(inputText) => setNote(inputText)}/>
+       
+    <View style={styles.fullLine} />
+
+    <AppText style={styles.Title}>Patient Details</AppText>
 
     <View style={styles.rowcontianer1}>
         <View style={styles.rowcontianer}>
@@ -123,6 +194,7 @@ function AppForm({data,onPress,navigation}) {
         <AppText style={styles.subheading}>Gender</AppText>
         <TextInput 
          style={styles.inputText}
+         placeholder="Gender"
          value={gender}
          onChangeText={(inputText) => setGender(inputText)}/>
         </View>
@@ -131,21 +203,20 @@ function AppForm({data,onPress,navigation}) {
         <AppText style={styles.subheading}>BloodType</AppText>
             <TextInput 
             style={styles.inputText}
+            placeholder="BloodType"
             value={bloodType}
             onChangeText={(inputText) => setBloodType(inputText)}/>
         </View>
     </View>
-   
-
-  
 
     <View style={styles.fullLine} />
 
     <View style={styles.rowcontianer1}>
     <View style={styles.rowcontianer}>
-    <AppText style={styles.subheading}>Date of birth</AppText>
+    <AppText style={styles.subheading}>Date of Birth</AppText>
         <TextInput 
         style={styles.inputText}
+        placeholder="Date of Birth"
         value={dob}
         onChangeText={(inputText) => setDob(inputText)}/>
     </View>
@@ -153,6 +224,7 @@ function AppForm({data,onPress,navigation}) {
         <AppText style={styles.subheading}>Age</AppText>
         <TextInput 
          style={styles.inputText}
+         placeholder="Age"
          value={age}
          onChangeText={(inputText) => setAge(inputText)}/>
      </View>
@@ -167,8 +239,31 @@ function AppForm({data,onPress,navigation}) {
     <AppText style={styles.subheading}>Phone Number</AppText>
         <TextInput 
         style={styles.inputText}
+        placeholder="Phone Number"
         value={phone}
         onChangeText={(inputText) => setPhone(inputText)}/>
+    </View>
+
+    <View style={styles.fullLine} />
+
+    <View style={styles.rowcontianer}>
+    <AppText style={styles.subheading}>Medicare Number</AppText>
+        <TextInput 
+        style={styles.inputText}
+        placeholder="Medicare Number<"
+        value={medicare}
+        onChangeText={(inputText) => setemedicare(inputText)}/>
+    </View>
+
+    <View style={styles.fullLine} />
+
+    <View style={styles.rowcontianer}>
+    <AppText style={styles.subheading}>Insurant Number</AppText>
+        <TextInput 
+        style={styles.inputText}
+        placeholder="Insurant Number"
+        value={Insurant}
+        onChangeText={(inputText) => setInsurant(inputText)}/>
     </View>
 
     <View style={styles.fullLine} />
@@ -176,11 +271,13 @@ function AppForm({data,onPress,navigation}) {
     <AppText style={styles.subheading}>Address</AppText>
         <TextInput 
         style={styles.inputText}
+        placeholder="Address"
         value={address}
         onChangeText={(inputText) => setAddress(inputText)}/>
 
+<View style={styles.fullLine} />
+
     <AppText style={styles.Title}>Emergency Details</AppText>
-   <View style={styles.hairline} />
 
     <View style={styles.rowcontianer1}>
             <View style={styles.rowcontianer}>
@@ -189,6 +286,7 @@ function AppForm({data,onPress,navigation}) {
             <TextInput 
             style={styles.inputText}
             value={eName}
+            placeholder="Name"
             onChangeText={(inputText) => seteName(inputText)}/>
             </View>
         
@@ -196,16 +294,20 @@ function AppForm({data,onPress,navigation}) {
             <AppText style={styles.subheading}>Relationship</AppText>
                 <TextInput 
                 style={styles.inputText}
+                placeholder="Relationship"
                 value={relationship}
                 onChangeText={(inputText) => setRelationship(inputText)}/>
             </View>
     </View>
+
+    <View style={styles.fullLine} />
 
     <View style={styles.rowcontianer}>
     <AppText style={styles.subheading}>Phone Number</AppText>
         <TextInput 
         style={styles.inputText}
         value={ephone}
+        placeholder="Phone Number"
         onChangeText={(inputText) => setePhone(inputText)}/>
     </View>
 
@@ -215,6 +317,7 @@ function AppForm({data,onPress,navigation}) {
         <TextInput 
         style={styles.inputText}
         value={eAddress}
+        placeholder="Address"
         onChangeText={(inputText) => seteAddress(inputText)}/>
    
     
@@ -223,7 +326,7 @@ function AppForm({data,onPress,navigation}) {
       <View style={styles.center}>
       <AppButton style={styles.button}title="Done" onPress={() => { 
                         if(doErrorCheck()){
-                            editProfile();
+                            addPatient();
                              onPress();
                         }
                      }}/>
@@ -242,7 +345,7 @@ Title:{
    fontSize:22
 },
 subheading:{
-   fontSize:18,
+   fontSize:16,
    marginLeft:10,
 },
 hairline: {
@@ -256,7 +359,7 @@ fullLine: {
    backgroundColor: '#A2A2A2',
    height: 2,
    width: 500,
-   marginBottom: 15
+   marginBottom: 10
 },
 textStyle:{
    fontSize:18,
@@ -296,4 +399,4 @@ center:{
 }
 })
 
-export default AppForm;
+export default AppPForm;

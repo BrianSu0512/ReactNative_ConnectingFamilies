@@ -29,6 +29,9 @@
         case 'prescription':
             $result= $cn->query("Insert into Prescription(PrescripName, PrescripDose, PrescripRoute, PrescripFrequency, BeginDate, EndDate, PatientID) values ('{$presName}', '{$presDose}', '{$presRoute}', '{$presFrequency}', '{$beginDate}', '{$endDate}', '{$patientID}')");
             break;
+        case 'patient':
+            $result= $cn->query("Insert into Prescription(PrescripName, PrescripDose, PrescripRoute, PrescripFrequency, BeginDate, EndDate, PatientID) values ('{$presName}', '{$presDose}', '{$presRoute}', '{$presFrequency}', '{$beginDate}', '{$endDate}', '{$patientID}')");
+            break;
     }
 
 

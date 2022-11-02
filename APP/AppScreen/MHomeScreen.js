@@ -29,7 +29,13 @@ function MHomeScreen({navigation,route}) {
  
         </View>   
 
-       <AppText style={styles.Title}>MHome</AppText>
+        <View style={styles.rowcontainer}>
+       <AppText style={styles.Title}>Manager's Home</AppText>
+       <TouchableOpacity onPress={()=>{navigation.navigate('AddPatient')}}>
+        <AppIcon name="plus-circle-outline" size={40} style={{marginDown:10}}/>
+        </TouchableOpacity>
+
+        </View>
         <View style={styles.hairline} />
                 <FlatList 
                     style={styles.list}
@@ -114,6 +120,10 @@ const styles = StyleSheet.create({
         height: 2,
         width: 340,
         marginLeft: 15
+    },rowcontainer:{
+        flexDirection:'row',
+        width:350,
+        justifyContent:'space-between'
     },
     
 })

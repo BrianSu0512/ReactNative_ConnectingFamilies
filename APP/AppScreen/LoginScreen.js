@@ -53,7 +53,7 @@ function LoginScreen({navigation, props}) {
             const curUser = commonData.getCurUser();
             if(curUser.UserPriv == '1'){
                 await commonData.getPatient('GetPatient');
-                commonData.getPatientData('GetPrescription');
+                await commonData.getPatientData('GetPrescription');
                 commonData.getPatientData('GetHistory');
                 commonData.getPatientData('GetLog');
                 commonData.getPatientData('GetEmergency')
@@ -62,7 +62,7 @@ function LoginScreen({navigation, props}) {
                 })
             }else if(curUser.UserPriv == '2'){
                 await commonData.getPatient('GetPatient');
-                commonData.getPatientData('GetPrescription');
+                await commonData.getPatientData('GetPrescription');
                 commonData.getPatientData('GetHistory');
                 commonData.getPatientData('GetLog');
                 commonData.getPatientData('GetEmergency')

@@ -1,36 +1,66 @@
 import React  , {useState}from 'react';
-import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image,Switch} from 'react-native';
+import { View,StyleSheet,TouchableOpacity,Text,FlatList, Alert,Image,Switch, TextInput} from 'react-native';
 import { Checkbox } from 'react-native-paper';
 import { date } from 'yup';
 import AppButton from '../Components/AppButton';
 import AppColour from '../Components/AppColour';
 import AppIcon from '../Components/AppIcon';
 import AppText from '../Components/AppText';
+import AppTextInput from '../Components/AppTextInput';
 
 import { CheckBox } from 'react-native-elements'
 import AppCheckbox from './AppCheckbox';
+import { ViewBase } from 'react-native';
+import DataManager from '../config/DataManager';
 
 function AppMlog({prescription}) {
     const [checked, setChecked] = React.useState(false);
-
+    const [checked2, setChecked2] = React.useState(true);
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    const [note, setNote] = useState('')
 
-    // const checkingbox=Platform.OS ==='android' ?<Checkbox
-    // status={checked ? 'checked' : 'unchecked'}
-    // onPress={() => {
-    //    setChecked(!checked);
-    // }}
-    // color={'green'}
-    // uncheckColor={'red'}
-    // /> 
-    // :<Switch
-    //     trackColor={{ false: "#767577", true: "#03AC13" }}
-    //     thumbColor={isEnabled ? "##f4f3f4" : "#f4f3f4"}
-    //     ios_backgroundColor="#3e3e3e"
-    //     onValueChange={toggleSwitch}
-    //     value={isEnabled}
-    // />;
+    var times = []
+    var checkBoxes = []
+
+    const checkPres = () =>{
+        var commonData = DataManager.getInstance();
+        var logs = commonData.getLogs()
+        if(prescription.time){
+            for(let i = 0; i < prescription.time.length; i++){
+                times.push(<AppText>{prescription.time[i]}</AppText>)
+                if(logs.length > 0 && logs[i]){  
+                    if(logs[i].PatientID == prescription.PatientID){
+                        if(logs[i].Time == prescription.time[i]){
+                            checkBoxes.push(<CheckBox
+                                style={styles.box}
+                                checked={checked2}
+                              />)
+                        }else{
+                            checkBoxes.push(<CheckBox
+                                style={styles.box}
+                                checked={checked}
+                              />)
+                        }
+                    }else{
+                        checkBoxes.push(<CheckBox
+                            style={styles.box}
+                            checked={checked}
+                          />)
+                    }
+                }else{
+                    checkBoxes.push(<CheckBox
+                        style={styles.box}
+                        checked={checked}
+                      />)
+                }
+            }
+        }
+
+        return logs;
+    }
+    
+    const randomT = checkPres();
 
     return (
         
@@ -39,53 +69,47 @@ function AppMlog({prescription}) {
             <View style={styles.rowBetweencontainer}>
             <View style={styles.culumncontainer}>
             <AppText style={styles.subtitle}>Medicine Name</AppText>
-            <AppText>{prescription.name}</AppText>
+            <AppText>{prescription.PrescripName}</AppText>
             </View>
 
             <View style={styles.culumncontainer}>
 
             <View style={styles.rowcontainer}>
             <AppText style={styles.subtitle}>Dose: </AppText>
-            <AppText style={styles.subtitle}>{prescription.dose}</AppText>
+            <AppText style={styles.subtitle}>{prescription.PrescripDose}</AppText>
             </View>
 
             <View style={styles.rowcontainer}>
             <AppText style={styles.subtitle}>Route: </AppText>
-            <AppText style={styles.subtitle}>{prescription.route}</AppText>
+            <AppText style={styles.subtitle}>{prescription.PrescripRoute}</AppText>
             </View>
 
             <View style={styles.rowcontainer}>
             <AppText style={styles.subtitle}>Frequency: </AppText>
-            <AppText style={styles.subtitle}>{prescription.frequency}</AppText>
+            <AppText style={styles.subtitle}>{prescription.PrescripFrequency}</AppText>
             </View>
-            
 
-      
             </View>
             </View>
 
             <View style={styles.line}></View>
 
             <View style={styles.rowBetweencontainer}>
-                <AppText>Time</AppText>
-                <AppText>6:00</AppText>
-                <AppText>12:00</AppText>
-                <AppText>18:00</AppText>
+            <AppText>Time:</AppText>
+            { times }
             </View>
-            <View style={styles.checkboxcontainer}>
-
-            <AppCheckbox/>
-            <AppCheckbox/>
-            <AppCheckbox/>
-
+            <View style={styles.rowBetweencontainer}>
+            <AppText>Given:</AppText>
+            { checkBoxes }
             </View>
 
             <View style={styles.rowcontainer}>
-            <AppText>Note: </AppText>
-            <AppText style={styles.note}>{prescription.note}</AppText>
+            <AppTextInput 
+            style={styles.inputText}
+            value={note}
+            placeholder="Note"
+            onChangeText={(inputText) => setNote(inputText)}/>
             </View>
-
-           
         </View>
     );
 }
@@ -135,7 +159,11 @@ const styles = StyleSheet.create({
         height: 2,
         width: 325,
         margin:5,
-    }
+    },
+    inputText:{
+        marginLeft:10,
+        width:320,
+    },
 })
 
 export default AppMlog;

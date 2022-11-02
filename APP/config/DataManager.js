@@ -13,6 +13,7 @@ export default class DataManager  {
     allUsers = [];
 
     emergencyC= [];
+    logs = [];
 
     static getInstance(){
         if(DataManager.myInstance==null){
@@ -33,6 +34,10 @@ export default class DataManager  {
         return this.patients.filter((patient)=> patient.PatientID === id);
     }
 
+    getUserPatient(id){
+        return this.patients.filter((patient)=> patient.PatientID === id);
+    }
+
     addPatient(patient){
         this.patients.push(patient);
     }
@@ -43,6 +48,14 @@ export default class DataManager  {
 
     addHistory(history){
         this.medicalHistories.push(history)
+    }
+
+    addLogs(log){
+        this.logs.push(log)
+    }
+
+    getLogs(){
+        return this.logs
     }
 
     editPatient(patient){
@@ -76,8 +89,26 @@ export default class DataManager  {
     }
 
     getAllCarers(){
-        console.log(this.allUsers)
         return this.allUsers
+    }
+
+    removePrescription(id){
+        var index = this.Prescriptions.findIndex(obj =>{
+            return obj.PrescripID == id
+        })
+        if(index !== -1){
+            this.Prescriptions.splice(index, 1)
+        }
+    }
+
+    removeHists(id){
+        var index = this.medicalHistories.findIndex(obj =>{
+            return obj.MedicHistID == id
+        })
+
+        if(index !== -1){
+            this.medicalHistories.splice(index, 1)
+        }
     }
 
     getMHisotry(id){
@@ -126,7 +157,6 @@ export default class DataManager  {
     getEmergency(id){
         return this.emergencyC.filter((p)=> p.PatientID=== id);
     }
-
 
     getLevel(userid){
         var priv = '';
@@ -259,12 +289,10 @@ export default class DataManager  {
                 curHistory[0].EndDate = data.EndDate
             } else if(types == 'prescription'){
                 var curPrescrip = this.getSpecPrescrip(data.id)
-                console.log(curPrescrip)
                 curPrescrip[0].PrescripName = data.name
                 curPrescrip[0].PrescripDose = data.dose
                 curPrescrip[0].PrescripRoute = data.route
                 curPrescrip[0].PrescripFrequency = data.frequency
-                console.log(curPrescrip)
             }
             
         }else{
@@ -369,6 +397,7 @@ export default class DataManager  {
         const getData = await res.json();
         var time = [];
         var curID = '1';
+
         if(getData.length>0 && getData != 'failed'){
             for(var i =0; i < getData.length; i++){
                 if(Type == 'GetPrescription'){
@@ -379,21 +408,26 @@ export default class DataManager  {
                     this.addEmergency(getData[i])
                 }else if(Type == 'GetLog'){
                     if(getData[i].PrescripID == curID){
-                        time.push(getData[i].MedicineTime)
+                        tempString = getData[i].MedicineTime.substring(0,5)
+                        time.push(tempString)
                     }else{
-                        this.Prescriptions.filter((p)=> p.PrescripID=== curID).time = time
+                        curPrescrip = this.Prescriptions.filter((p)=> p.PrescripID=== curID)
+                        curPrescrip[0]['time'] = time
                         curID = getData[i].PrescripID
                         time = [];
-                        time.push(getData[i].MedicineTime);
-
+                        tempString = getData[i].MedicineTime.substring(0,5)
+                        time.push(tempString)
                     }
 
                     if(i == getData.length - 1){
-                        this.Prescriptions.filter((p)=> p.PrescripID=== curID).time = time
+                        curPrescrip = this.Prescriptions.filter((p)=> p.PrescripID=== curID)
+                        curPrescrip[0]['time'] = time
                     }
                 }
             }
         }
+
+
     }
 
 }

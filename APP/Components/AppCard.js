@@ -20,7 +20,6 @@ function AppCard({image,name,referTo, referredBy, rNbNO, note,onPress,onPress1,o
         </TouchableOpacity>
         </View>
         <View style={styles.rowcontainer}>
-        <View style={styles.rowcontainer}>
         <AppText style={styles.text}>ReferTo: </AppText>
         <AppText style={styles.text}>{referTo}</AppText>
         </View>
@@ -28,11 +27,10 @@ function AppCard({image,name,referTo, referredBy, rNbNO, note,onPress,onPress1,o
         <AppText style={styles.text}>Referred By: </AppText>
         <AppText style={styles.text}>{referredBy}</AppText>
         </View>
-        </View>
+        <View style={styles.rowcontainer}>
         <AppText style={styles.text}>Room and Building Number:</AppText>
         <AppText style={styles.text}>{rNbNO}</AppText>
-        <AppText style={styles.text}>Note:</AppText>
-        <AppText style={styles.text}>{note}</AppText>
+        </View>
         </TouchableOpacity>
 
         <View style={styles.rowcontainer}>
@@ -91,6 +89,7 @@ const styles = StyleSheet.create({
     nametext:{
         fontSize: 18,
         paddingTop:10,
+        alignItems:'center'
     },icon:{
         paddingTop:10,
         height:50,

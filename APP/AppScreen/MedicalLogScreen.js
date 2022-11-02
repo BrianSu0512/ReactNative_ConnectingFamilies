@@ -13,17 +13,16 @@ import AppScreen from './AppScreen';
 
 
 function MedicalLogScreen({route,navigation: { goBack },navigation}) {
-    const patientid =route.params.paramPatient
-
-    //console.log("line18",patientid)
+    const patientData =route.params.paramPatient
 
     const getPrescription = () => {
         let commonData = DataManager.getInstance();
-        let userPrescription=commonData.getPrescription(patientid);
+        let userPrescription=commonData.getPrescription(patientData.PatientID);
+        console.log(userPrescription)
         return userPrescription;    
     }
     const prescription=getPrescription()
-    //console.log(prescription)
+
     const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
     ];
@@ -66,7 +65,7 @@ function MedicalLogScreen({route,navigation: { goBack },navigation}) {
        <FlatList
             style={styles.list}
             data={prescription}
-            keyExtractor={Prescriptions=>Prescriptions.id.toString()}
+            keyExtractor={Prescriptions=>Prescriptions.PrescripID}
             renderItem={({item})=>
             <AppMlog prescription={item}/>
         }

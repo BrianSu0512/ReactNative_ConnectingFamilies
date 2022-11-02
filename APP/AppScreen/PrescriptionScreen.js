@@ -33,8 +33,15 @@ function PrescriptionScreen({route,navigation: { goBack },navigation}) {
         return userPrescription;    
     }
 
-    const prescription=getPrescription();
+    var prescription=getPrescription();
 
+    const removePres = (id) =>{
+      let commonData = DataManager.getInstance();
+      commonData.removePrescription(id)
+      prescription = getPrescription()
+    }
+
+    
     const plus = level ==='Privilege Level 1' 
     ? <></> 
     : <TouchableOpacity onPress={()=>{navigation.navigate('AddPrescription',{paramPatient:patient})}}>
@@ -56,7 +63,7 @@ function PrescriptionScreen({route,navigation: { goBack },navigation}) {
               fontWeight: '600',
               transform: [{ scale }]
             }}>
-             <TouchableOpacity>
+             <TouchableOpacity onPress={removePres('1')}>
                     <AppIcon name="trash-can" size={50} style={{height:80,}}/> 
             </TouchableOpacity>
           </Animated.View>
@@ -137,7 +144,7 @@ function PrescriptionScreen({route,navigation: { goBack },navigation}) {
                           paddingHorizontal: 10,
                           transform: [{ scale }]
                         }}>
-                         <TouchableOpacity>
+                         <TouchableOpacity onPress={removePres('1')}>
                                 <AppIcon name="trash-can" size={50} style={{height:80,}}/> 
                         </TouchableOpacity>
                       </Animated.View>

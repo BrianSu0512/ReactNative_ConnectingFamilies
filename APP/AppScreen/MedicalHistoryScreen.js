@@ -30,7 +30,14 @@ function MedicalHistoryScreen({route,navigation: { goBack },navigation}) {
 
     const level =getlevel()
 
-    const history=getMHisotry();
+    
+    var history=getMHisotry();
+
+    const removeHist = (id) =>{
+        let commonData = DataManager.getInstance();
+        commonData.removeHists(id)
+        history = getMHisotry()
+    }
 
     const plus = level ==='Privilege Level 1' 
     ? <></> 
@@ -68,6 +75,7 @@ function MedicalHistoryScreen({route,navigation: { goBack },navigation}) {
             <FlatList 
                 style={styles.list}
                 data={history}
+                level={level}
                 keyExtractor={medicalHistories=>medicalHistories.MedicHistID}
                 renderItem={({item})=>
                 <AppMHisotry 
@@ -79,8 +87,15 @@ function MedicalHistoryScreen({route,navigation: { goBack },navigation}) {
                 onPress1={()=>navigation.navigate('EditHistoryScreen',{
                     paramPatient:item,
                     paramPatientData: patientData})}
+                
+
+                onSwipeLeft={() => (
+                    <View style={styles.deleteView}>
+                        <TouchableOpacity onPress={removeHist('1')}>
+                            <AppIcon name="trash-can" size={50}/> 
+                        </TouchableOpacity>
+                    </View>)}
                 />
-            
             }
             />
              
@@ -128,6 +143,12 @@ const styles = StyleSheet.create({
         width: 340,
         marginLeft: 15
 
+    },
+
+    deleteView:{
+        width:75,   
+        justifyContent:"center",
+        alignItems:"center",
     }
 })
 export default MedicalHistoryScreen;
