@@ -18,9 +18,6 @@ function AppMHisotry({onSwipeLeft,data,onPress,onPress1,level}) {
 <AppText style={styles.subtitle}>Pathogenic diagnosis</AppText>
 <AppText style={styles.title}>{data.diagnosis}</AppText>
 </View>
-<TouchableOpacity onPress={onPress1}>
-<AppIcon name="pencil-outline" size={20} style={{marginDown:10}}/>
-</TouchableOpacity>
 </View>
 
 
