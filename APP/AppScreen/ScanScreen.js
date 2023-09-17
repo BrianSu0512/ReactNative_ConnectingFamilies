@@ -1,3 +1,4 @@
+import { NavigationHelpersContext } from '@react-navigation/native';
 import React ,{useState}from 'react';
 import { View,StyleSheet,TouchableOpacity, Image,Alert} from 'react-native';
 import AppColour from '../Components/AppColour';
@@ -9,17 +10,12 @@ import AppText from '../Components/AppText';
 import DataManager from '../config/DataManager';
 import AppScreen from './AppScreen';
 
-
-
-
-function ScanScreen(props) {
-
-    const getPatients = () => {
+function ScanScreen({navigation,route}) {
+    const getPatients = () =>{
         let commonData = DataManager.getInstance();
         let user = commonData.getUserID();
-        let userPatients=commonData.getPatients(user).filter((patient)=>patient.userid===user)
+        let userPatients=commonData.getUserPatient(user)
         return userPatients;
-            
     }
 
     const newpatients=getPatients();
@@ -39,6 +35,7 @@ function ScanScreen(props) {
    <AppText style={styles.Title}>Scan QR Code</AppText>
    <View style={styles.hairline} />
 
+
    <AppPicker 
                 selectedItem={patients}
                 onSelectItem = {item => setPatients(item)}
@@ -47,7 +44,9 @@ function ScanScreen(props) {
                 placeholder="Select Patient's Name" 
                 numColumns={2}/>
 
-    <AppScaner/>
+    <AppScaner patients={patients} onPress1={()=>navigation.navigate("MedicalLog",{
+                                paramPatient: newpatients
+                            })}/>
   
   
    </AppScreen>

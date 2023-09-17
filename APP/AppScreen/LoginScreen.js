@@ -63,12 +63,13 @@ function LoginScreen({navigation, props}) {
                     <AppText style={styles.logoText}>Connecting Families</AppText>
                 </View>
           
-        </View>
+             </View>
 
         <Formik
                     initialValues={{name:'', password:'',}}
                     onSubmit = {(values, {resetForm})=> {
-                        console.log(getUser(values))
+                        console.log("shoe value",values.name);
+                        console.log(getUser(values));
                                 const userLevel=getUser(values).level
                             if(validateUser(values)){   
                                 if(userLevel==='Privilege Level 1'){

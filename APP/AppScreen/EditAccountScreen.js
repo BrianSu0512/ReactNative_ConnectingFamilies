@@ -14,7 +14,6 @@ import AppScreen from './AppScreen';
 
 function EditAccountScreen({navigation,navigation: { goBack },route}) {
     const data=[route.params.paramPersonalData];
-    console.log("line14",data[0][0])
 
     const[name, setName] = useState(data[0][0].name);
     const[email, setEmail]=useState(data[0][0].email);
